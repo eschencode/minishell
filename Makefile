@@ -3,7 +3,7 @@ NAME	= minishell
 CFLAGS	= #-Wall -Wextra -Werror 
 CC		=  cc
 
-SRC	= src/minishell.c
+SRC	= src/minishell.c src/tokenization/tokenization.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT = libs/libft/libft.a
@@ -14,7 +14,7 @@ $(LIBFT):
 	$(MAKE) -C ./libs/libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 
 clean:
 	$(MAKE) $@ -C ./libs/libft

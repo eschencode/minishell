@@ -36,7 +36,7 @@
 #include <errno.h>      // for errno
 #include <stdbool.h>    // for boolean data type
 
-
+int tokenization(char *input);
 
 
 #endif

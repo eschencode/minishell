@@ -2,9 +2,19 @@
 
 int main(int argc, char **argv)
 {
-	ft_printf("minishell");
-	while(1)
+	char *prompt;
+
+	prompt = ft_strdup("minishell$ ");
+	char *input = readline(prompt);
+	free(prompt);
+	if(input == NULL)
 	{
-		usleep(1);
+		usleep(100);
 	}
+	else{
+		tokenization(input);
+	}
+
+
+	
 }
