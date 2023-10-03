@@ -3,6 +3,8 @@
 int main(int argc, char **argv)
 {
 	char *prompt;
+	t_tokens *tokens;
+	int i = -1;
 
 	prompt = ft_strdup("minishell$ ");
 	char *input = readline(prompt);
@@ -12,9 +14,8 @@ int main(int argc, char **argv)
 		usleep(100);
 	}
 	else{
-		tokenization(input);
+		tokens = tokenization(input);
+		while(tokens[++i].token)
+			printf("token %d: %s\n",tokens[i].id, tokens[i].token);
 	}
-
-
-	
 }

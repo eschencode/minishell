@@ -36,7 +36,16 @@
 #include <errno.h>      // for errno
 #include <stdbool.h>    // for boolean data type
 
-int tokenization(char *input);
+typedef struct s_tokens
+{
+	char *token;
+	int id;
+	struct s_tokens *next;
+} t_tokens;
+
+
+
+t_tokens *tokenization(char *input);
 
 
 #endif
