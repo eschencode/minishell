@@ -35,3 +35,7 @@ https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html#tag_001_003
 OR
 https://mywiki.wooledge.org/BashParser
 signal handling: https://docs.rtems.org/releases/4.5.1-pre3/toolsdoc/gdb-5.0-docs/readline/readline00030.html
+
+*****  https://github.com/Alfredpoly/minishell/tree/main#executor
+evaluation sheet: https://rphlr.github.io/42-Evals/Rank03/minishell/
+edge cases: https://docs.google.com/spreadsheets/d/1TDwyd-S0WBAXehgkrKQtBJ6zquQ4p6k7JfE5g3jICNA/edit?pli=1#gid=0
