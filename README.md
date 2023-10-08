@@ -39,3 +39,5 @@ signal handling: https://docs.rtems.org/releases/4.5.1-pre3/toolsdoc/gdb-5.0-doc
 *****  https://github.com/Alfredpoly/minishell/tree/main#executor
 evaluation sheet: https://rphlr.github.io/42-Evals/Rank03/minishell/
 edge cases: https://docs.google.com/spreadsheets/d/1TDwyd-S0WBAXehgkrKQtBJ6zquQ4p6k7JfE5g3jICNA/edit?pli=1#gid=0
+
+This explains how bash is working - **** https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
