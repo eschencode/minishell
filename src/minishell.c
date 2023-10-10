@@ -10,29 +10,46 @@ void print_tokens(t_tokens *tokens)
 	int i = 0;
 	while(tokens[i].token != NULL)
 	{
-		printf("token %d: %s\n",tokens[i].id, tokens[i].token);
+		printf("token %d: :%s:\n",tokens[i].id, tokens[i].token);
 		i++;
 	}
 }
 
-void ft_free(t_tokens *tokens)
+void ft_free(t_tokens *tokens, char *input)
 {
+	int i = 0;
+	while(tokens[i].token != NULL)
+	{
+		free(tokens[i].token);
+		i++;
+	}
 	free(tokens);
+	free(input);
 }
 
 void	minishell_loop()
 {
-	char *prompt;
+	char prompt[12] = "minishell$ ";
 	t_tokens *tokens;
+	char *input;
 	int i = -1;
+	rl_initialize();
+	
 	while(1)
 	{
-	prompt = ft_strdup("minishell$ ");
-	char *input = readline(prompt);
+	input = readline(prompt);
+	if(input == NULL || input[0] == '\0')
+	{
+		printf("empty input\n");
+		free(input);
+	}
+	else
+	{
+		tokens = tokenization(input);
+		print_tokens(tokens);
+		ft_free(tokens, input);
+	}
 	
-	tokens = tokenization(input);
-	free(input);
-	print_tokens(tokens);
 	}
 }
 

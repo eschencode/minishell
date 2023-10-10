@@ -40,7 +40,7 @@ typedef struct s_tokens
 {
 	char *token;
 	int id;
-	struct s_tokens *next;
+	
 } t_tokens;
 
 
