@@ -7,7 +7,7 @@ void print_tokens(t_tokens *tokens)
 	int i = 0;
 	while(tokens[i].token != NULL)
 	{
-		printf("token %d: :%s:\n",tokens[i].id, tokens[i].token);
+		printf("token %d: :%s: :%d:\n",tokens[i].id, tokens[i].token, tokens[i].type);
 		i++;
 	}
 }
@@ -77,7 +77,7 @@ void	minishell_loop()
 
 int main(int argc, char **argv)
 {
-	clearwindow();
+	//clearwindow();
 	minishell_loop();
 
 

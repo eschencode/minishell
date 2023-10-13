@@ -36,11 +36,16 @@
 #include <errno.h>      // for errno
 #include <stdbool.h>    // for boolean data type
 
+typedef enum{
+	WORD, SINGLE_QUOTE, DOUBLE_QUOTE, PIPE, RIGHT, RIGHT_RIGHT, LEFT,LEFT_LEFT
+} TokenType;
+
 typedef struct s_tokens
 {
 	char *token;
+	TokenType type;
 	int id;
-	
+
 } t_tokens;
 
 
