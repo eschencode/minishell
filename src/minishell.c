@@ -1,8 +1,5 @@
 #include "../include/minishell.h"
-//start making it possible to renter command
-//means making ft_exit
-//freeing
-//add history probably easy with redline function
+
 #define clearwindow() printf("\033[H\033[J")
 
 void print_tokens(t_tokens *tokens)
@@ -34,25 +31,18 @@ void	minishell_loop()
 	char *input;
 	int i = -1;
 	rl_initialize();
-	int c = 9;
-	while(c > 5)
+	using_history();
+	while(1)
 	{
-		c--;
 	input = readline(prompt);
-	printf("%s\n",input);
+	//check for cd command
 	if(input[0] == 'c' && input[1] == 'd' && input[2] == ' ')
 	{
-
 		input[ft_strlen(input)] = '\0';
 		if(chdir(input + 3) < 0)
 			printf("cant cd %s\n",input +3);
 	}
-	else if (strcmp(input, "pwd") == 0) {
-            // Implement the 'pwd' command
-            char cwd[1024];
-            if (getcwd(cwd, sizeof(cwd)) != NULL)
-                	printf("%s\n", cwd);
-			}
+	//check empty input
 	if(input == NULL || input[0] == '\0')
 	{
 		printf("empty input\n");
@@ -60,11 +50,27 @@ void	minishell_loop()
 	}
 	else
 	{
+		add_history(input);//adds history of commands
 		tokens = tokenization(input);
 		print_tokens(tokens);
-		ft_free(tokens, input);
-	}
+		//pwd command
+		if(strcmp(&tokens->token[0], "pwd") == 0)
+		{
+		 	char cwd[1024];
+			if (getcwd(cwd, sizeof(cwd)) != NULL)
+			{
+				printf("%s\n", cwd);
+			}
+		}
 
+		//exit
+		if(strcmp(&tokens->token[0], "exit") == 0)
+		{
+			break;
+			ft_free(tokens, input);
+		}
+			ft_free(tokens, input);
+	}
 	}
 }
 
