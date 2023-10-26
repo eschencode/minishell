@@ -1,6 +1,6 @@
 
 NAME	= minishell
-CFLAGS	= #-Wall -Wextra -Werror 
+CFLAGS	= -lreadline #-Wall -Wextra -Werror
 CC		=  cc
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 
@@ -15,7 +15,7 @@ $(LIBFT):
 	$(MAKE) -C ./libs/libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 clean:
 	$(MAKE) $@ -C ./libs/libft

@@ -40,6 +40,7 @@ typedef enum{
 	WORD, SINGLE_QUOTE, DOUBLE_QUOTE, PIPE, RIGHT, RIGHT_RIGHT, LEFT,LEFT_LEFT
 } TokenType;
 
+
 typedef struct s_tokens
 {
 	char *token;
@@ -50,7 +51,10 @@ typedef struct s_tokens
 
 
 
-t_tokens *tokenization(char *input);
 
+
+//tokenization.c
+t_tokens *tokenization(char *input);
+void print_tokens(t_tokens *tokens);
 
 #endif

@@ -1,9 +1,18 @@
 #include "../../include/minishell.h"
 
+void print_tokens(t_tokens *tokens)
+{
+	int i = 0;
+	while(tokens[i].token != NULL)
+	{
+		printf("token %d: :%s: :%d:\n",tokens[i].id, tokens[i].token, tokens[i].type);
+		i++;
+	}
+}
+
 TokenType is_type(const char *token)
 {
 	int i = 0;
-	printf("checking types\n");
 	while(token[i])
 	{
 		if(token[i] == '|')
@@ -41,17 +50,25 @@ t_tokens *tokenization(char *input)
 		while(split_input[num_tokens])
 			num_tokens++;
 	}
+
+
 	tokens = malloc((num_tokens + 1) * sizeof(t_tokens));
 	while(i < num_tokens)
 	{
 		tokens[i].type = is_type(split_input[i]);
-		tokens[i].token = split_input[i];
+		tokens[i].token = malloc(ft_strlen(split_input[i]) * sizeof(char));
+		ft_memcpy(tokens[i].token, split_input[i],ft_strlen(split_input[i]));
 		tokens[i].id = i;
 		i++;
 	}
 	tokens[i].token = NULL;
 	tokens[i].id = -1;
 	i = 0;
+	while(split_input[i])
+	{
+		free(split_input[i]);
+		i++;
+	}
 
 	return(tokens);
 }
