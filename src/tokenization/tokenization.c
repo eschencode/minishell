@@ -51,7 +51,6 @@ t_tokens *tokenization(char *input)
 	}
 	tokens[i].token = NULL;
 	tokens[i].id = -1;
-	i = 0;
 
 	return(tokens);
 }
