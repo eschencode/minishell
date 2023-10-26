@@ -4,6 +4,8 @@ allways before u start: git pull origin main
 when ur done :git status
               :git add . + commit 
               :git push origin main
+# malloc list
+https://docs.google.com/document/d/15oCfW5DDofEwsF9VD65NktlpNChsTeNx_A-kV1fDpPU/edit?usp=sharing
 # usefull links
 https://docs.google.com/document/d/1xUy20kaX3C1l2AeXa_NYwTcUDYWnBO9vqQRLhM9yB0E/edit?usp=sharing(Julius)
 https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
