@@ -34,43 +34,41 @@ void	minishell_loop()
 	using_history();
 	while(1)
 	{
-	input = readline(prompt);
-	//check for cd command
-	if(input[0] == 'c' && input[1] == 'd' && input[2] == ' ')
-	{
-		input[ft_strlen(input)] = '\0';
-		if(chdir(input + 3) < 0)
-			printf("cant cd %s\n",input +3);
-	}
-	//check empty input
-	if(input == NULL || input[0] == '\0')
-	{
-		printf("empty input\n");
-		free(input);
-	}
-	else
-	{
-		add_history(input);//adds history of commands
-		tokens = tokenization(input);
-		print_tokens(tokens);
-		//pwd command
-		if(strcmp(&tokens->token[0], "pwd") == 0)
+		input = readline(prompt);
+		//check for cd command
+		if(input[0] == 'c' && input[1] == 'd' && input[2] == ' ')
 		{
-		 	char cwd[1024];
-			if (getcwd(cwd, sizeof(cwd)) != NULL)
+			input[ft_strlen(input)] = '\0';
+			if(chdir(input + 3) < 0)
+				printf("cant cd %s\n",input +3);
+		}
+		//check empty input
+		if(input == NULL || input[0] == '\0')
+		{
+			printf("empty input\n");
+			free(input);
+		}
+		else
+		{
+			add_history(input);//adds history of commands
+			tokens = tokenization(input);
+			print_tokens(tokens);
+			//pwd command
+			if(strcmp(&tokens->token[0], "pwd") == 0)
 			{
-				printf("%s\n", cwd);
+				char cwd[1024];
+				if (getcwd(cwd, sizeof(cwd)) != NULL)
+				{
+					printf("%s\n", cwd);
+				}
+			}
+			//exit
+			if(strcmp(&tokens->token[0], "exit") == 0)
+			{
+				ft_free(tokens, input);
+				break;
 			}
 		}
-
-		//exit
-		if(strcmp(&tokens->token[0], "exit") == 0)
-		{
-			break;
-			ft_free(tokens, input);
-		}
-			ft_free(tokens, input);
-	}
 	}
 }
 
