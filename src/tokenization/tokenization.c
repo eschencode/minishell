@@ -24,16 +24,62 @@ TokenType is_type(const char *token)
 	return(WORD);
 }
 
+int count_quotes(char *input)
+{
+	int i;
+	int quotes;
+
+	i = -1;
+	quotes = 0;
+	while (input[++i])
+	{
+		if (input[i] == '"' || input[i] == '\'')
+			quotes++;
+	}
+	return (quotes);
+}
+
+char *handle_quotes(char *input)
+{
+	int i;
+	int j;
+	int quotes;
+	char *spaced_input;
+
+	quotes = count_quotes(input);
+	spaced_input = (char *)malloc((ft_strlen(input) + (quotes * 2) + 1));
+	i = -1;
+	j = 0;
+	while (input[++i])
+	{
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			spaced_input[j] = ' ';
+			spaced_input[++j] = input[i];
+			spaced_input[++j] = ' ';
+		}
+		else
+			spaced_input[j] = input[i];
+		j++;
+	}
+	spaced_input[j] = '\0';
+	free(input);
+	return (spaced_input);
+}
+
 t_tokens *tokenization(char *input)
 {
 	int i;
 	int num_tokens;
+	char *quotes_spaced_input;
 	char **split_input;
 	t_tokens *tokens;
 
 	num_tokens = 0;
 	i = 0;
 
+	if (count_quotes(input))
+		input = handle_quotes(input);
 	split_input = ft_split(input, ' ');
 	if(split_input)
 	{

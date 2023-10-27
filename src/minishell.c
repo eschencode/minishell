@@ -75,6 +75,7 @@ void	minishell_loop()
 					printf("%s\n", cwd);
 				}
 			}
+			// parser(tokens);
 		}
 	}
 }
