@@ -46,13 +46,15 @@ t_tokens *tokenization(char *input)
 	{
 		tokens[i].type = is_type(split_input[i]);
 		tokens[i].token = malloc(ft_strlen(split_input[i]) * sizeof(char));
-		ft_memcpy(tokens[i].token, split_input[i],ft_strlen(split_input[i]));
+		ft_memcpy(tokens[i].token, split_input[i], ft_strlen(split_input[i]));
 		tokens[i].id = i;
 		i++;
 	}
 	tokens[i].token = NULL;
 	tokens[i].id = -1;
-	i = 0;
-
+	i = -1;
+	while (split_input[++i])
+		free(split_input[i]);
+	free(split_input);
 	return(tokens);
 }
