@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/10/27 11:11:43 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:19:09 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_tokens
 typedef struct s_shell
 {
 	t_tokens *tokens;
+	int	tokens_flag;
 } t_shell;
 
 // tokenization/tokenization.c
