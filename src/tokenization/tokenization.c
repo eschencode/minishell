@@ -45,8 +45,8 @@ t_tokens *tokenization(char *input)
 	while(i < num_tokens)
 	{
 		tokens[i].type = is_type(split_input[i]);
-		tokens[i].token = malloc(ft_strlen(split_input[i]) * sizeof(char));
-		ft_memcpy(tokens[i].token, split_input[i], ft_strlen(split_input[i]));
+		tokens[i].token = (char *)malloc(ft_strlen(split_input[i]) + 1);
+		ft_strlcpy(tokens[i].token, split_input[i], (ft_strlen(split_input[i])));
 		tokens[i].id = i;
 		i++;
 	}

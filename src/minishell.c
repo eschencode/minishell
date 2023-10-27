@@ -12,15 +12,18 @@ void print_tokens(t_tokens *tokens)
 	}
 }
 
-void ft_free(t_tokens *tokens, char *input)
+void ft_free(t_tokens *tokens, char *input, t_shell *shell)
 {
 	int i = 0;
-	while(tokens[i].token != NULL)
+	if (shell->tokens_flag)
 	{
-		free(tokens[i].token);
-		i++;
+		while(tokens[i].token != NULL)
+		{
+			free(tokens[i].token);
+			i++;
+		}
+		free(tokens);
 	}
-	free(tokens);
 	free(input);
 }
 
@@ -28,8 +31,10 @@ void	minishell_loop()
 {
 	char prompt[12] = "minishell$ ";
 	t_tokens *tokens;
+	t_shell shell;
 	char *input;
 	int i = -1;
+	shell.tokens_flag = 0;
 	rl_initialize();
 	using_history();
 	while(1)
@@ -51,13 +56,15 @@ void	minishell_loop()
 		//exit
 		if(strcmp(input, "exit") == 0)
 		{
-			free(input);
+			ft_free(tokens, input, &shell);
 			return ;
 		}
 		else
 		{
-			add_history(input);//adds history of commands
+			add_history(input); //adds history of commands
 			tokens = tokenization(input);
+			shell.tokens_flag = 1;
+			free(input);
 			print_tokens(tokens);
 			//pwd command
 			if(strcmp(&tokens->token[0], "pwd") == 0)
