@@ -48,6 +48,12 @@ void	minishell_loop()
 			printf("empty input\n");
 			free(input);
 		}
+		//exit
+		if(strcmp(input, "exit") == 0)
+		{
+			free(input);
+			return ;
+		}
 		else
 		{
 			add_history(input);//adds history of commands
@@ -62,12 +68,6 @@ void	minishell_loop()
 					printf("%s\n", cwd);
 				}
 			}
-			//exit
-			if(strcmp(&tokens->token[0], "exit") == 0)
-			{
-				ft_free(tokens, input);
-				break;
-			}
 		}
 	}
 }
@@ -77,6 +77,4 @@ int main(int argc, char **argv)
 {
 	//clearwindow();
 	minishell_loop();
-
-
 }
