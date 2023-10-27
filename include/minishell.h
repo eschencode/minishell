@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/10/02 13:49:43 by leschenb         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:11:43 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ typedef struct s_tokens
 
 } t_tokens;
 
+typedef struct s_shell
+{
+	t_tokens *tokens;
+} t_shell;
 
-
+// tokenization/tokenization.c
 t_tokens *tokenization(char *input);
 
 
