@@ -81,6 +81,7 @@ t_tokens *tokenization(char *input)
 	if (count_quotes(input))
 		input = handle_quotes(input);
 	split_input = ft_split(input, ' ');
+	free(input);
 	if(split_input)
 	{
 		while(split_input[num_tokens])
@@ -91,7 +92,7 @@ t_tokens *tokenization(char *input)
 	while(i < num_tokens)
 	{
 		tokens[i].type = is_type(split_input[i]);
-		tokens[i].token = (char *)malloc(ft_strlen(split_input[i]) + 1);
+		tokens[i].token = malloc((ft_strlen(split_input[i]) + 1) * sizeof(char));
 		ft_strlcpy(tokens[i].token, split_input[i], (ft_strlen(split_input[i])));
 		tokens[i].id = i;
 		i++;

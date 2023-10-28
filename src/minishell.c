@@ -64,7 +64,6 @@ void	minishell_loop()
 			add_history(input); //adds history of commands
 			tokens = tokenization(input);
 			shell.tokens_flag = 1;
-			free(input);
 			print_tokens(tokens);
 			//pwd command
 			if(strcmp(&tokens->token[0], "pwd") == 0)
