@@ -12,7 +12,18 @@ void print_tokens(t_tokens *tokens)
 	}
 }
 
-void ft_free(t_tokens *tokens, char *input, t_shell *shell)
+void ft_free_tokens(t_tokens *tokens)
+{
+	int i = 0;
+		while(tokens[i].token != NULL)
+		{
+			free(tokens[i].token);
+			i++;
+		}
+	free(tokens);
+}
+
+void ft_free_all(t_tokens *tokens, char *input, t_shell *shell)
 {
 	int i = 0;
 	if (shell->tokens_flag)
@@ -56,15 +67,16 @@ void	minishell_loop()
 		//exit
 		if(strcmp(input, "exit") == 0)
 		{
-			ft_free(tokens, input, &shell);
+			ft_free_all(tokens, input, &shell);
 			return ;
 		}
 		else
 		{
+			if (shell.tokens_flag)
+				ft_free_tokens(tokens);
 			add_history(input); //adds history of commands
 			tokens = tokenization(input);
 			shell.tokens_flag = 1;
-			free(input);
 			print_tokens(tokens);
 			//pwd command
 			if(strcmp(&tokens->token[0], "pwd") == 0)
@@ -75,6 +87,7 @@ void	minishell_loop()
 					printf("%s\n", cwd);
 				}
 			}
+			// parser(tokens);
 		}
 	}
 }
