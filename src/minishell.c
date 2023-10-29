@@ -76,6 +76,7 @@ void	minishell_loop()
 				ft_free_tokens(tokens);
 			add_history(input); //adds history of commands
 			tokens = tokenization(input);
+			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			print_tokens(tokens);
 			//pwd command
@@ -87,7 +88,7 @@ void	minishell_loop()
 					printf("%s\n", cwd);
 				}
 			}
-			// parser(tokens);
+			parser(&shell);
 		}
 	}
 }
