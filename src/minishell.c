@@ -23,7 +23,7 @@ void ft_free_tokens(t_tokens *tokens)
 	free(tokens);
 }
 
-void ft_free_all(t_tokens *tokens, char *input, t_shell *shell)
+void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
 	int i = 0;
 	if (shell->tokens_flag)
@@ -35,7 +35,7 @@ void ft_free_all(t_tokens *tokens, char *input, t_shell *shell)
 		}
 		free(tokens);
 	}
-	free(input);
+	free(shell->input_str);
 }
 
 void	minishell_loop()
@@ -43,39 +43,34 @@ void	minishell_loop()
 	char prompt[12] = "minishell$ ";
 	t_tokens *tokens;
 	t_shell shell;
-	char *input;
+	//char *shell.input_str;
 	int i = -1;
 	shell.tokens_flag = 0;
 	rl_initialize();
 	using_history();
 	while(1)
 	{
-		input = readline(prompt);
+		shell.input_str = readline(prompt);
 		//check for cd command
-		if(input[0] == 'c' && input[1] == 'd' && input[2] == ' ')
-		{
-			input[ft_strlen(input)] = '\0';
-			if(chdir(input + 3) < 0)
-				printf("cant cd %s\n",input +3);
-		}
-		//check empty input
-		if(input == NULL || input[0] == '\0')
+		cd(shell);
+		//check empty shell.input_str
+		if(shell.input_str == NULL || shell.input_str[0] == '\0')
 		{
 			printf("empty input\n");
-			free(input);
+			free(shell.input_str);
 		}
 		//exit
-		if(strcmp(input, "exit") == 0)
+		if(strcmp(shell.input_str, "exit") == 0)
 		{
-			ft_free_all(tokens, input, &shell);
+			ft_free_all(tokens, &shell);
 			return ;
 		}
 		else
 		{
 			if (shell.tokens_flag)
 				ft_free_tokens(tokens);
-			add_history(input); //adds history of commands
-			tokens = tokenization(input);
+			add_history(shell.input_str); //adds history of commands
+			tokens = tokenization(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			print_tokens(tokens);

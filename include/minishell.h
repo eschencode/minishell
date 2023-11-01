@@ -51,6 +51,7 @@ typedef struct s_tokens
 typedef struct s_shell
 {
 	t_tokens *tokens;
+	char *input_str;
 	int	tokens_flag;
 } t_shell;
 
@@ -62,5 +63,8 @@ void parser(t_shell *shell);
 
 //signals
 void signal_handler(int sig);
+
+//builtins
+int cd(t_shell shell);
 
 #endif
