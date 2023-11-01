@@ -96,6 +96,7 @@ void	minishell_loop()
 
 int main(int argc, char **argv)
 {
+	signal(SIGINT, signal_handler);
 	//clearwindow();
 	minishell_loop();
 }

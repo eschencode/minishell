@@ -60,4 +60,7 @@ t_tokens *tokenization(char *input);
 // parser/parser.c
 void parser(t_shell *shell);
 
+//signals
+void signal_handler(int sig);
+
 #endif

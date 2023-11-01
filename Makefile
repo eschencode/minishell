@@ -1,10 +1,10 @@
 
 NAME	= minishell
-CFLAGS	= #-Wall -Wextra -Werror 
+CFLAGS	= #-Wall -Wextra -Werror
 CC		=  cc
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 
-SRC	= src/minishell.c src/tokenization/tokenization.c src/parser/parser.c
+SRC	= src/minishell.c src/tokenization/tokenization.c src/parser/parser.c src/signals/signals.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT = libs/libft/libft.a
