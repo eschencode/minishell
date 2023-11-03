@@ -21,8 +21,7 @@ TokenType is_type(const char *token)
 			return(DOUBLE_QUOTE);
 		i++;
 	}
-	// implement logic here to seperate builtins from paths (if / in string ...)
-	return(BUILTIN);
+	return(WORD);
 }
 
 int count_quotes(char *input)

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/03 12:25:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:38:23 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,25 @@ int check_quotes(t_shell *shell)
 	return (0);
 }
 
-int check_up(t_shell *shell)
+void count_pipes(t_shell *shell)
 {
-	if (!check_quotes(shell))
-		return (0);
+	int i;
+
+	shell->n_pipes = 0;
+	while (shell->tokens[++i].token)
+	{
+		printf("token type -> %d\n", shell->tokens->type);
+		if (shell->tokens[i].type == PIPE)
+			shell->n_pipes++;
+	}
 }
 
 void checker(t_shell *shell)
 {
-	if (!check_up(shell))
+	if (!check_quotes(shell))
 		return ;
-	printf("input passed checks...\n");
+	// check_pipes;
+	count_pipes(shell);
+	printf("pipes -> %d\n", shell->n_pipes);
+	// parser(shell);
 }
