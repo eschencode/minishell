@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/03 12:25:12 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:46:37 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,16 @@
 #include <stdbool.h>    // for boolean data type
 
 typedef enum{
-	WORD, SINGLE_QUOTE, DOUBLE_QUOTE, PIPE, RIGHT, RIGHT_RIGHT, LEFT,LEFT_LEFT
+	BUILTIN,
+	PATH, 
+	SINGLE_QUOTE, 
+	DOUBLE_QUOTE, 
+	PIPE, 
+	RIGHT, 
+	RIGHT_RIGHT, 
+	LEFT,
+	LEFT_LEFT
+
 } TokenType;
 
 typedef struct s_tokens
@@ -48,11 +57,19 @@ typedef struct s_tokens
 
 } t_tokens;
 
+typedef struct s_clist
+{
+	TokenType cmd_type;
+	char **args;
+
+} t_clist;
+
 typedef struct s_shell
 {
 	t_tokens *tokens;
 	char *input_str;
 	int	tokens_flag;
+	t_clist *clist;
 } t_shell;
 
 // tokenization/tokenization.c
