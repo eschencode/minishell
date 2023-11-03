@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/03 14:37:17 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:51:47 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_shell
 	int	tokens_flag;
 	t_clist *clist;
 	int	n_pipes;
+	struct s_clist *next;
 
 } t_shell;
 
