@@ -4,7 +4,8 @@ CFLAGS	= #-Wall -Wextra -Werror
 CC		=  cc
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 
-SRC	= src/minishell.c src/tokenization/tokenization.c src/parser/checker.c src/signals/signals.c src/builtins/builtins_l.c
+SRC	= src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
+		src/signals/signals.c src/builtins/builtins_l.c src/parser/parser.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT = libs/libft/libft.a
