@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/10/29 14:55:36 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:25:12 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_shell
 // tokenization/tokenization.c
 t_tokens *tokenization(char *input);
 
-// parser/parser.c
-void parser(t_shell *shell);
+// parser/checker.c
+void checker(t_shell *shell);
 
 //signals
 void signal_handler(int sig);
