@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/03 14:38:23 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:46:19 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void count_pipes(t_shell *shell)
 	int i;
 
 	shell->n_pipes = 0;
+	i = -1;
 	while (shell->tokens[++i].token)
 	{
-		printf("token type -> %d\n", shell->tokens->type);
 		if (shell->tokens[i].type == PIPE)
 			shell->n_pipes++;
 	}
