@@ -56,7 +56,7 @@ typedef struct s_tokens
 
 typedef struct s_clist
 {
-	TokenType cmd_type;
+	bool external_flag;//if true == external command
 	char **args;
 	char *path;
 	bool pre_pipe;
@@ -88,5 +88,14 @@ int cd(t_shell shell);
 
 //parser/parser.c
 int	parser(t_shell *shell);
+
+//executor
+int executor(t_shell shell);
+
+//builtins
+int cd(t_shell shell);
+int pwd_builtin(t_shell shell);
+int echo_l(t_shell shell);
+
 
 #endif
