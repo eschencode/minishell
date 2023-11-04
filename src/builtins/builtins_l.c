@@ -24,6 +24,7 @@ int pwd_builtin(t_shell shell)
 					printf("%s\n", cwd);
 				}
 			}
+	return (0);
 }
 
 int echo_l(t_shell shell)
