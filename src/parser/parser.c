@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/04 16:54:11 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:05:05 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ void clist_init(t_shell *shell)
 		insert_node(shell, node);
 	}
 
+}
+
+void clist_cmds_fill(t_shell *shell)
+{
+	int i;
+
+	i = -1;
+	while (shell->tokens[++i].token)
+	{
+		if ()
+	}
 }
 
 int	parser(t_shell *shell)
