@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/03 16:05:57 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/05 19:01:41 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ typedef struct s_tokens
 
 typedef struct s_clist
 {
-	bool external_flag;//if true == external command
+	bool external_flag; //if true == external command
+	char *cmd;
 	char **args;
-	char *path;
 	bool pre_pipe;
 	bool post_pipe;
 	struct s_clist *next;
