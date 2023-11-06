@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/05 19:11:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:02:37 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,36 +74,6 @@ void clist_cmds_fill(t_shell *shell)
 		}
 	}
 }
-
-
-
-// void clist_args_fill(t_shell *shell)
-// {
-// 	int i;
-// 	int y;
-// 	int word_flag;
-// 	t_clist *clist;
-
-// 	i = -1;
-// 	y = -1;
-// 	word_flag = 0;
-// 	clist = shell->clist;
-// 	while (shell->tokens[++i].token)
-// 	{
-// 		if (shell->tokens[i].type == WORD)
-// 		{
-// 			if (word_flag == 1)
-// 				clist->args[++y] = shell->tokens[i].token;
-// 			word_flag = 1;
-// 		}
-// 		else
-// 		{
-// 			if (clist->next)
-// 				clist = clist->next;
-// 			word_flag = 0;
-// 		}
-// 	}
-// }
 
 int	parser(t_shell *shell)
 {
