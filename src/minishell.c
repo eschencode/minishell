@@ -73,7 +73,6 @@ void	minishell_loop()
 			tokens = tokenization(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
-			print_tokens(tokens);
 			//pwd command
 			if(strcmp(&tokens->token[0], "pwd") == 0)
 			{
@@ -84,6 +83,7 @@ void	minishell_loop()
 				}
 			}
 			checker(&shell);
+			print_tokens(tokens);
 		}
 	}
 }

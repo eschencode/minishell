@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/06 12:02:37 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:30:01 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_clist *new_node(t_shell *shell)
 	t_clist *clist_node;
 
 	clist_node = (t_clist *)malloc(sizeof(t_clist));
-	clist_node->external_flag = 1;
+	clist_node->n_args = 0;
 	clist_node->next = NULL;
 
 	return (clist_node);
@@ -34,43 +34,19 @@ void insert_node(t_shell *shell, t_clist *node)
 	*tracer = node;
 }
 
-void clist_init(t_shell *shell)
-{
-	int n_nodes;
-	t_clist *node;
-
-	n_nodes = (shell->n_pipes + 1) + 1;
-
-	while (--n_nodes)
-	{
-		node = new_node(shell);
-		insert_node(shell, node);
-	}
-
-}
-
-void clist_cmds_fill(t_shell *shell)
+void tokens_retype(t_shell *shell)
 {
 	int i;
-	int word_flag;
-	t_clist *clist;
 
 	i = -1;
-	word_flag = 0;
-	clist = shell->clist;
 	while (shell->tokens[++i].token)
 	{
 		if (shell->tokens[i].type == WORD)
 		{
-			if (word_flag == 0)
-				clist->cmd = shell->tokens[i].token;
-			word_flag = 1;
-		}
-		else
-		{
-			if (clist->next)
-				clist = clist->next;
-			word_flag = 0;
+			if (i == 0)
+				shell->tokens[i].type = CMD;
+			else if (shell->tokens[i - 1].type != WORD && shell->tokens[i - 1].type != CMD)
+				shell->tokens[i].type = CMD;
 		}
 	}
 }
@@ -78,16 +54,10 @@ void clist_cmds_fill(t_shell *shell)
 int	parser(t_shell *shell)
 {
 	shell->clist = NULL;
-	clist_init(shell);
-	clist_cmds_fill(shell);
+	tokens_retype(shell);
+	// clist_init(shell);
+	// clist_cmds_fill(shell);
 	// clist_args_fill(shell);
-
-	t_clist *clist = shell->clist;
-	while (clist->next)
-	{
-		printf("command->%s\n", clist->cmd);
-		clist = clist->next;
-	}
-	printf("command->%s\n", clist->cmd);
+	// print_clist(shell);
 	return (0);
 }

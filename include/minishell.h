@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/05 19:01:41 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:24:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 
 typedef enum{
 	WORD,
+	CMD,
+	ARG,
 	SINGLE_QUOTE,
 	DOUBLE_QUOTE,
 	PIPE,
@@ -59,6 +61,7 @@ typedef struct s_clist
 	bool external_flag; //if true == external command
 	char *cmd;
 	char **args;
+	int	n_args;
 	bool pre_pipe;
 	bool post_pipe;
 	struct s_clist *next;
