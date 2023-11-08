@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/08 09:25:17 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:21:10 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ void tokens_retype(t_shell *shell)
 	{
 		if (shell->tokens[i].type == WORD)
 		{
-			// find and classify commands
+			// find and classify commands (else if to prevent invalid reads)
 			if (i == 0)
 				shell->tokens[i].type = CMD;
-			if (shell->tokens[i - 1].type != WORD && shell->tokens[i - 1].type != CMD && shell->tokens[i - 1].type != ARG)
+			else if (shell->tokens[i - 1].type != WORD && shell->tokens[i - 1].type != CMD && shell->tokens[i - 1].type != ARG)
 				shell->tokens[i].type = CMD;
 			// find and classify arguments
-			if (shell->tokens[i - 1].type == CMD)
+			else if (shell->tokens[i - 1].type == CMD)
 				shell->tokens[i].type = ARG;
-			if (shell->tokens[i - 1].type == ARG)
+			else if (shell->tokens[i - 1].type == ARG)
 				shell->tokens[i].type = ARG;
 		}
 	}
@@ -72,6 +72,7 @@ void clist_init(t_shell *shell)
 		if (shell->tokens[i].type == CMD)
 		{
 			node = new_node(shell);
+			node->token_indx = i;
 			node->cmd = shell->tokens[i].token;
 			insert_node(shell, node);
 		}
@@ -80,15 +81,47 @@ void clist_init(t_shell *shell)
 	}
 }
 
+void clist_args_fill(t_shell *shell)
+{
+	int i;
+	int y;
+	char **str;
+	t_clist **tracer;
+
+	tracer = &shell->clist;
+	while (*tracer)
+	{
+		if ((*tracer)->n_args)
+		{
+			y = -1;
+			str = malloc(sizeof(char *) * ((*tracer)->n_args + 1));
+			i = (*tracer)->token_indx;
+			while (shell->tokens[++i].type == ARG)
+				str[++y] = shell->tokens[i].token;
+			str[++y] = NULL;
+			(*tracer)->args = str;
+		}
+		tracer = &(*tracer)->next;
+	}
+}
 
 void print_clist(t_shell *shell)
 {
+	int y;
 	t_clist **tracer = &shell->clist;
 
 	while (*tracer)
 	{
-		printf("command -> %s n_args -> %d\n", (*tracer)->cmd, (*tracer)->n_args);
+		printf("command -> %s ", (*tracer)->cmd);
+		if ((*tracer)->n_args)
+		{
+			y = -1;
+			printf("args ->");
+			while ((*tracer)->args[++y])
+				printf(" %s", (*tracer)->args[y]);
+		}
 		tracer = &(*tracer)->next;
+		printf("\n");
 	}
 }
 
@@ -97,7 +130,7 @@ int	parser(t_shell *shell)
 	shell->clist = NULL;
 	tokens_retype(shell);
 	clist_init(shell);
-	// clist_args_fill(shell);
+	clist_args_fill(shell);
 	print_clist(shell);
 	return (0);
 }

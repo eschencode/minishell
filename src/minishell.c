@@ -83,7 +83,7 @@ void	minishell_loop()
 				}
 			}
 			checker(&shell);
-			print_tokens(shell.tokens);
+			// print_tokens(shell.tokens);
 		}
 	}
 }

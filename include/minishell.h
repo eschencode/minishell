@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/07 15:24:26 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/08 09:47:39 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_tokens
 
 typedef struct s_clist
 {
+	int	token_indx; // save position of cmd from index (helps fill args later) 
 	bool external_flag; //if true == external command
 	char *cmd;
 	char **args;
