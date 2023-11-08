@@ -57,7 +57,7 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 
 void	minishell_loop()
 {
-	char prompt[12] = "minishell$ ";
+	char prompt[65] = "\033[34mM\033[36mi\033[34mn\033[36mi\033[34ms\033[36mh\033[34me\033[36ml\033[34ml\033[36m$\033[0m ";
 	t_tokens *tokens;
 	t_shell shell;
 	//char *shell.input_str;
