@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/07 15:30:01 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/08 09:01:56 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ void tokens_retype(t_shell *shell)
 	{
 		if (shell->tokens[i].type == WORD)
 		{
+			// find and classify commands
 			if (i == 0)
 				shell->tokens[i].type = CMD;
-			else if (shell->tokens[i - 1].type != WORD && shell->tokens[i - 1].type != CMD)
+			if (shell->tokens[i - 1].type != WORD && shell->tokens[i - 1].type != CMD && shell->tokens[i - 1].type != ARG)
 				shell->tokens[i].type = CMD;
+			// find and classify arguments
+			if (shell->tokens[i - 1].type == CMD)
+				shell->tokens[i].type = ARG;
+			if (shell->tokens[i - 1].type == ARG)
+				shell->tokens[i].type = ARG;
 		}
 	}
 }
