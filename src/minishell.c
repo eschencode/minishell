@@ -23,6 +23,23 @@ void ft_free_tokens(t_tokens *tokens)
 	free(tokens);
 }
 
+void ft_free_clist(t_shell *shell)
+{
+	t_clist **tracer;
+	t_clist *old_node;
+
+	tracer = &shell->clist;
+
+	while (*tracer)
+	{
+		old_node = *tracer;
+		if ((*tracer)->n_args)
+			free((*tracer)->args);
+		tracer = &((*tracer)->next);
+		free(old_node);
+	}
+}
+
 void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
 	int i = 0;
@@ -84,6 +101,7 @@ void	minishell_loop()
 			}
 			checker(&shell);
 			// print_tokens(shell.tokens);
+			ft_free_clist(&shell);
 		}
 	}
 }
