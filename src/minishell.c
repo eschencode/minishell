@@ -54,13 +54,13 @@ void	minishell_loop()
 		//check for cd command
 		cd(shell);
 		//check empty shell.input_str
-		if(shell.input_str == NULL || shell.input_str[0] == '\0')
+		if (shell.input_str == NULL || shell.input_str[0] == '\0')
 		{
 			printf("empty input\n");
 			free(shell.input_str);
 		}
 		//exit
-		if(strcmp(shell.input_str, "exit") == 0)
+		else if (strcmp(shell.input_str, "exit") == 0)
 		{
 			ft_free_all(tokens, &shell);
 			return ;
@@ -73,7 +73,6 @@ void	minishell_loop()
 			tokens = tokenization(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
-			print_tokens(tokens);
 			//pwd command
 			if(strcmp(&tokens->token[0], "pwd") == 0)
 			{
@@ -84,6 +83,7 @@ void	minishell_loop()
 				}
 			}
 			checker(&shell);
+			// print_tokens(shell.tokens);
 		}
 	}
 }

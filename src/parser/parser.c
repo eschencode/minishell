@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/05 19:11:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/08 10:21:10 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_clist *new_node(t_shell *shell)
 	t_clist *clist_node;
 
 	clist_node = (t_clist *)malloc(sizeof(t_clist));
-	clist_node->external_flag = 1;
+	clist_node->n_args = 0;
 	clist_node->next = NULL;
 
 	return (clist_node);
@@ -34,90 +34,103 @@ void insert_node(t_shell *shell, t_clist *node)
 	*tracer = node;
 }
 
-void clist_init(t_shell *shell)
-{
-	int n_nodes;
-	t_clist *node;
-
-	n_nodes = (shell->n_pipes + 1) + 1;
-
-	while (--n_nodes)
-	{
-		node = new_node(shell);
-		insert_node(shell, node);
-	}
-
-}
-
-void clist_cmds_fill(t_shell *shell)
+void tokens_retype(t_shell *shell)
 {
 	int i;
-	int word_flag;
-	t_clist *clist;
 
 	i = -1;
-	word_flag = 0;
-	clist = shell->clist;
 	while (shell->tokens[++i].token)
 	{
 		if (shell->tokens[i].type == WORD)
 		{
-			if (word_flag == 0)
-				clist->cmd = shell->tokens[i].token;
-			word_flag = 1;
-		}
-		else
-		{
-			if (clist->next)
-				clist = clist->next;
-			word_flag = 0;
+			// find and classify commands (else if to prevent invalid reads)
+			if (i == 0)
+				shell->tokens[i].type = CMD;
+			else if (shell->tokens[i - 1].type != WORD && shell->tokens[i - 1].type != CMD && shell->tokens[i - 1].type != ARG)
+				shell->tokens[i].type = CMD;
+			// find and classify arguments
+			else if (shell->tokens[i - 1].type == CMD)
+				shell->tokens[i].type = ARG;
+			else if (shell->tokens[i - 1].type == ARG)
+				shell->tokens[i].type = ARG;
 		}
 	}
 }
 
+void clist_init(t_shell *shell)
+{
+	int i;
+	int y;
+	t_clist *node;
 
+	i = -1;
+	y = -1;
 
-// void clist_args_fill(t_shell *shell)
-// {
-// 	int i;
-// 	int y;
-// 	int word_flag;
-// 	t_clist *clist;
+	// created nodes for each CMD and adds Command str pointer to each node
+	while (shell->tokens[++i].token)
+	{
+		if (shell->tokens[i].type == CMD)
+		{
+			node = new_node(shell);
+			node->token_indx = i;
+			node->cmd = shell->tokens[i].token;
+			insert_node(shell, node);
+		}
+		if (shell->tokens[i].type == ARG)
+			node->n_args++;
+	}
+}
 
-// 	i = -1;
-// 	y = -1;
-// 	word_flag = 0;
-// 	clist = shell->clist;
-// 	while (shell->tokens[++i].token)
-// 	{
-// 		if (shell->tokens[i].type == WORD)
-// 		{
-// 			if (word_flag == 1)
-// 				clist->args[++y] = shell->tokens[i].token;
-// 			word_flag = 1;
-// 		}
-// 		else
-// 		{
-// 			if (clist->next)
-// 				clist = clist->next;
-// 			word_flag = 0;
-// 		}
-// 	}
-// }
+void clist_args_fill(t_shell *shell)
+{
+	int i;
+	int y;
+	char **str;
+	t_clist **tracer;
+
+	tracer = &shell->clist;
+	while (*tracer)
+	{
+		if ((*tracer)->n_args)
+		{
+			y = -1;
+			str = malloc(sizeof(char *) * ((*tracer)->n_args + 1));
+			i = (*tracer)->token_indx;
+			while (shell->tokens[++i].type == ARG)
+				str[++y] = shell->tokens[i].token;
+			str[++y] = NULL;
+			(*tracer)->args = str;
+		}
+		tracer = &(*tracer)->next;
+	}
+}
+
+void print_clist(t_shell *shell)
+{
+	int y;
+	t_clist **tracer = &shell->clist;
+
+	while (*tracer)
+	{
+		printf("command -> %s ", (*tracer)->cmd);
+		if ((*tracer)->n_args)
+		{
+			y = -1;
+			printf("args ->");
+			while ((*tracer)->args[++y])
+				printf(" %s", (*tracer)->args[y]);
+		}
+		tracer = &(*tracer)->next;
+		printf("\n");
+	}
+}
 
 int	parser(t_shell *shell)
 {
 	shell->clist = NULL;
+	tokens_retype(shell);
 	clist_init(shell);
-	clist_cmds_fill(shell);
-	// clist_args_fill(shell);
-
-	t_clist *clist = shell->clist;
-	while (clist->next)
-	{
-		printf("command->%s\n", clist->cmd);
-		clist = clist->next;
-	}
-	printf("command->%s\n", clist->cmd);
+	clist_args_fill(shell);
+	print_clist(shell);
 	return (0);
 }
