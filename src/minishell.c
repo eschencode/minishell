@@ -90,15 +90,6 @@ void	minishell_loop()
 			tokens = tokenization(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
-			//pwd command
-			if(strcmp(&tokens->token[0], "pwd") == 0)
-			{
-				char cwd[1024];
-				if (getcwd(cwd, sizeof(cwd)) != NULL)
-				{
-					printf("%s\n", cwd);
-				}
-			}
 			checker(&shell);
 			// print_tokens(shell.tokens);
 			ft_free_clist(&shell);
