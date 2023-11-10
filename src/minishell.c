@@ -83,6 +83,8 @@ void	minishell_loop()
 			ft_free_all(tokens, &shell);
 			return ;
 		}
+		else if (strcmp(shell.input_str, "clear") == 0)
+			clearwindow();
 		else
 		{
 			if (shell.tokens_flag)

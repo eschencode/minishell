@@ -6,13 +6,13 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/10 12:41:56 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:08:37 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_export(t_shell *shell)
+void clearwindow(void)
 {
-	
+	printf("\033[H\033[J");
 }

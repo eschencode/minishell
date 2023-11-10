@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/10 14:07:53 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:10:11 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,13 @@ int	parser(t_shell *shell);
 //executor
 int executor(t_shell shell);
 
-//builtins
+//builtins_l
 int cd(t_shell shell);
 int pwd_builtin(t_shell shell);
 int echo_l(t_shell shell);
+
+// builtins_a
+void clearwindow(void);
 
 
 #endif
