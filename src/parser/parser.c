@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/08 10:21:10 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:52:03 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void clist_init(t_shell *shell)
 		if (shell->tokens[i].type == CMD)
 		{
 			node = new_node(shell);
-			node->token_indx = i;
-			node->cmd = shell->tokens[i].token;
+			node->cmd_pos = i;
 			insert_node(shell, node);
 		}
 		if (shell->tokens[i].type == ARG)
@@ -91,16 +90,16 @@ void clist_args_fill(t_shell *shell)
 	tracer = &shell->clist;
 	while (*tracer)
 	{
-		if ((*tracer)->n_args)
+		y = -1;
+		str = malloc(sizeof(char *) * ((*tracer)->n_args + 2));
+		i = (*tracer)->cmd_pos;
+		while (shell->tokens[i].type == CMD || shell->tokens[i].type == ARG)
 		{
-			y = -1;
-			str = malloc(sizeof(char *) * ((*tracer)->n_args + 1));
-			i = (*tracer)->token_indx;
-			while (shell->tokens[++i].type == ARG)
-				str[++y] = shell->tokens[i].token;
-			str[++y] = NULL;
-			(*tracer)->args = str;
+			str[++y] = shell->tokens[i].token;
+			i++;
 		}
+		str[++y] = NULL;
+		(*tracer)->cmd = str;
 		tracer = &(*tracer)->next;
 	}
 }
@@ -112,14 +111,10 @@ void print_clist(t_shell *shell)
 
 	while (*tracer)
 	{
-		printf("command -> %s ", (*tracer)->cmd);
-		if ((*tracer)->n_args)
-		{
-			y = -1;
-			printf("args ->");
-			while ((*tracer)->args[++y])
-				printf(" %s", (*tracer)->args[y]);
-		}
+		y = -1;
+		printf("command ->");
+		while ((*tracer)->cmd[++y])
+			printf(" %s", (*tracer)->cmd[y]);
 		tracer = &(*tracer)->next;
 		printf("\n");
 	}
@@ -132,6 +127,6 @@ int	parser(t_shell *shell)
 	clist_init(shell);
 	clist_args_fill(shell);
 	print_clist(shell);
-	executor(*shell);
+	// executor(*shell);
 	return (0);
 }
