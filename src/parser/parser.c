@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/10 15:52:03 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:01:03 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,6 @@ int	parser(t_shell *shell)
 	clist_init(shell);
 	clist_args_fill(shell);
 	print_clist(shell);
-	// executor(*shell);
+	executor(*shell);
 	return (0);
 }

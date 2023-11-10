@@ -24,8 +24,8 @@ int execute_externals(t_shell shell)
 	else if (child_pid == 0)
 	{
 		// This code is executed in the child process
-		char *command = shell.clist->cmd;  // Assuming shell.clist->cmd contains the parsed path
-        char *args[] = {shell.clist->cmd,shell.clist->args, NULL};  // You can modify this for additional arguments
+		char *command = shell.clist->cmd[0];  // Assuming shell.clist->cmd contains the parsed path
+        char **args = shell.clist->cmd;  // You can modify this for additional arguments
 		char *env[] = {NULL};
 
 		// The execvp function is used to replace the current process
@@ -89,5 +89,5 @@ int executor(t_shell shell)
 		{
 			execute_externals(shell);
 		}
-			return(0);
+	return (0);
 }
