@@ -25,6 +25,7 @@ void ft_free_tokens(t_tokens *tokens)
 
 void ft_free_clist(t_shell *shell)
 {
+	int y;
 	t_clist **tracer;
 	t_clist *old_node;
 
@@ -33,8 +34,8 @@ void ft_free_clist(t_shell *shell)
 	while (*tracer)
 	{
 		old_node = *tracer;
-		if ((*tracer)->n_args)
-			free((*tracer)->args);
+		y = -1;
+		free((*tracer)->cmd);
 		tracer = &((*tracer)->next);
 		free(old_node);
 	}
@@ -96,7 +97,6 @@ void	minishell_loop()
 		}
 	}
 }
-
 
 int main(int argc, char **argv)
 {

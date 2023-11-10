@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/08 09:47:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:07:53 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,19 @@ typedef struct s_tokens
 	int id;
 } t_tokens;
 
+typedef struct s_env
+{
+	char *variable;
+	char *value;
+	struct s_env *next;
+} t_env;
+
 typedef struct s_clist
 {
-	int	token_indx; // save position of cmd from index (helps fill args later) 
 	bool external_flag; //if true == external command
-	char *cmd;
-	char **args;
-	int	n_args;
+	int cmd_pos;
+	char **cmd;
+	int n_args;
 	bool pre_pipe;
 	bool post_pipe;
 	struct s_clist *next;
