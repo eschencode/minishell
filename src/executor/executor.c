@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
+/*   Updated: 2023/11/11 15:46:52 by aeastman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../../include/minishell.h"
 
 
-int execute_builtins(t_shell shell)
-{
-	pwd_builtin(shell);
-	//echo(shell);
-	//add rest of builtins here
-}
+// int execute_builtins(t_shell shell)
+// {
+// 	pwd_builtin(shell);
+// 	//echo(shell);
+// 	//add rest of builtins here
+// }
 
 int execute_externals(t_shell shell)
 {
@@ -66,28 +79,25 @@ int execute_externals(t_shell shell)
 	return 0;
 }
 
-bool check_if_builtin(t_shell shell)
+bool check_if_builtin(t_shell *shell)
 {
 	int i = 0;
-	if(strcmp(&shell.tokens->token[0], "pwd") == 0)
+
+	if(strcmp(shell->tokens[0].token, "pwd") == 0)
 		return(true);
-	else if (strcmp(&shell.tokens->token[0], "cd") == 0)
+	if (strcmp(shell->tokens[0].token, "cd") == 0)
 		return(true);
-	else
-	{
-		return(false);
-	}
+	if (strcmp(shell->clist->cmd[0], "export") == 0)
+		return ((ft_export(shell, shell->clist->cmd)));
+
+	return(false);
 }
 
 // fork only for ./bla bla and builtins on parent
-int executor(t_shell shell)
+int executor(t_shell *shell)
 {
 	//shell.clist->type = PATH;
-		if(check_if_builtin(shell) == true)
-			execute_builtins(shell);
-		else
-		{
-			execute_externals(shell);
-		}
+	if(check_if_builtin(shell) == false)
+		execute_externals(*shell);
 	return (0);
 }
