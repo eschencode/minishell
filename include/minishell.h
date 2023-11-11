@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/10 16:10:11 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:40:17 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_shell
 	char *input_str;
 	int	tokens_flag;
 	t_clist *clist;
+	t_env	*envlist;
 	int	n_pipes;
 
 } t_shell;
@@ -88,27 +89,31 @@ typedef struct s_shell
 t_tokens *tokenization(char *input);
 
 // parser/checker.c
-void checker(t_shell *shell);
+void 	checker(t_shell *shell);
 
 //signals
-void signal_handler(int sig);
+void 	signal_handler(int sig);
 
 //builtins
-int cd(t_shell shell);
+int 	cd(t_shell shell);
 
 //parser/parser.c
-int	parser(t_shell *shell);
+int		parser(t_shell *shell);
 
 //executor
-int executor(t_shell shell);
+int 	executor(t_shell *shell);
 
 //builtins_l
-int cd(t_shell shell);
-int pwd_builtin(t_shell shell);
-int echo_l(t_shell shell);
+int 	cd(t_shell shell);
+int 	pwd_builtin(t_shell shell);
+int 	echo_l(t_shell shell);
 
 // builtins_a
-void clearwindow(void);
+void 	clearwindow(void);
+bool 	ft_export(t_shell *shell, char **cmd);
 
+// linked_lists.c
+t_env 	*new_node_env(t_shell *shell, char *var, char *val);
+void 	insert_node_env(t_shell *shell, t_env *node);
 
 #endif
