@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/11 15:38:13 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:55:38 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	parser(t_shell *shell)
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	print_clist(shell);
+	//print_clist(shell);
 	executor(shell);
 	return (0);
 }

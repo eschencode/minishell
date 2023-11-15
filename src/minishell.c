@@ -82,6 +82,11 @@ void	minishell_loop()
 			ft_free_all(tokens, &shell);
 			return ;
 		}
+		else if (strcmp(shell.input_str, "q") == 0)
+		{
+			ft_free_all(tokens, &shell);
+			return ;
+		}
 		else
 		{
 			if (shell.tokens_flag)
