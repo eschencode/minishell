@@ -6,7 +6,8 @@ VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 
 SRC	= 	src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
 		src/signals/signals.c src/builtins/builtins_l.c src/parser/parser.c \
-		src/executor/executor.c src/builtins/builtins_a.c src/utils/linked_lists.c
+		src/executor/executor.c src/builtins/builtins_a.c src/utils/linked_lists.c \
+		src/executor/executor_utils.c src/executor/execute_pipes.c
 
 OBJ = $(SRC:.c=.o)
 

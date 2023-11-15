@@ -61,7 +61,7 @@ void	minishell_loop()
 	char prompt[12] = "minishell$ ";
 	t_tokens *tokens;
 	t_shell shell;
-	//char *shell.input_str;
+
 	int i = -1;
 	shell.tokens_flag = 0;
 	rl_initialize();
@@ -69,9 +69,8 @@ void	minishell_loop()
 	while(1)
 	{
 		shell.input_str = readline(prompt);
-		//check for cd command
 		cd(shell);
-		//check empty shell.input_str
+
 		if (shell.input_str == NULL || shell.input_str[0] == '\0')
 		{
 			printf("empty input\n");
@@ -83,8 +82,6 @@ void	minishell_loop()
 			ft_free_all(tokens, &shell);
 			return ;
 		}
-		else if (strcmp(shell.input_str, "clear") == 0)
-			clearwindow();
 		else
 		{
 			if (shell.tokens_flag)
@@ -94,7 +91,6 @@ void	minishell_loop()
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);
-			// print_tokens(shell.tokens);
 			ft_free_clist(&shell);
 		}
 	}
