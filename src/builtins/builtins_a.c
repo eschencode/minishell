@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_a.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/14 13:09:25 by leschenb         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:44:36 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,49 @@ void clearwindow(void)
 	printf("\033[H\033[J");
 }
 
+int count_str_arr(char **str)
+{
+	int y;
+	y = 0;
+	while (str[y])
+		y++;
+	return (y);
+}
+
+void str_arr_cpy(char **new, t_shell *shell)
+{
+	int y;
+	y = -1;
+	while (shell->env[++y])
+	{
+		new[y] = malloc(sizeof(char) * (ft_strlen(shell->env[y]) + 1));
+		ft_strlcpy(new[y], shell->env[y], ft_strlen(shell->env[y]));
+	}
+}
+
 bool ft_export(t_shell *shell, char **cmd)
 {
-	int x;
-	int i;
-	int len1;
-	int len2;
-	char *var;
-	char *val;
-	char *args;
+	char **env;
+	int old_len;
 
-	x = -1;
-	len1 = 0;
-	len2 = 0;
-	args = cmd[1];
-	while (args[++x] != '=')
-		len1++;
-
-	while (args[++x])
-		len2++;
-	var = malloc(sizeof(char) * (len1 + 1));
-	val = malloc(sizeof(char) * (len2 + 1));
-	x = -1;
-	while (args[++x] != '=')
-		var[x] = args[x];
-	var[x] = '\0';
-	i = -1;
-	while (args[++x])
-		val[++i] = args[x];
-	val[++i] = '\0';
-	insert_node_env(shell, new_node_env(shell, var, val));
-
-	printf("var -> %s value -> %s\n", shell->envlist->variable, shell->envlist->value);
+	old_len = 0;
+	if (shell->env_flag == 1)
+		old_len = count_str_arr(shell->env);
+	env = malloc(sizeof(char *) * (old_len + 1 + 1));
+	if (shell->env_flag == 0)
+	{
+		env[0] = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
+	    ft_strlcpy(env[0], cmd[1], ft_strlen(cmd[1]));
+		env[1] = NULL;
+		shell->env = env;
+		shell->env_flag = 1;
+		return (true);
+	}
+	str_arr_cpy(env, shell);
+	free(shell->env);
+	env[old_len] = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
+	ft_strlcpy(env[old_len], cmd[1], ft_strlen(cmd[1]));
+	env[old_len + 1] = NULL;
+	shell->env = env;
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/15 16:06:39 by leschenb         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:29:42 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,6 @@ typedef struct s_tokens
 	int id;
 } t_tokens;
 
-typedef struct s_env
-{
-	char *variable;
-	char *value;
-	struct s_env *next;
-} t_env;
-
 typedef struct s_clist
 {
 	bool external_flag; //if true == external command
@@ -88,7 +81,8 @@ typedef struct s_shell
 	char *input_str;
 	int	tokens_flag;
 	t_clist *clist;
-	t_env	*envlist;
+	int		env_flag;
+	char **env;
 	int	n_pipes;
 	t_pipes pipes;
 
@@ -122,7 +116,6 @@ int first_pipe(t_shell shell);
 int last_pipe(t_shell shell);
 
 //executor_utils.
-char **envlist_to_array(t_env *envlist);
 void ft_error(char *errmsg, t_shell shell);
 void print_env(char **env_arry);
 
@@ -133,9 +126,5 @@ int 	echo_l(t_shell shell);
 // builtins_a
 void 	clearwindow(void);
 bool 	ft_export(t_shell *shell, char **cmd);
-
-// linked_lists.c
-t_env 	*new_node_env(t_shell *shell, char *var, char *val);
-void 	insert_node_env(t_shell *shell, t_env *node);
 
 #endif

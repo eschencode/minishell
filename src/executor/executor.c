@@ -3,22 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/15 14:19:34 by leschenb         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:48:42 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
-
-
-
 int execute_externals(t_shell shell)
 {
-
 	pid_t child_pid;
 	int child_status;
 	child_pid = fork();
@@ -59,7 +55,7 @@ bool check_if_builtin(t_shell *shell)
 	{
 		cd(*shell);
 		return(true);
-	}	
+	}
 	if (strcmp(shell->clist->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd)));
 	if(strcmp(shell->clist->cmd[0], "clear") == 0)
@@ -69,10 +65,9 @@ bool check_if_builtin(t_shell *shell)
 		}
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
 	{
-		char **arr = envlist_to_array(shell->envlist);
-		print_env(arr);
+		print_env(shell->env);
 		return(true);
-	}	
+	}
 	return(false);
 }
 
@@ -86,6 +81,5 @@ int executor(t_shell *shell)
 	}
 	else if(check_if_builtin(shell) == false)
 		execute_externals(*shell);
-	
 	return (0);
 }

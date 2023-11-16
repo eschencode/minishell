@@ -64,6 +64,7 @@ void	minishell_loop()
 
 	int i = -1;
 	shell.tokens_flag = 0;
+	shell.env_flag = 0;
 	rl_initialize();
 	using_history();
 	while(1)
