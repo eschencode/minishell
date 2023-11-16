@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/11 15:40:17 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:29:42 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,6 @@ typedef struct s_tokens
 	int id;
 } t_tokens;
 
-typedef struct s_env
-{
-	char *variable;
-	char *value;
-	struct s_env *next;
-} t_env;
-
 typedef struct s_clist
 {
 	bool external_flag; //if true == external command
@@ -74,16 +67,30 @@ typedef struct s_clist
 	struct s_clist *next;
 } t_clist;
 
+typedef struct s_pipes
+{
+	int current_cmd;
+	int pipe_fd[2];
+	int output_len;
+	char *output_str;
+} t_pipes;
+
 typedef struct s_shell
 {
 	t_tokens *tokens;
 	char *input_str;
 	int	tokens_flag;
 	t_clist *clist;
-	t_env	*envlist;
+	int		env_flag;
+	char **env;
 	int	n_pipes;
+	t_pipes pipes;
 
 } t_shell;
+
+
+//minishell.c
+void ft_free_all(t_tokens *tokens, t_shell *shell);
 
 // tokenization/tokenization.c
 t_tokens *tokenization(char *input);
@@ -103,17 +110,21 @@ int		parser(t_shell *shell);
 //executor
 int 	executor(t_shell *shell);
 
+//execute pipes
+int execute_pipes(t_shell shell);
+int first_pipe(t_shell shell);
+int last_pipe(t_shell shell);
+
+//executor_utils.
+void ft_error(char *errmsg, t_shell shell);
+void print_env(char **env_arry);
+
 //builtins_l
-int 	cd(t_shell shell);
 int 	pwd_builtin(t_shell shell);
 int 	echo_l(t_shell shell);
 
 // builtins_a
 void 	clearwindow(void);
 bool 	ft_export(t_shell *shell, char **cmd);
-
-// linked_lists.c
-t_env 	*new_node_env(t_shell *shell, char *var, char *val);
-void 	insert_node_env(t_shell *shell, t_env *node);
 
 #endif
