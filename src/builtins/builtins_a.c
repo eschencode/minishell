@@ -6,15 +6,16 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/16 16:44:36 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:46:17 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void clearwindow(void)
+bool clearwindow(void)
 {
 	printf("\033[H\033[J");
+	return (true);
 }
 
 int count_str_arr(char **str)

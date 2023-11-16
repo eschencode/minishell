@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/16 15:48:42 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:47:40 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,16 @@ int execute_externals(t_shell shell)
 
 bool check_if_builtin(t_shell *shell)
 {
-	int i = 0;
-
 	if(strcmp(shell->tokens[0].token, "pwd") == 0)
-	{
-		pwd_builtin(*shell);
-		return(true);
-	}
+		return(pwd_builtin(*shell));
 	if (strcmp(shell->clist->cmd[0], "cd") == 0)
-	{
-		cd(*shell);
-		return(true);
-	}
+		return(cd(*shell));
 	if (strcmp(shell->clist->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd)));
 	if(strcmp(shell->clist->cmd[0], "clear") == 0)
-		{
-			clearwindow();
-			return(true);
-		}
+		return (clearwindow());
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
-	{
-		print_env(shell->env);
-		return(true);
-	}
+		return(print_env(shell->env));
 	return(false);
 }
 

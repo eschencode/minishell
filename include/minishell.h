@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/16 13:29:42 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:47:18 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void 	checker(t_shell *shell);
 void 	signal_handler(int sig);
 
 //builtins
-int 	cd(t_shell shell);
+bool 	cd(t_shell shell);
 
 //parser/parser.c
 int		parser(t_shell *shell);
@@ -117,14 +117,14 @@ int last_pipe(t_shell shell);
 
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);
-void print_env(char **env_arry);
+bool print_env(char **env_arry);
 
 //builtins_l
-int 	pwd_builtin(t_shell shell);
+bool 	pwd_builtin(t_shell shell);
 int 	echo_l(t_shell shell);
 
 // builtins_a
-void 	clearwindow(void);
+bool 	clearwindow(void);
 bool 	ft_export(t_shell *shell, char **cmd);
 
 #endif

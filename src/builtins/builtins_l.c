@@ -1,30 +1,25 @@
 #include "../../include/minishell.h"
 
-int cd(t_shell shell)
+bool cd(t_shell shell)
 {
 	if(shell.input_str[0] == 'c' && shell.input_str[1] == 'd' && shell.input_str[2] == ' ')
 		{
 			shell.input_str[ft_strlen(shell.input_str)] = '\0';
 			if(chdir(shell.input_str + 3) < 0)
-				{
 					printf("cant cd %s\n",shell.input_str +3);
-					return(-1);
-				}
 		}
-		return(0);
+		return(true);
 }
 
-int pwd_builtin(t_shell shell)
+bool pwd_builtin(t_shell shell)
 {
 	if(strcmp(&shell.tokens->token[0], "pwd") == 0)
-			{
+	{
 				char cwd[1024];
 				if (getcwd(cwd, sizeof(cwd)) != NULL)
-				{
 					printf("%s\n", cwd);
-				}
-			}
-	return (0);
+	}
+	return (true);
 }
 
 int echo_l(t_shell shell)
