@@ -6,14 +6,14 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/16 13:06:35 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:47:21 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../include/minishell.h"
 
-void print_env(char **env_arry)
+bool print_env(char **env_arry)
 {
 	int i = 0;
 	while(env_arry[i])
@@ -21,6 +21,7 @@ void print_env(char **env_arry)
 		printf("%s\n",env_arry[i]);
 		i++;
 	}
+	return (true);
 }
 
 void ft_error(char *errmsg, t_shell shell)
