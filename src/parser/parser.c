@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/15 18:55:38 by leschenb         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:18:56 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,16 @@ void print_clist(t_shell *shell)
 
 int	parser(t_shell *shell)
 {
+	t_clist **tracer;
+
+	tracer = &shell->clist;
+	
 	shell->clist = NULL;
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	printf("cmd= %s\n", shell->clist->cmd[1]);
+	tracer = &(*tracer)->next;
+	printf("cmd= %s\n", (*tracer)->cmd[0]);
 	print_clist(shell);
 	executor(shell);
 	return (0);

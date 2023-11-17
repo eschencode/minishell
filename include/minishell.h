@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/17 10:51:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/17 12:53:29 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_shell
 	int		env_flag;
 	char **env;
 	int	n_pipes;
-	t_executor exe;
+	t_executor *exe;
 
 } t_shell;
 

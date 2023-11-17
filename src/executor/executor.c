@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/16 17:47:40 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:19:01 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ bool check_if_builtin(t_shell *shell)
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
-	shell->exe.output_str = malloc(sizeof(char)* 100);
+
+	shell->exe = malloc(sizeof(t_executor));
+	shell->exe->output_str = malloc(sizeof(char)* 100);
 	if(shell->n_pipes > 0)
 	{
 		execute_pipes(shell);
@@ -69,5 +71,6 @@ int executor(t_shell *shell)
 	if(check_if_builtin(shell) == false)//change all printfs to write on output str better for pipes
 	{
 		execute_externals(*shell);
-	return (0);
+		return (0);
+	}
 }
