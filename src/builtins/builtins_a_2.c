@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/17 12:32:36 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:11:52 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_in_env(t_shell *shell, char *str)
 	return (0);
 }
 
-bool	ft_unset(t_shell *shell, char **cmd)
+bool	ft_unset(t_shell *shell, char *cmd)
 {
 	int x;
 	int y;
@@ -39,11 +39,17 @@ bool	ft_unset(t_shell *shell, char **cmd)
 	y = 0;
 	while (shell->env[y])
 		y++;
-	if (!is_in_env(shell, cmd[1]) || y == 0)
+	if (!is_in_env(shell, cmd) || y == 0)
 		return (true);
-	x = -1;
-	while (cmd[1][++x])
-	{
-		if ()
-	}
+	x = 0;
+	while (cmd[x] && cmd[x] != '=')
+		x++;
+	y = 0;
+	while (strncmp(shell->env[y], cmd, x) != 0)
+		y++;
+	while (shell->env[++y])
+		shell->env[y - 1] = shell->env[y];
+	shell->env[y - 1] = NULL;
+	free(shell->env[y]);
+	return (true);
 }
