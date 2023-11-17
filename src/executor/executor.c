@@ -40,7 +40,7 @@ int execute_externals(t_shell shell)
 	}
 	else
 	{// This code is executed in the parent process
-		if (waitpid(child_pid, &child_status, 0) == -1)// Wait for the child process to complete 
+		if (waitpid(child_pid, &child_status, 0) == -1)// Wait for the child process to complete
 			ft_error("waitpid",shell);
 	}
 	return 0;
@@ -59,7 +59,7 @@ bool check_if_builtin(t_shell *shell)
 	{
 		cd(*shell);
 		return(true);
-	}	
+	}
 	if (strcmp(shell->clist->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd)));
 	if(strcmp(shell->clist->cmd[0], "clear") == 0)
@@ -72,20 +72,23 @@ bool check_if_builtin(t_shell *shell)
 		char **arr = envlist_to_array(shell->envlist);
 		print_env(arr);
 		return(true);
-	}	
+	}
 	return(false);
 }
 
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
+	shell->exe.output_str = malloc(sizeof(char)* 100);
 	if(shell->n_pipes > 0)
 	{
-		printf("n pipes = %d\n",shell->n_pipes);
-		execute_pipes(*shell);
+		execute_pipes(shell);
 	}
-	else if(check_if_builtin(shell) == false)
+	else if(check_if_builtin(shell) == true)//change all printfs to write on output str better for pipes
+		printf("%s\n",shell->exe.output_str);
+	else
+	{
 		execute_externals(*shell);
-	
+	}
 	return (0);
 }

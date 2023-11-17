@@ -18,11 +18,8 @@ int pwd_builtin(t_shell shell)
 {
 	if(strcmp(&shell.tokens->token[0], "pwd") == 0)
 			{
-				char cwd[1024];
-				if (getcwd(cwd, sizeof(cwd)) != NULL)
-				{
-					printf("%s\n", cwd);
-				}
+				getcwd(shell.exe.output_str, sizeof(shell.exe.output_str));
+
 			}
 	return (0);
 }

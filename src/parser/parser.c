@@ -95,7 +95,7 @@ void clist_args_fill(t_shell *shell)
 		i = (*tracer)->cmd_pos;
 		while (shell->tokens[i].type == CMD || shell->tokens[i].type == ARG)
 		{
-			str[++y] = shell->tokens[i].token;
+			str[++y] = ft_strdup(shell->tokens[i].token);//added str dup because i had problem acces cmd[1]
 			i++;
 		}
 		str[++y] = NULL;
@@ -126,7 +126,8 @@ int	parser(t_shell *shell)
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	//print_clist(shell);
+	//printf("cmd= %s\n", shell.clist.cmd[1]);
+	print_clist(shell);
 	executor(shell);
 	return (0);
 }
