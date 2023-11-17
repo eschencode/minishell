@@ -109,12 +109,12 @@ int		parser(t_shell *shell);
 
 //executor
 int 	executor(t_shell *shell);
-bool check_if_builtin(t_shell *shell);
+bool check_if_builtin(t_shell *shell, t_clist *cmd);
 
 //execute pipes
 int execute_pipes(t_shell *shell);
-int first_pipe(t_shell *shell);
-int last_pipe(t_shell *shell);
+int first_pipe(t_shell *shell, t_clist *cmd);
+int last_pipe(t_shell *shell, t_clist *cmd);
 
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);

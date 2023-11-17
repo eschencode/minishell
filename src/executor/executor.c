@@ -42,7 +42,7 @@ int execute_externals(t_shell shell)
 	return 0;
 }
 
-bool check_if_builtin(t_shell *shell)
+bool check_if_builtin(t_shell *shell, t_clist *cmd)
 {
 	if(strcmp(shell->tokens[0].token, "pwd") == 0)
 		return(pwd_builtin(*shell));
@@ -60,7 +60,8 @@ bool check_if_builtin(t_shell *shell)
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
-
+	t_clist **cmd;
+	cmd = &shell->clist;
 	shell->exe = malloc(sizeof(t_executor));
 	shell->exe->output_str = malloc(sizeof(char)* 100);
 	if(shell->n_pipes > 0)
@@ -68,7 +69,7 @@ int executor(t_shell *shell)
 		execute_pipes(shell);
 		return(0);
 	}
-	if(check_if_builtin(shell) == false)//change all printfs to write on output str better for pipes
+	if(check_if_builtin(shell, *cmd) == false)//change all printfs to write on output str better for pipes
 	{
 		execute_externals(*shell);
 		return (0);

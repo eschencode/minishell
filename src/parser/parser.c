@@ -131,7 +131,7 @@ int	parser(t_shell *shell)
 	clist_init(shell);
 	clist_args_fill(shell);
 	tracer = &(*tracer)->next;
-	printf("cmd= %s\n", (*tracer)->cmd[0]);
+	//printf("cmd= %s\n", (*tracer)->cmd[0]);
 	print_clist(shell);
 	executor(shell);
 	return (0);
