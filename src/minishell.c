@@ -54,6 +54,7 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 		free(tokens);
 	}
 	free(shell->input_str);
+	free_env(shell);
 }
 
 void	minishell_loop()
