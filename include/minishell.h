@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/17 10:51:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:13:02 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,8 @@ int 	echo_l(t_shell shell);
 bool 	clearwindow(void);
 bool 	ft_export(t_shell *shell, char **cmd);
 void	free_env(t_shell *shell);
+
+// builtins_a_2
+int		is_in_env(t_shell *shell, char *str);
 
 #endif
