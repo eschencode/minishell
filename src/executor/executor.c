@@ -36,7 +36,7 @@ int execute_externals(t_shell shell)
 	}
 	else
 	{// This code is executed in the parent process
-		if (waitpid(child_pid, &child_status, 0) == -1)// Wait for the child process to complete 
+		if (waitpid(child_pid, &child_status, 0) == -1)// Wait for the child process to complete
 			ft_error("waitpid",shell);
 	}
 	return 0;
@@ -60,12 +60,14 @@ bool check_if_builtin(t_shell *shell)
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
+	shell->exe.output_str = malloc(sizeof(char)* 100);
 	if(shell->n_pipes > 0)
 	{
-		printf("n pipes = %d\n",shell->n_pipes);
-		execute_pipes(*shell);
+		execute_pipes(shell);
+		return(0);
 	}
-	else if(check_if_builtin(shell) == false)
+	if(check_if_builtin(shell) == false)//change all printfs to write on output str better for pipes
+	{
 		execute_externals(*shell);
 	return (0);
 }

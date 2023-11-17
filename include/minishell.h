@@ -67,13 +67,13 @@ typedef struct s_clist
 	struct s_clist *next;
 } t_clist;
 
-typedef struct s_pipes
+typedef struct s_executor
 {
 	int current_cmd;
 	int pipe_fd[2];
 	int output_len;
 	char *output_str;
-} t_pipes;
+} t_executor;
 
 typedef struct s_shell
 {
@@ -84,7 +84,7 @@ typedef struct s_shell
 	int		env_flag;
 	char **env;
 	int	n_pipes;
-	t_pipes pipes;
+	t_executor exe;
 
 } t_shell;
 
@@ -109,11 +109,12 @@ int		parser(t_shell *shell);
 
 //executor
 int 	executor(t_shell *shell);
+bool check_if_builtin(t_shell *shell);
 
 //execute pipes
-int execute_pipes(t_shell shell);
-int first_pipe(t_shell shell);
-int last_pipe(t_shell shell);
+int execute_pipes(t_shell *shell);
+int first_pipe(t_shell *shell);
+int last_pipe(t_shell *shell);
 
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);
