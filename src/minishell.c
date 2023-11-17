@@ -54,6 +54,7 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 		free(tokens);
 	}
 	free(shell->input_str);
+	free_env(shell);
 }
 
 void	minishell_loop()
@@ -64,6 +65,7 @@ void	minishell_loop()
 
 	int i = -1;
 	shell.tokens_flag = 0;
+	shell.env_flag = 0;
 	rl_initialize();
 	using_history();
 	while(1)
