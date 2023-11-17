@@ -16,7 +16,7 @@
 int execute_pipes(t_shell *shell)
 {
 		shell->exe.current_cmd = 0;
-		printf("cmd= %s\n", shell->clist->cmd[1]);
+		//printf("cmd= %s\n", shell->clist->cmd[1]);
 		if(check_if_builtin(shell) == false)
 			first_pipe(shell);
 		printf("in pipe :%s:\n",shell->exe.output_str);
@@ -44,7 +44,7 @@ int first_pipe(t_shell *shell)
 	{
 		dup2(shell->exe.pipe_fd[1], STDOUT_FILENO);
 		close(shell->exe.pipe_fd[0]);//close read end of pipe
-		//close(shell.exe.pipe_fd[1]);//close write end because output is allredy redirected
+		//close(shell->exe.pipe_fd[1]);//close write end because output is allredy redirected
 		char *env[] = {NULL};
 		if(execve(shell->clist->cmd[0], shell->clist->cmd, env) == -1)
 		{
@@ -74,6 +74,7 @@ int last_pipe(t_shell *shell)
 {
 	pid_t child_pid;
 	int child_status;
+
 	child_pid = fork();
 	printf("pid %d\n",child_pid);
 	if (child_pid == -1)

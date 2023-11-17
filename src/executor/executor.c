@@ -83,12 +83,12 @@ int executor(t_shell *shell)
 	if(shell->n_pipes > 0)
 	{
 		execute_pipes(shell);
+		return(0);
 	}
-	else if(check_if_builtin(shell) == true)//change all printfs to write on output str better for pipes
-		printf("%s\n",shell->exe.output_str);
-	else
+	if(check_if_builtin(shell) == false)//change all printfs to write on output str better for pipes
 	{
 		execute_externals(*shell);
+		return(0);
 	}
-	return (0);
+	
 }
