@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/17 10:58:43 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/17 11:35:15 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ bool	ft_export(t_shell *shell, char **cmd)
 		shell->env_flag = 1;
 		return (true);
 	}
+	if (is_in_env(shell, cmd[1]))
+		printf("found matching in env\n");
 	str_arr_cpy(env, shell->env);
 	free(shell->env);
 	env[old_len] = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
