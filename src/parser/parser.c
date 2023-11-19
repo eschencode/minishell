@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/15 18:55:38 by leschenb         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:21:30 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void clist_args_fill(t_shell *shell)
 		i = (*tracer)->cmd_pos;
 		while (shell->tokens[i].type == CMD || shell->tokens[i].type == ARG)
 		{
-			str[++y] = shell->tokens[i].token;
+			str[++y] = shell->tokens[i].token;//added str dup because i had problem acces cmd[1]
 			i++;
 		}
 		str[++y] = NULL;
@@ -122,11 +122,12 @@ void print_clist(t_shell *shell)
 
 int	parser(t_shell *shell)
 {
+	
 	shell->clist = NULL;
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	//print_clist(shell);
+	// print_clist(shell);
 	executor(shell);
 	return (0);
 }
