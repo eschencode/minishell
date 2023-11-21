@@ -42,8 +42,11 @@ int first_pipe(t_shell *shell, t_clist *cmd)
 	//close(shell.exe.pipe_fd[0]);
 	pid = fork();
 	if(pid == -1)
+	{
 		printf("fork error");
-	else if(pid == 0)//pid ==0 -> child procces
+		return (0);
+	}
+	if(pid == 0) //pid ==0 -> child procces
 	{
 		dup2(shell->exe->pipe_fd[1], STDOUT_FILENO);
 		close(shell->exe->pipe_fd[1]);//closeend of pipe
@@ -56,6 +59,7 @@ int first_pipe(t_shell *shell, t_clist *cmd)
 			//ft_error("exec error",shell);
 			//exit(EXIT_FAILURE);
 		}
+
 	}
 	else
 	{//erverthing frome here is executed in parent procces
