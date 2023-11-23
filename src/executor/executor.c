@@ -42,8 +42,12 @@ int execute_externals(t_shell *shell)
 	return 0;
 }
 
-bool check_if_builtin(t_shell *shell, t_clist *cmd)
+bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
+	if(shell->n_pipes > 0)
+	{
+		ft_dup2(fd_in, fd_out);
+	}
 	if(strcmp(shell->tokens[0].token, "pwd") == 0)
 		return (pwd_builtin(*shell));
 	if (strcmp(shell->clist->cmd[0], "cd") == 0)
@@ -73,7 +77,7 @@ int executor(t_shell *shell)
 		execute_pipes(shell);
 		return(0);
 	}
-	if(check_if_builtin(shell, *cmd) == false)
+	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
 		execute_externals(shell);
 		return (0);
