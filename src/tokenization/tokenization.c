@@ -15,10 +15,6 @@ TokenType is_type(const char *token)
 			return(RIGHT_RIGHT);
 		else if(token[i] == '>')
 			return(RIGHT);
-		if(token[i] == '\'')
-			return(SINGLE_QUOTE);
-		if(token[i] == '"')
-			return(DOUBLE_QUOTE);
 		i++;
 	}
 	return(WORD);
