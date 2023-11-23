@@ -60,8 +60,19 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 		free(tokens);
 	}
 	free(shell->input_str);
-	if (shell->env_flag)
-		free_env(shell);
+	free_env(shell);
+}
+
+void env_init(t_shell *shell)
+{
+	char *path;
+
+	path = getenv("PATH");
+	shell->path = malloc(sizeof(char) * ft_strlen(path));
+	shell->path = path;
+	shell->env = malloc(sizeof(char *) * 2);
+	shell->env[0] = path;
+	shell->env[1] = NULL;
 }
 
 void	minishell_loop()
@@ -71,9 +82,9 @@ void	minishell_loop()
 	t_shell shell;
 	int i = -1;
 	shell.tokens_flag = 0;
-	shell.env_flag = 0;
 	rl_initialize();
 	using_history();
+	env_init(&shell);
 	while(1)
 	{
 		shell.input_str = readline(prompt);

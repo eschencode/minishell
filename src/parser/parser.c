@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 12:39:00 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:05:52 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,7 @@ int	parser(t_shell *shell)
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	print_clist(shell);
-	// shell->path = malloc(sizeof(char)*100);
-	// shell->path = getenv("PATH");
-	// printf("path=%s%\n",shell->path);
+	// print_clist(shell);
 	executor(shell);
 	return (0);
 }

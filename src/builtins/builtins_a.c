@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 13:21:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:18:59 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,40 +53,18 @@ void	free_env(t_shell *shell)
 	}
 }
 
-int		check_export_syntax(char **cmd)
-{
-	if (cmd[1][0] != '=')
-		return (1);
-	if (cmd[2] == NULL)
-		return (1);
-	return (0);
-}
-
 bool	ft_export(t_shell *shell, char **cmd)
 {
 	char	**env;
 	int		old_len;
 
-	if (check_export_syntax(cmd))
-	{
-		printf("bad assignment\n");
-		return (true);
-	}
-	old_len = 0;
-	if (shell->env_flag == 1)
-		old_len = count_str_arr(shell->env);
-	env = malloc(sizeof(char *) * (old_len + 1 + 1));
-	if (shell->env_flag == 0)
-	{
-		env[0] = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
-		ft_strlcpy(env[0], cmd[1], ft_strlen(cmd[1]));
-		env[1] = NULL;
-		shell->env = env;
-		shell->env_flag = 1;
-		return (true);
-	}
 	if (is_in_env(shell, cmd[1]))
+	{
 		printf("found matching in env\n");
+		return (true);
+	}
+	old_len = count_str_arr(shell->env);
+	env = malloc(sizeof(char *) * (old_len + 1 + 1));
 	str_arr_cpy(env, shell->env);
 	free(shell->env);
 	env[old_len] = malloc(sizeof(char) * (ft_strlen(cmd[1]) + 1));
