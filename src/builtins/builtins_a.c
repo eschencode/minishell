@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 12:51:47 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:21:33 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_env(t_shell *shell)
 
 int		check_export_syntax(char **cmd)
 {
-	if (cmd[1] != '=')
+	if (cmd[1][0] != '=')
 		return (1);
 	if (cmd[2] == NULL)
 		return (1);
