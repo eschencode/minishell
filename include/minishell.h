@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/23 15:39:00 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:55:00 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int 	count_quotes(char *input);
 
 // parser/checker.c
 void 	checker(t_shell *shell);
+void ft_expander(t_shell *shell);
 
 //signals
 void 	signal_handler(int sig);
@@ -118,6 +119,7 @@ bool 	cd(t_shell shell);
 
 //parser/parser.c
 int		parser(t_shell *shell);
+void 	print_clist(t_shell *shell);
 
 //executor
 int 	executor(t_shell *shell);
@@ -146,7 +148,7 @@ void	free_env(t_shell *shell);
 // builtins_a_2
 int		is_in_env(t_shell *shell, char *str);
 bool	ft_unset(t_shell *shell, char *cmd);
-bool    ft_echo(t_clist *c_node, char **cmd);
+bool    ft_echo(t_clist *c_node);
 char 	*env_get_val(t_shell *shell, char *var);
 
 #endif

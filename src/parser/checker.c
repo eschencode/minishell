@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/04 16:52:28 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:46:46 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,28 @@ void count_pipes(t_shell *shell)
 	}
 }
 
+void ft_expander(t_shell *shell)
+{
+	int y;
+	t_clist **tracer;
+
+	tracer = &shell->clist;
+	while (*tracer)
+	{
+		y = -1;
+		while ((*tracer)->cmd[++y])
+		{
+			if ((*tracer)->cmd[y][0] == '$')
+			{
+				if (is_in_env(shell, (*tracer)->cmd[y] + 1))
+					(*tracer)->cmd[y] = env_get_val(shell, (*tracer)->cmd[y] + 1);
+			}
+		}
+		tracer = &(*tracer)->next;
+	}
+}
+
 void checker(t_shell *shell)
 {
-	// check if we have any input at all (or tokens ?)
-	if (!check_quotes(shell))
-		return ;
-	// check_pipes;
 	count_pipes(shell);
-	parser(shell);
 }
