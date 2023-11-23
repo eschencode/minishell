@@ -68,10 +68,11 @@ void env_init(t_shell *shell)
 	char *path;
 
 	path = getenv("PATH");
-	shell->path = malloc(sizeof(char) * ft_strlen(path));
-	shell->path = path;
+	shell->path = malloc(sizeof(char) * ft_strlen(path) + 5);
+	ft_strlcpy(shell->path, "PATH=", 5);
+	ft_strlcat(shell->path, path, ft_strlen(path));
 	shell->env = malloc(sizeof(char *) * 2);
-	shell->env[0] = path;
+	shell->env[0] = shell->path;
 	shell->env[1] = NULL;
 }
 
@@ -120,6 +121,9 @@ void	minishell_loop()
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);
+			parser(&shell);
+			ft_expander(&shell);
+			executor(&shell);
 			ft_free_clist(&shell);
 		}
 	}
