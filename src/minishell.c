@@ -25,21 +25,27 @@ void ft_free_tokens(t_tokens *tokens)
 
 void ft_free_clist(t_shell *shell)
 {
-	int y;
-	t_clist **tracer;
-	t_clist *old_node;
+    int y;
+    t_clist **tracer;
+    t_clist *old_node;
 
-	tracer = &shell->clist;
+    tracer = &shell->clist;
 
-	while (*tracer)
-	{
-		old_node = *tracer;
-		y = -1;
-		free((*tracer)->cmd);
-		tracer = &((*tracer)->next);
-		free(old_node);
-	}
+    while (*tracer)
+    {
+        old_node = *tracer;
+
+        // Ensure that (*tracer)->cmd is properly allocated before freeing
+        free(old_node->cmd);
+
+        // Move to the next node before freeing the current one
+        tracer = &((*tracer)->next);
+
+        // Free the current node
+        free(old_node);
+    }
 }
+
 
 void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
@@ -90,12 +96,17 @@ void	minishell_loop()
 			ft_free_all(tokens, &shell);
 			return ;
 		}
+		else if (count_quotes(shell.input_str) % 2 != 0)
+		{
+			printf("quotes # wrong\n");
+			free(shell.input_str);
+		}
 		else
 		{
 			if (shell.tokens_flag)
 				ft_free_tokens(tokens);
 			add_history(shell.input_str); //adds history of commands
-			tokens = tokenization(shell.input_str);
+			tokens = tokenization(&shell, shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);

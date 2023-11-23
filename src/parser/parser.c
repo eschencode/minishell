@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/17 13:21:30 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:25:46 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,32 @@ void clist_init(t_shell *shell)
 
 void clist_args_fill(t_shell *shell)
 {
-	int i;
-	int y;
-	char **str;
-	t_clist **tracer;
+    int i;
+    int y;
+    char **str;
+    t_clist **tracer;
 
-	tracer = &shell->clist;
-	while (*tracer)
-	{
-		y = -1;
-		str = malloc(sizeof(char *) * ((*tracer)->n_args + 2));
-		i = (*tracer)->cmd_pos;
-		while (shell->tokens[i].type == CMD || shell->tokens[i].type == ARG)
-		{
-			str[++y] = shell->tokens[i].token;//added str dup because i had problem acces cmd[1]
-			i++;
-		}
-		str[++y] = NULL;
-		(*tracer)->cmd = str;
-		tracer = &(*tracer)->next;
-	}
+    tracer = &shell->clist;
+    while (*tracer)
+    {
+        y = -1;
+        str = malloc(sizeof(char *) * ((*tracer)->n_args + 2));
+        i = (*tracer)->cmd_pos;
+
+        // Check if i is within bounds
+        while (i < shell->num_tokens && (shell->tokens[i].type == CMD || shell->tokens[i].type == ARG))
+        {
+            // Check if shell->tokens[i].token is not NULL before accessing
+            if (shell->tokens[i].token != NULL)
+                str[++y] = ft_strdup(shell->tokens[i].token); // Use strdup to duplicate the string
+            i++;
+        }
+        str[++y] = NULL;
+        (*tracer)->cmd = str;
+        tracer = &(*tracer)->next;
+    }
 }
+
 
 void print_clist(t_shell *shell)
 {
@@ -122,7 +127,6 @@ void print_clist(t_shell *shell)
 
 int	parser(t_shell *shell)
 {
-	
 	shell->clist = NULL;
 	tokens_retype(shell);
 	clist_init(shell);
