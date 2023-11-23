@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/19 17:54:10 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:25:24 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_shell
 	t_tokens *tokens;
 	char *input_str;
 	int	tokens_flag;
+	int num_tokens;
 	t_clist *clist;
 	int		env_flag;
 	char **env;
@@ -93,7 +94,8 @@ typedef struct s_shell
 void ft_free_all(t_tokens *tokens, t_shell *shell);
 
 // tokenization/tokenization.c
-t_tokens *tokenization(char *input);
+t_tokens *tokenization(t_shell *shell, char *input);
+int 	count_quotes(char *input);
 
 // parser/checker.c
 void 	checker(t_shell *shell);
