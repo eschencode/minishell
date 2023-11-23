@@ -75,6 +75,15 @@ typedef struct s_executor
 	char *output_str;
 } t_executor;
 
+typedef struct s_pipedata{
+	int	pids[100];
+	int	pipes[200];
+	int	childs;
+	int	child;
+	int	fd_in;
+	int	fd_out;
+}	t_pipedata;
+
 typedef struct s_shell
 {
 	t_tokens *tokens;
@@ -84,6 +93,7 @@ typedef struct s_shell
 	t_clist *clist;
 	int		env_flag;
 	char **env;
+	char*	path;
 	int	n_pipes;
 	t_executor *exe;
 
@@ -111,12 +121,14 @@ int		parser(t_shell *shell);
 
 //executor
 int 	executor(t_shell *shell);
-bool check_if_builtin(t_shell *shell, t_clist *cmd);
+bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 
 //execute pipes
 int execute_pipes(t_shell *shell);
 int first_pipe(t_shell *shell, t_clist *cmd);
 int last_pipe(t_shell *shell, t_clist *cmd);
+int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
+int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);

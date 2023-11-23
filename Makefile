@@ -30,6 +30,7 @@ fclean: clean
 	$(MAKE) $@ -C ./libs/libft
 
 re: fclean all
+	./$(NAME)
 
 run: $(NAME)
 	./$(NAME)

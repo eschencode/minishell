@@ -69,7 +69,6 @@ void	minishell_loop()
 	char prompt[12] = "minishell$ ";
 	t_tokens *tokens;
 	t_shell shell;
-
 	int i = -1;
 	shell.tokens_flag = 0;
 	shell.env_flag = 0;
