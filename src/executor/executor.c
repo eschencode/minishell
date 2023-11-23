@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/19 17:53:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:20:22 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd)
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
 		return(print_env(shell->env));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
-		return(ft_echo(shell->clist->cmd[1]));
+		return(ft_echo(shell->clist, shell->clist->cmd));
 	return (false);
 }
 
@@ -78,4 +78,5 @@ int executor(t_shell *shell)
 		execute_externals(*shell);
 		return (0);
 	}
+	return (0);
 }
