@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 13:19:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:04:02 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,23 @@ bool    ft_echo(t_clist *c_node, char **cmd)
     }
     printf("\n");
     return (true);
+}
+
+char *env_get_val(t_shell *shell, char *var)
+{
+    int y;
+    int x;
+    int n;
+    
+    n = ft_strlen(var);
+    y = 0;
+    while (shell->env[y] && (ft_strncmp(var, shell->env[y], n) != 0))
+        y++;
+    if (shell->env[y] == NULL)
+        return (NULL);
+    x = 0;
+    while (shell->env[y][x] && shell->env[y][x] != '=')
+        x++;
+    x++;
+    return (shell->env[y] + x);
 }
