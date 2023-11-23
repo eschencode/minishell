@@ -12,101 +12,153 @@
 
 
 #include "../../include/minishell.h"
+
+
+int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
+{
+	int error_check;
+	//add here check for redirections later
+	error_check = ft_dup2(fd_in, fd_out);
+	if(!cmd->cmd[0])
+	{
+		error_check = -1;
+		return(error_check);
+	}
+	if(execve(cmd->cmd[0],cmd->cmd, shell->env) == -1)//
+	{
+		ft_error("exec error",*shell);
+		exit(EXIT_FAILURE);
+	}
+}
+
+
+/*check for built in or external set signals  */
+int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
+{
+	int ret;
+
+	printf("Executing pipe command: %s\n", cmd->cmd[0]);
+	printf("fd in %d\n",fd_in);
+	printf("fd out %d\n",fd_out);
+	check_if_builtin
+	execute_cmd(shell,cmd,fd_in,fd_out);
+
+
+}
+
+int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out)
+{
+	t_clist *ptr;
+	int i;
+
+	printf("Initializing pipe data\n");
+	i = 0;
+	ptr = shell->clist;
+	pipedata->child = 0;
+	pipedata->childs = 0;
+	pipedata->fd_in = fd_in;
+	pipedata->fd_out = fd_out;
+	ft_memset(pipedata->pids, 0 , 100);
+	ft_memset(pipedata->pipes, 0 , 200);
+	while(ptr)
+	{
+		pipedata->childs++;
+		ptr = ptr->next;
+	}
+	while(i < pipedata->childs - 1)
+	{
+		if(pipe(pipedata->pipes + 2 * i) == -1)
+			return(perror("pipe error"),errno);
+		i++;
+	}
+	return(0);
+}
+//closes all pipes exept the one u read from and gonna write to
+void	close_all_pipes(t_pipedata *pipedata, int chase_one, int chase_tow)
+{
+	int i;
+
+	i = 0;
+	while(i < (pipedata->childs - 1) * 2)
+	{
+		if(i != chase_one && i != chase_tow)
+			close(pipedata->pipes[i]);
+		i++;
+	}
+}
+
+int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
+{
+	int	fd_in;
+	int fd_out;
+	if(pipedata->child == 0)//is first command --> input stdin output pipe
+	{
+		fd_in = pipedata->fd_in;
+		fd_out = pipedata->pipes[1];
+		printf("1\n");
+	}
+	if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
+	{
+		fd_in = pipedata->pipes[2 * pipedata->child - 2];
+		fd_out = pipedata->fd_out;
+		printf("2\n");
+	}
+	else
+	{
+		fd_in = pipedata->pipes[2 * pipedata->child -2];//read end of previus cmd
+		fd_out = pipedata->pipes[2 * pipedata->child + 1];//out to writre end of next cmd
+	}
+	close_all_pipes(pipedata, 2 * pipedata->child + 1, 2 * pipedata->child - 2);//+1 == write to -2 read from
+	//now dup check built in or cmd 
+	
+	fd_in = execute_pipe_cmd(shell , cmd, fd_in, fd_out);
+}	
+
+
+
+int run_parent(t_pipedata *pipedata)
+{//waits for all child to finish
+	pid_t	pid;
+	int		child_status;
+	int		ret;
+	close_all_pipes(pipedata, -1, -1);
+	pipedata->child--;
+	ret = 1;
+	while(pipedata->child >= 0)
+	{
+		pid = waitpid(pipedata->pids[pipedata->child], &child_status,0);
+		if(pid == pipedata->pids[pipedata->childs -1])//last cmd set ret to return of last cmd
+		{
+			if((pipedata->child == (pipedata->childs -1 )) && WIFEXITED(child_status))
+				ret = WEXITSTATUS(child_status);
+		}
+		pipedata->child--;
+	}
+	return(ret);
+
+
+}
 /*have one function itterate over commands one 1.command one last one in between */
 int execute_pipes(t_shell *shell)
 {
-	t_clist **cmd;
-	cmd = &shell->clist;
+	t_clist *cmd;
+	t_pipedata	*pipedata;
 
-	printf("cmd= %s\n", (*cmd)->cmd[0]);
-	if(check_if_builtin(shell, *cmd) == false)
-		first_pipe(shell, *cmd);
-	cmd = &(*cmd)->next;
-	printf("in pipe :%s:\n", shell->exe->output_str);
-	shell->exe->current_cmd = 1;
-	printf("cmd= %s\n", (*cmd)->cmd[0]);
-	last_pipe(shell, *cmd);
-
-}
-
-int first_pipe(t_shell *shell, t_clist *cmd)
-{
-	pid_t pid;
-	int child_status;
-
-	if(pipe(shell->exe->pipe_fd) == -1)
+	pipedata = malloc(sizeof(t_pipedata));
+	init_pipe_data(shell, pipedata, 0,1);
+	cmd = shell->clist;
+	
+	while(cmd)
 	{
-		printf("pipe error");
-		exit(EXIT_FAILURE);
+		pipedata->pids[pipedata->child] = fork();
+		if(pipedata->pids[pipedata->child] == -1)
+			return(perror("fork error"), errno);
+		else if(pipedata->pids[pipedata->child] == 0)
+			run_child(shell,pipedata, cmd);
+		pipedata->child++;
+		cmd = cmd->next;
 	}
-	//close(shell.exe.pipe_fd[0]);
-	pid = fork();
-	if(pid == -1)
-	{
-		printf("fork error");
-		return (0);
-	}
-	if(pid == 0) //pid ==0 -> child procces
-	{
-		dup2(shell->exe->pipe_fd[1], STDOUT_FILENO);
-		close(shell->exe->pipe_fd[1]);//closeend of pipe
-		close(shell->exe->pipe_fd[0]);//closeend of pipe
-		//close(shell->exe.pipe_fd[1]);//close write end because output is allredy redirected
-		char *env[] = {NULL};
-		if(execve(cmd->cmd[0], cmd->cmd, env) == -1)//shell->clist->cmd[0]
-		{
-			printf("exec error");
-			//ft_error("exec error",shell);
-			//exit(EXIT_FAILURE);
-		}
-
-	}
-	else
-	{//erverthing frome here is executed in parent procces
-		if (waitpid(pid, &child_status, 0) == -1)// Wait for the child process to complete
-			ft_error("waitpid",*shell);
-		//close(shell->exe->pipe_fd[1]);
-		//shell->exe->output_len = read(shell->exe->pipe_fd[0],shell->exe->output_str,sizeof(shell->exe->output_str));
-		//shell->exe->output_str[shell->exe->output_len] = '\0';
-
-		//if(shell->exe->output_len == -1)
-		//	printf("read failed\n");
-		close(shell->exe->pipe_fd[0]);
-		close(shell->exe->pipe_fd[1]);//close read end of pipe
-	}
-}
-
-int last_pipe(t_shell *shell, t_clist *cmd)
-{
-	pid_t child_pid;
-	int child_status;
-
-	child_pid = fork();
-	printf("pid %d\n",child_pid);
-	if (child_pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (child_pid == 0)
-	{// This code is executed in the child process
-		dup2(shell->exe->pipe_fd[0], STDIN_FILENO);
-		close(shell->exe->pipe_fd[0]);//close read end of pipe
-		close(shell->exe->pipe_fd[1]);
-		char *args[] = {cmd->cmd[0],cmd->cmd,NULL};
-		char *env[] = {NULL};//*env  = envlist_to_array(shell.envlist);
-		if (execve(cmd->cmd[0],args,env) == -1)
-		{
-			ft_error("exec error",*shell);
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{// This code is executed in the parent process
-		close(shell->exe->pipe_fd[1]);
-		close(shell->exe->pipe_fd[0]);
-		if (waitpid(child_pid, &child_status, 0) == -1)// Wait for the child process to complete
-			ft_error("waitpid",*shell);
-	}
-	return 0;
+	run_parent(pipedata);
+	free(pipedata);
+	return(0);
 }

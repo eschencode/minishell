@@ -13,6 +13,29 @@
 
 #include "../../include/minishell.h"
 
+int	ft_dup2(int in, int out)
+{
+	int error_check;
+
+	error_check = dup2(in, STDIN_FILENO);
+	//if -1 close(in) + error
+	if(error_check == -1)
+	{
+		close(in);
+		return(perror("dup in"),errno);
+	}
+	error_check = dup2(out, STDOUT_FILENO);
+	//error check
+	if(error_check == -1)
+	{
+		close(out);
+		return(perror("dup out"),errno);
+	}
+	if(out != 1)//stdout --> should print on terminal
+		close(out);
+	return(0);
+}
+
 bool print_env(char **env_arry)
 {
 	int i = 0;
