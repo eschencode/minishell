@@ -40,8 +40,8 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	printf("Executing pipe command: %s\n", cmd->cmd[0]);
 	printf("fd in %d\n",fd_in);
 	printf("fd out %d\n",fd_out);
-	check_if_builtin
-	execute_cmd(shell,cmd,fd_in,fd_out);
+	if (check_if_builtin(shell, cmd, fd_in, fd_out) == false)
+		execute_cmd(shell,cmd,fd_in,fd_out);
 
 
 }

@@ -119,7 +119,7 @@ int		parser(t_shell *shell);
 
 //executor
 int 	executor(t_shell *shell);
-bool check_if_builtin(t_shell *shell, t_clist *cmd);
+bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 
 //execute pipes
 int execute_pipes(t_shell *shell);
