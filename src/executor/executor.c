@@ -28,7 +28,7 @@ int execute_externals(t_shell *shell)
 	{// This code is executed in the child process
 		// printf("cmd[0] = %s\n",shell->clist->cmd[0]);
 		int i = 0;
-		if (execve(shell->clist->cmd[0],shell->clist->cmd,shell->path ) == -1)//shell->env;
+		if (execve(shell->clist->cmd[0],shell->clist->cmd,shell->env ) == -1)//shell->env;
 		{
 			ft_error("exec error",*shell);
 			exit(EXIT_FAILURE);
@@ -45,12 +45,8 @@ int execute_externals(t_shell *shell)
 bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
 	char *test;
-	if(shell->n_pipes > 0)
-	{
-		ft_dup2(fd_in, fd_out);
-	}
-	if(strcmp(shell->tokens[0].token, "pwd") == 0)
-		return (pwd_builtin(*shell));
+	if(strcmp(cmd->cmd[0], "pwd") == 0)
+		return (pwd_builtin(cmd, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "cd") == 0)
 		return (cd(*shell));
 	if (strcmp(shell->clist->cmd[0], "export") == 0)

@@ -9,6 +9,7 @@
 /*   Updated: 2023/01/04 18:15:40 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
