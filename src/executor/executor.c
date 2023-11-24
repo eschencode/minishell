@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 15:47:54 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:02:35 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int execute_externals(t_shell *shell)
 	}
 	else if (child_pid == 0)
 	{// This code is executed in the child process
-		// printf("cmd[0] = %s\n",shell->clist->cmd[0]);
+		// printf("cmd[0] = %s\n",shell->env[0]);
 		int i = 0;
+
 		if (execve(shell->clist->cmd[0],shell->clist->cmd,shell->env ) == -1)//shell->env;
 		{
 			ft_error("exec error",*shell);
@@ -58,13 +59,7 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
 		return(print_env(shell->env));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
-		return(ft_echo(shell->clist, shell->clist->cmd));
-	if (strcmp(shell->clist->cmd[0], "getval") == 0)
-	{
-		test = env_get_val(shell, shell->clist->cmd[1]);
-		printf("value -> %s\n", test);
-		return(true);
-	}
+		return(ft_echo(shell->clist));
 	return (false);
 }
 

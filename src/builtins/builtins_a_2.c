@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 16:04:02 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:07:44 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_in_env(t_shell *shell, char *str)
 
 	while (shell->env[++y])
 	{
-		if (!strncmp(shell->env[y], str, n))
+		if (strncmp(shell->env[y], str, n) == 0)
 			return (1);
 	}
 	return (0);
@@ -58,13 +58,15 @@ bool ft_unset(t_shell *shell, char *cmd)
     return true;
 }
 
-bool    ft_echo(t_clist *c_node, char **cmd)
+bool    ft_echo(t_clist *c_node)
 {
     int y;
     int n;
+    char **cmd;
 
     y = 0;
     n = c_node->n_args;
+    cmd = c_node->cmd;
     while (cmd[++y])
     {
         printf("%s", cmd[y]);
@@ -93,4 +95,28 @@ char *env_get_val(t_shell *shell, char *var)
         x++;
     x++;
     return (shell->env[y] + x);
+}
+
+int env_get_id(t_shell *shell, char *var)
+{
+    int y;
+    int n;
+    
+    n = ft_strlen(var);
+    y = 0;
+    while (shell->env[y] && (ft_strncmp(var, shell->env[y], n) != 0))
+        y++;
+    return (y);
+}
+
+int get_val_offset(char *str)
+{
+    int x;
+
+    printf("str -> %s\n", str);
+    x = -1;
+    while (str[x] != '=')
+        x++;
+    x++;
+    return (x);
 }
