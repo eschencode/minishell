@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/23 16:55:00 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/24 12:08:02 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,7 @@ int		is_in_env(t_shell *shell, char *str);
 bool	ft_unset(t_shell *shell, char *cmd);
 bool    ft_echo(t_clist *c_node);
 char 	*env_get_val(t_shell *shell, char *var);
+int 	get_val_offset(char *str);
+int 	env_get_id(t_shell *shell, char *var);
 
 #endif
