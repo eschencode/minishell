@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 15:18:59 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:16:03 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,9 @@ void	free_env(t_shell *shell)
 	int	y;
 
 	y = -1;
-	if (shell->env_flag)
-	{
-		while (shell->env[++y])
-			free(shell->env[y]);
-		free(shell->env);
-	}
+	while (shell->env[++y])
+		free(shell->env[y]);
+	free(shell->env);
 }
 
 bool	ft_export(t_shell *shell, char **cmd)

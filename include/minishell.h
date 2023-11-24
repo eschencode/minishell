@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/24 12:08:02 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:19:12 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_shell
 	char **env;
 	char*	path;
 	int	n_pipes;
-	t_executor *exe;
 
 } t_shell;
 

@@ -23,29 +23,33 @@ void ft_free_tokens(t_tokens *tokens)
 	free(tokens);
 }
 
+void free_double_str(char **str)
+{
+	int y;
+	y = -1;
+	while (str[++y])
+		free(str[y]);
+	free(str);
+}
+
 void ft_free_clist(t_shell *shell)
 {
     int y;
-    t_clist **tracer;
+    t_clist *tracer;
     t_clist *old_node;
 
-    tracer = &shell->clist;
-
-    while (*tracer)
-    {
-        old_node = *tracer;
-
-        // Ensure that (*tracer)->cmd is properly allocated before freeing
-        free(old_node->cmd);
-
-        // Move to the next node before freeing the current one
-        tracer = &((*tracer)->next);
-
-        // Free the current node
-        free(old_node);
-    }
+	tracer = shell->clist;
+	while (tracer->next)
+	{
+		old_node = tracer;
+		tracer = tracer->next;
+		free_double_str(old_node->cmd);
+		free(old_node);
+	}
+	// free last element (skips while statement)
+	free_double_str(tracer->cmd);
+	free(tracer);
 }
-
 
 void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
@@ -65,14 +69,15 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 
 void env_init(t_shell *shell)
 {
-	char *path;
+	char *path_var;
+	char *str;
 
-	path = getenv("PATH");
-	shell->path = malloc(sizeof(char) * ft_strlen(path) + 5);
-	ft_strlcpy(shell->path, "PATH=", 5);
-	ft_strlcat(shell->path, path, ft_strlen(path));
+	path_var = getenv("PATH");
+	str = malloc(sizeof(char) * ft_strlen(path_var) + 5);
+	ft_strlcpy(str, "PATH=", 5);
+	ft_strlcat(str, path_var, ft_strlen(path_var));
 	shell->env = malloc(sizeof(char *) * 2);
-	shell->env[0] = shell->path;
+	shell->env[0] = str;
 	shell->env[1] = NULL;
 }
 

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 17:02:35 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:19:49 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int executor(t_shell *shell)
 {
 	t_clist **cmd;
 	cmd = &shell->clist;
-	shell->exe = malloc(sizeof(t_executor));
-	shell->exe->output_str = malloc(sizeof(char)* 100);
 	if(shell->n_pipes > 0)
 	{
 		execute_pipes(shell);
