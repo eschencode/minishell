@@ -135,9 +135,10 @@ int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);
 bool print_env(char **env_arry);
+int	ft_dup2(int in, int out);
 
 //builtins_l
-bool 	pwd_builtin(t_shell shell);
+bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out);
 int 	echo_l(t_shell shell);
 
 // builtins_a

@@ -24,6 +24,7 @@ int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		error_check = -1;
 		return(error_check);
 	}
+	//char *path = "PATH=/home/leschenb/bin:/home/leschenb/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin";
 	if(execve(cmd->cmd[0],cmd->cmd, shell->env) == -1)//
 	{
 		ft_error("exec error",*shell);
@@ -41,8 +42,9 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	printf("fd in %d\n",fd_in);
 	printf("fd out %d\n",fd_out);
 	if (check_if_builtin(shell, cmd, fd_in, fd_out) == false)
+	{
 		execute_cmd(shell,cmd,fd_in,fd_out);
-
+	}	
 
 }
 
@@ -95,13 +97,11 @@ int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
 	{
 		fd_in = pipedata->fd_in;
 		fd_out = pipedata->pipes[1];
-		printf("1\n");
 	}
 	if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
 	{
 		fd_in = pipedata->pipes[2 * pipedata->child - 2];
-		fd_out = pipedata->fd_out;
-		printf("2\n");
+		fd_out = pipedata->fd_out;;
 	}
 	else
 	{
@@ -109,8 +109,6 @@ int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
 		fd_out = pipedata->pipes[2 * pipedata->child + 1];//out to writre end of next cmd
 	}
 	close_all_pipes(pipedata, 2 * pipedata->child + 1, 2 * pipedata->child - 2);//+1 == write to -2 read from
-	//now dup check built in or cmd 
-	
 	fd_in = execute_pipe_cmd(shell , cmd, fd_in, fd_out);
 }	
 

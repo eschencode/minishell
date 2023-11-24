@@ -11,10 +11,12 @@ bool cd(t_shell shell)
 		return(true);
 }
 
-bool pwd_builtin(t_shell shell)
+bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out)
 {
-	if(strcmp(&shell.tokens->token[0], "pwd") == 0)
+	
+	if(strcmp(cmd->cmd[0], "pwd") == 0)
 	{
+		ft_dup2(fd_in, fd_out);
 				char cwd[1024];
 				if (getcwd(cwd, sizeof(cwd)) != NULL)
 					printf("%s\n", cwd);

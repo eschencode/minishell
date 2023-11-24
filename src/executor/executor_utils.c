@@ -18,14 +18,13 @@ int	ft_dup2(int in, int out)
 	int error_check;
 
 	error_check = dup2(in, STDIN_FILENO);
-	//if -1 close(in) + error
 	if(error_check == -1)
 	{
 		close(in);
+		fprintf(stderr, "Error duplicating input: %s\n", strerror(errno));
 		return(perror("dup in"),errno);
 	}
 	error_check = dup2(out, STDOUT_FILENO);
-	//error check
 	if(error_check == -1)
 	{
 		close(out);
