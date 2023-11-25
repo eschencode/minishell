@@ -101,6 +101,7 @@ typedef struct s_shell
 
 //minishell.c
 void ft_free_all(t_tokens *tokens, t_shell *shell);
+void free_double_str(char **str);
 
 
 // tokenization/tokenization.c
