@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/25 14:01:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:06:31 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);
-bool print_env(char **env_arry);
+bool print_env(char **env_arry, int fd_in, int fd_out);
 int	ft_dup2(int in, int out);
 
 //builtins_l
@@ -149,7 +149,7 @@ void	free_env(t_shell *shell);
 // builtins_a_2
 int		is_in_env(t_shell *shell, char *str);
 bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out);
-bool    ft_echo(t_clist *c_node);
+bool    ft_echo(t_clist *c_node, int fd_in, int fd_out);
 char 	*env_get_val(t_shell *shell, char *var);
 int 	get_val_offset(char *str);
 int 	env_get_id(t_shell *shell, char *var);

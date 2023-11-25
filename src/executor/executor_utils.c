@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/16 17:47:21 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:05:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int	ft_dup2(int in, int out)
 	return(0);
 }
 
-bool print_env(char **env_arry)
+bool print_env(char **env_arry, int fd_in, int fd_out)
 {
+	ft_dup2(fd_in, fd_out);
 	int i = 0;
 	while(env_arry[i])
 	{
