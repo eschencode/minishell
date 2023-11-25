@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/24 14:19:12 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:01:34 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_shell
 //minishell.c
 void ft_free_all(t_tokens *tokens, t_shell *shell);
 
+
 // tokenization/tokenization.c
 t_tokens *tokenization(t_shell *shell, char *input);
 int 	count_quotes(char *input);
@@ -141,13 +142,13 @@ bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out);
 int 	echo_l(t_shell shell);
 
 // builtins_a
-bool 	clearwindow(void);
-bool 	ft_export(t_shell *shell, char **cmd);
+bool 	clearwindow(int fd_in, int fd_out);
+bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out);
 void	free_env(t_shell *shell);
 
 // builtins_a_2
 int		is_in_env(t_shell *shell, char *str);
-bool	ft_unset(t_shell *shell, char *cmd);
+bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out);
 bool    ft_echo(t_clist *c_node);
 char 	*env_get_val(t_shell *shell, char *var);
 int 	get_val_offset(char *str);

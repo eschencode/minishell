@@ -6,14 +6,15 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/24 14:16:03 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:00:55 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	clearwindow(void)
+bool	clearwindow(int fd_in, int fd_out)
 {
+	ft_dup2(fd_in, fd_out);
 	printf("\033[H\033[J");
 	return (true);
 }
@@ -50,11 +51,12 @@ void	free_env(t_shell *shell)
 	free(shell->env);
 }
 
-bool	ft_export(t_shell *shell, char **cmd)
+bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 {
 	char	**env;
 	int		old_len;
 
+	ft_dup2(fd_in, fd_out);
 	if (is_in_env(shell, cmd[1]))
 	{
 		printf("found matching in env\n");
