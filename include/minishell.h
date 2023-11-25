@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/24 14:19:12 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 11:01:17 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_shell
 
 //minishell.c
 void ft_free_all(t_tokens *tokens, t_shell *shell);
+void free_double_str(char **str);
 
 // tokenization/tokenization.c
 t_tokens *tokenization(t_shell *shell, char *input);
