@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/24 14:13:44 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:06:54 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ int	is_in_env(t_shell *shell, char *str)
 	return (0);
 }
 
-bool ft_unset(t_shell *shell, char *cmd)
+bool ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
 {
     int x;
     int y;
 
+    ft_dup2(fd_in, fd_out);
     y = 0;
     while (shell->env[y])
         y++;
@@ -58,12 +59,13 @@ bool ft_unset(t_shell *shell, char *cmd)
     return true;
 }
 
-bool    ft_echo(t_clist *c_node)
+bool    ft_echo(t_clist *c_node, int fd_in, int fd_out)
 {
     int y;
     int n;
     char **cmd;
 
+    ft_dup2(fd_in, fd_out);
     y = 0;
     n = c_node->n_args;
     cmd = c_node->cmd;

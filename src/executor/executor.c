@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/24 14:19:49 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:06:09 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	if (strcmp(shell->clist->cmd[0], "cd") == 0)
 		return (cd(*shell));
 	if (strcmp(shell->clist->cmd[0], "export") == 0)
-		return ((ft_export(shell, shell->clist->cmd)));
+		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
 	if(strcmp(shell->clist->cmd[0], "clear") == 0)
-		return (clearwindow());
+		return (clearwindow(fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "unset") == 0)
-		return (ft_unset(shell, shell->clist->cmd[1]));
+		return (ft_unset(shell, shell->clist->cmd[1], fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
-		return(print_env(shell->env));
+		return(print_env(shell->env, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
-		return(ft_echo(shell->clist));
+		return(ft_echo(shell->clist, fd_in, fd_out));
 	return (false);
 }
 

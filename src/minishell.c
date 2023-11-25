@@ -1,7 +1,5 @@
 #include "../include/minishell.h"
 
-#define clearwindow() printf("\033[H\033[J")
-
 void print_tokens(t_tokens *tokens)
 {
 	int i = 0;
