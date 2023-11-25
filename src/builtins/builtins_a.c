@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/24 14:16:03 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/25 10:50:20 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,34 @@ void	free_env(t_shell *shell)
 	free(shell->env);
 }
 
+int		export_syntax_check(char **str)
+{
+	int x;
+	int count;
+
+	if (ft_strchr(str[1], '=') == NULL)
+		return (1);
+	x = -1;
+	count = 0;
+	while (str[1][++x])
+	{
+		if (str[1][x] == '=')
+			count++;
+	}
+	if (count != 1)
+		return (1);
+	if (ft_strlen(str[1]) >= 3)
+		return (0);
+	return (1);
+}
+
 bool	ft_export(t_shell *shell, char **cmd)
 {
 	char	**env;
 	int		old_len;
-
+	
+	if (export_syntax_check(cmd))
+		return (true);
 	if (is_in_env(shell, cmd[1]))
 	{
 		printf("found matching in env\n");
