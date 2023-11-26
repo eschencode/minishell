@@ -66,17 +66,19 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 }
 
 void env_init(t_shell *shell)
-{
-	char *path_var;
-	char *str;
+{	
+	int y;
+	int len;
+	extern char **__environ;
 
-	path_var = getenv("PATH");
-	str = malloc(sizeof(char) * ft_strlen(path_var) + 5);
-	ft_strlcpy(str, "PATH=", 5);
-	ft_strlcat(str, path_var, ft_strlen(path_var));
-	shell->env = malloc(sizeof(char *) * 2);
-	shell->env[0] = str;
-	shell->env[1] = NULL;
+	len = 0;
+	while (__environ[len])
+		len++;
+	shell->env = malloc(sizeof(char *) * (len + 1));
+	y = -1;
+	while (__environ[++y])
+		shell->env[y] = ft_strdup(__environ[y]);
+	shell->env[y] = NULL;
 }
 
 void	minishell_loop()
