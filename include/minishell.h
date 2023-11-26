@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/25 14:06:31 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:43:55 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 void ft_error(char *errmsg, t_shell shell);
 bool print_env(char **env_arry, int fd_in, int fd_out);
 int	ft_dup2(int in, int out);
+char *exe_path(t_shell *shell, char *exe);
 
 //builtins_l
 bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out);

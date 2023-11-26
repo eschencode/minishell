@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:06:47 by leschenb          #+#    #+#             */
-/*   Updated: 2023/10/27 12:40:30 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:48:08 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_tolower(int c);
 
 int				ft_toupper(int c);
+
+size_t			ft_strcat(char *dest, const char *src);
 
 char	*get_next_line(int fd);
 char	*ft_new_left_str(char *left_str);
