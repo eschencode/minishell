@@ -81,6 +81,27 @@ void env_init(t_shell *shell)
 	shell->env[y] = NULL;
 }
 
+int eval_exit_loop(t_shell *shell, t_tokens *tokens)
+{
+	if (ft_strcmp(shell->input_str, "exit") == 0 || ft_strcmp(shell->input_str, "q") == 0)
+	{
+		ft_free_all(tokens, shell);
+		return (1);
+	}
+	return (0);
+}
+
+int eval_input_error(t_shell *shell)
+{
+	if (shell->input_str == NULL || shell->input_str[0] == '\0' \
+	|| count_quotes(shell->input_str) % 2 != 0)
+	{
+		free(shell->input_str);
+		return (1);
+	}
+	return (0);
+}
+
 void	minishell_loop()
 {
 	char prompt[12] = "minishell$ ";
@@ -95,29 +116,9 @@ void	minishell_loop()
 	{
 		shell.input_str = readline(prompt);
 		cd(shell);
-
-		if (shell.input_str == NULL || shell.input_str[0] == '\0')
-		{
-			printf("empty input\n");
-			free(shell.input_str);
-		}
-		//exit
-		else if (strcmp(shell.input_str, "exit") == 0)
-		{
-			ft_free_all(tokens, &shell);
+		if (eval_exit_loop(&shell, tokens))
 			return ;
-		}
-		else if (strcmp(shell.input_str, "q") == 0)
-		{
-			ft_free_all(tokens, &shell);
-			return ;
-		}
-		else if (count_quotes(shell.input_str) % 2 != 0)
-		{
-			printf("quotes # wrong\n");
-			free(shell.input_str);
-		}
-		else
+		if (eval_input_error(&shell) == 0)
 		{
 			if (shell.tokens_flag)
 				ft_free_tokens(tokens);
