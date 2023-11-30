@@ -83,7 +83,8 @@ void env_init(t_shell *shell)
 
 int eval_exit_loop(t_shell *shell, t_tokens *tokens)
 {
-	if (ft_strcmp(shell->input_str, "exit") == 0 || ft_strcmp(shell->input_str, "q") == 0)
+	if (ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) == 0 || \
+	ft_strncmp(shell->input_str, "q", ft_strlen("q")) == 0)
 	{
 		ft_free_all(tokens, shell);
 		return (1);
