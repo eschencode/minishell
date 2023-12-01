@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/25 14:00:55 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/01 09:49:18 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,38 @@ int		export_syntax_check(char **str)
 	return (1);
 }
 
+int env_find_row(t_shell *shell, char *str)
+{
+		int n;
+    int x;
+	int y;
+
+	y = -1;
+	n = 0;
+	while (str[n] && str[n] != '=')
+		n++;
+	while (shell->env[++y])
+	{
+		if (ft_strncmp(shell->env[y], str, n) == 0)
+		{
+            x = 0;
+            while (shell->env[y][x] && shell->env[y][x] != '=')
+                x++;
+            if (n == x)
+                return (y);
+        }
+	}
+	return (-1);
+}
+
+bool	export_reassign(t_shell *shell, char *str)
+{
+	int y;
+
+	y = env_find_row(shell, str);
+	
+}
+
 bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 {
 	char	**env;
@@ -81,11 +113,8 @@ bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 	if (export_syntax_check(cmd))
 		return (true);
 	if (is_in_env(shell, cmd[1]))
-	{
-		printf("found matching in env\n");
-		return (true);
-	}
-	
+		return(export_reassign(shell, cmd[1]));
+
 	old_len = count_str_arr(shell->env);
 	env = malloc(sizeof(char *) * (old_len + 1 + 1));
 	str_arr_cpy(env, shell->env);
