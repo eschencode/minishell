@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/25 14:06:54 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/01 09:07:48 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 int	is_in_env(t_shell *shell, char *str)
 {
 	int n;
+    int x;
 	int y;
 
 	y = -1;
 	n = 0;
 	while (str[n] && str[n] != '=')
 		n++;
-
 	while (shell->env[++y])
 	{
-		if (strncmp(shell->env[y], str, n) == 0)
-			return (1);
+		if (ft_strncmp(shell->env[y], str, n) == 0)
+		{
+            x = 0;
+            while (shell->env[y][x] && shell->env[y][x] != '=')
+                x++;
+            if (n == x)
+                return (1);
+        }
 	}
 	return (0);
 }
