@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/01 09:49:18 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/01 09:55:24 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ bool	export_reassign(t_shell *shell, char *str)
 	int y;
 
 	y = env_find_row(shell, str);
-	
+	free(shell->env[y]);
+	shell->env[y] = ft_strdup(str);
+	return (true);
 }
 
 bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
