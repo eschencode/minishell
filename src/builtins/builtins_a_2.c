@@ -71,7 +71,7 @@ bool    ft_echo(t_clist *c_node, int fd_in, int fd_out)
     int n;
     char **cmd;
 
-    ft_dup2(fd_in, fd_out);
+   ft_dup2(fd_in, fd_out);
     y = 0;
     n = c_node->n_args;
     cmd = c_node->cmd;
