@@ -66,7 +66,9 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
+	char *path;
 	t_clist **cmd;
+
 	cmd = &shell->clist;
 	if(shell->n_pipes > 0)
 	{
@@ -75,6 +77,12 @@ int executor(t_shell *shell)
 	}
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
+		path = exe_path(shell, shell->clist->cmd[0]);
+		if(path != NULL)
+		{
+			///printf("path = %s\n",path);
+			shell->clist->cmd[0] = path;
+		}
 		execute_externals(shell);
 		return (0);
 	}
