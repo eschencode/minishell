@@ -64,7 +64,7 @@ bool ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
 
     return true;
 }
-
+/*problem executing in pipe :()*/
 bool    ft_echo(t_clist *c_node, int fd_in, int fd_out)
 {
     int y;
