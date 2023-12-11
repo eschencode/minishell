@@ -24,15 +24,4 @@ bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out)
 	return (true);
 }
 
-int echo_l(t_shell shell)
-{
-	int i = 0;
-	if(strcmp(&shell.tokens->token[0], "echo") == 0)
-	{
-		while(&shell.tokens->token[i])
-			printf("%s",&shell.tokens->token[++i]);
-	}
-	return(0);
-}
-
 

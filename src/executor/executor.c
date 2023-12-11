@@ -13,6 +13,7 @@
 
 #include "../../include/minishell.h"
 
+
 int execute_externals(t_shell *shell)
 {
 	pid_t child_pid;
@@ -28,7 +29,6 @@ int execute_externals(t_shell *shell)
 	{// This code is executed in the child process
 		// printf("cmd[0] = %s\n",shell->env[0]);
 		int i = 0;
-
 		if (execve(shell->clist->cmd[0],shell->clist->cmd,shell->env ) == -1)//shell->env;
 		{
 			ft_error("exec error",*shell);
@@ -80,16 +80,17 @@ int executor(t_shell *shell)
 		execute_pipes(shell);
 		return(0);
 	}
+	else{
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
 		path = exe_path(shell, shell->clist->cmd[0]);
 		if(path != NULL)
 		{
-			///printf("path = %s\n",path);
 			shell->clist->cmd[0] = path;
 		}
 		execute_externals(shell);
 		return (0);
+	}
 	}
 	return (0);
 }

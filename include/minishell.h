@@ -126,6 +126,9 @@ void 	print_clist(t_shell *shell);
 int 	executor(t_shell *shell);
 bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 
+//executor bulitin
+int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out);
+
 //execute pipes
 int execute_pipes(t_shell *shell);
 int first_pipe(t_shell *shell, t_clist *cmd);
