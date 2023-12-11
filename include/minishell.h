@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/26 17:43:55 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:56:55 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,8 @@ bool    ft_echo(t_clist *c_node, int fd_in, int fd_out);
 char 	*env_get_val(t_shell *shell, char *var);
 int 	get_val_offset(char *str);
 int 	env_get_id(t_shell *shell, char *var);
+
+// builtins_a_3
+bool	ft_heredoc(t_shell *shell, t_clist *cmd);
 
 #endif
