@@ -64,14 +64,14 @@ bool ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
 
     return true;
 }
-
+/*problem executing in pipe :()*/
 bool    ft_echo(t_clist *c_node, int fd_in, int fd_out)
 {
     int y;
     int n;
     char **cmd;
 
-    ft_dup2(fd_in, fd_out);
+   ft_dup2(fd_in, fd_out);
     y = 0;
     n = c_node->n_args;
     cmd = c_node->cmd;
