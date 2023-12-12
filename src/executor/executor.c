@@ -27,10 +27,9 @@ int execute_externals(t_shell *shell)
 	}
 	else if (child_pid == 0)
 	{// This code is executed in the child process
-		// printf("cmd[0] = %s\n",shell->env[0]);
-		int i = 0;
 		if (execve(shell->clist->cmd[0],shell->clist->cmd,shell->env ) == -1)//shell->env;
 		{
+			printf("command not found: %s\n",shell->clist->cmd[0]);
 			ft_error("exec error",*shell);
 			exit(EXIT_FAILURE);
 		}
@@ -52,19 +51,19 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		return (cd(*shell));
 	if (strcmp(shell->clist->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
-	if(strcmp(shell->clist->cmd[0], "clear") == 0)
+	if(strcmp(cmd->cmd[0], "clear") == 0)
 		return (clearwindow(fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "unset") == 0)
 		return (ft_unset(shell, shell->clist->cmd[1], fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
 		return(print_env(shell->env, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
+
 		return(ft_echo(shell->clist, fd_in, fd_out));
 	printf("debug -> %s\n", shell->clist->cmd[1]);
 	print_clist(shell);
 	if (ft_strncmp(shell->clist->cmd[1], "<<", 2) == 0)
  		return (ft_heredoc(shell, cmd));
-
 	return (false);
 }
 
@@ -80,17 +79,17 @@ int executor(t_shell *shell)
 		execute_pipes(shell);
 		return(0);
 	}
-	else{
-	if(check_if_builtin(shell, *cmd, 0, 1) == false)
+	else
 	{
-		path = exe_path(shell, shell->clist->cmd[0]);
-		if(path != NULL)
+		if(check_if_builtin(shell, *cmd, 0, 1) == false)
 		{
-			shell->clist->cmd[0] = path;
+			path = exe_path(shell, shell->clist->cmd[0]);
+			if(path != NULL)
+			{
+				shell->clist->cmd[0] = path;
+			}
+			execute_externals(shell);
 		}
-		execute_externals(shell);
-		return (0);
-	}
 	}
 	return (0);
 }
