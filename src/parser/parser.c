@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/23 16:47:13 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:34:28 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void tokens_retype(t_shell *shell)
 			else if (shell->tokens[i - 1].type == ARG)
 				shell->tokens[i].type = ARG;
 		}
+		if (shell->tokens[i].type == LEFT_LEFT)
+			shell->tokens[i].type = ARG;
 	}
 }
 
@@ -69,6 +71,8 @@ void clist_init(t_shell *shell)
 	// created nodes for each CMD and adds Command str pointer to each node
 	while (shell->tokens[++i].token)
 	{
+		printf("id %d -> %s\n", i, shell->tokens[i].token);
+		printf("%d\n", shell->tokens[i].type);
 		if (shell->tokens[i].type == CMD)
 		{
 			node = new_node(shell);

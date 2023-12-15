@@ -7,11 +7,11 @@ TokenType is_type(const char *token)
 	{
 		if(token[i] == '|')
 			return(PIPE);
-		if(token[i] == '<' && token[i +1] == '<')
+		if(token[i] == '<' && token[i + 1] == '<')
 			return(LEFT_LEFT);
 		else if(token[i] == '<')
 			return(LEFT);
-		if(token[i] == '>' && token[i+1] == '>')
+		if(token[i] == '>' && token[i + 1] == '>')
 			return(RIGHT_RIGHT);
 		else if(token[i] == '>')
 			return(RIGHT);

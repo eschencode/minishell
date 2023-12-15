@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/11 16:23:53 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:17:20 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
 		return(print_env(shell->env, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
-
 		return(ft_echo(shell->clist, fd_in, fd_out));
-	printf("debug -> %s\n", shell->clist->cmd[1]);
 	print_clist(shell);
 	if (ft_strncmp(shell->clist->cmd[1], "<<", 2) == 0)
  		return (ft_heredoc(shell, cmd));
