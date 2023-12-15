@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/15 14:07:24 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:28:05 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ bool	ft_heredoc(t_shell *shell, t_clist *cmd)
 			write(heredoc_fd, heredoc_input, ft_strlen(heredoc_input));
 			write(heredoc_fd, "\n", 1);
 		}
+		free(heredoc_input);
 	}
-	ft_strlcpy(cmd->cmd[1], "heredoc.txt", 11);
-
+	
+	free(cmd->cmd[1]);
+	cmd->cmd[1] = ft_strdup("heredoc.txt");
+	free(heredoc_key);
 	return (false);
 }
