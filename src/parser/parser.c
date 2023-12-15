@@ -131,6 +131,6 @@ int	parser(t_shell *shell)
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	// print_clist(shell);
+	//print_clist(shell);
 	return (0);
 }

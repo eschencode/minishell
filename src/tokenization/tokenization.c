@@ -44,7 +44,6 @@ t_tokens *tokenization(t_shell *shell, char *input)
 
 	num_tokens = 0;
 	i = 0;
-
 	split_input = ft_split(input, ' ');
 	free(input);
 	if(split_input)
@@ -53,7 +52,6 @@ t_tokens *tokenization(t_shell *shell, char *input)
 			num_tokens++;
 	}
 	shell->num_tokens = num_tokens;
-
 	tokens = malloc((num_tokens + 1) * sizeof(t_tokens));
 	while(i < num_tokens)
 	{
