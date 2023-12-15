@@ -105,7 +105,7 @@ int eval_input_error(t_shell *shell)
 
 void	minishell_loop()
 {
-	char prompt[12] = "minishell$ ";
+	char prompt[12] = "msh$ ";
 	t_tokens *tokens;
 	t_shell shell;
 	shell.tokens_flag = 0;
