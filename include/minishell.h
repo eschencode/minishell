@@ -134,7 +134,7 @@ int execute_pipes(t_shell *shell);
 int first_pipe(t_shell *shell, t_clist *cmd);
 int last_pipe(t_shell *shell, t_clist *cmd);
 int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
-int execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
+int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out);
 
 //executor_utils.
 void ft_error(char *errmsg, t_shell shell);
