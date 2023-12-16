@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/12/16 14:09:20 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/16 15:42:59 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,8 @@ bool	ft_heredoc(t_shell *shell, t_clist *cmd);
 
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
+
+
+void print_tokens(t_tokens *tokens);
 
 #endif
