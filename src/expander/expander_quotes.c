@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/16 15:14:20 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/16 15:25:08 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char *ft_realloc(char *str, int size)
 	old_size = ft_strlen(str);
 	new_str = malloc(sizeof(char) * (old_size + size + 1));
 	ft_strlcpy(new_str, str, old_size);
+	printf("reallocated -> %s\n", new_str);
 	free(str);
 	return (new_str);
 }
@@ -41,10 +42,10 @@ void	expander_quotes(t_shell *shell)
 			first_string = token_str;
 			shell->tokens[i].type = WORD;
 		}
-		if (first_string != NULL)
+		else if (first_string != NULL)
 		{
-			first_string = ft_realloc(first_string, ft_strlen(token_str));
-			ft_strcat(first_string, token_str);
+			first_string = ft_realloc(first_string, (ft_strlen(token_str) + 1));
+			strcat(first_string, token_str);
 			if (ft_strchr(token_str, '\"') != NULL)
 				first_string == NULL;
 		}
