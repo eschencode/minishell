@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/15 12:52:52 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/16 14:43:43 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void tokens_retype(t_shell *shell)
 		}
 		if (shell->tokens[i].type == LEFT_LEFT)
 			shell->tokens[i].type = ARG;
+			
 	}
 }
 
@@ -121,7 +122,12 @@ void print_clist(t_shell *shell)
 		y = -1;
 		printf("command ->");
 		while ((*tracer)->cmd[++y])
-			printf(" %s", (*tracer)->cmd[y]);
+		{
+			if (y == 0)
+				printf(" %s", (*tracer)->cmd[y]);
+			else
+				printf(" arg:%s", (*tracer)->cmd[y]);
+		}
 		tracer = &(*tracer)->next;
 		printf("\n");
 	}
@@ -130,9 +136,10 @@ void print_clist(t_shell *shell)
 int	parser(t_shell *shell)
 {
 	shell->clist = NULL;
+	expander_quotes(shell);
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);
-	// print_clist(shell);
+	print_clist(shell);
 	return (0);
 }
