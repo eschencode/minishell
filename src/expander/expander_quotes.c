@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/16 15:44:30 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:04:22 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	expander_quotes(t_shell *shell)
 	int i;
 	char *first_string;
 	char *token_str;
+	char *new_str;
 
 	i = -1;
 	first_string = NULL;
@@ -42,7 +43,8 @@ void	expander_quotes(t_shell *shell)
 		}
 		else if (first_string != NULL)
 		{
-			first_string = ft_realloc(first_string, (ft_strlen(token_str) + 1));
+			new_str = ft_realloc(first_string, (ft_strlen(token_str) + 1));
+			ft_strlcpy(first_string, new_str, ft_strlen(new_str));
 			strcat(first_string, " ");
 			strcat(first_string, token_str);
 			if (ft_strchr(token_str, '\"') != NULL)
