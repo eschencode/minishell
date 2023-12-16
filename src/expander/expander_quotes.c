@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/16 17:04:22 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:23:50 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,31 @@ char *ft_realloc(char *str, int size)
 	ft_strlcpy(new_str, str, old_size);
 	free(str);
 	return (new_str);
+}
+
+void shift_tokens_up(t_shell *shell, int index, int size) {
+    
+	int i;
+
+	i = index;
+	free(shell->tokens[index].token);
+
+    while (i < size - 1) {
+        shell->tokens[i].token = shell->tokens[i + 1].token;
+		i++;
+    }
+
+    shell->tokens[size - 1].token = NULL;
+}
+
+int		get_tokens_len(t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (shell->tokens[i].token)
+		i++;
+	return (i);
 }
 
 void	expander_quotes(t_shell *shell)
@@ -49,8 +74,7 @@ void	expander_quotes(t_shell *shell)
 			strcat(first_string, token_str);
 			if (ft_strchr(token_str, '\"') != NULL)
 				first_string == NULL;
-			free(token_str);
-			token_str = NULL;
+			shift_tokens_up(shell, i, get_tokens_len(shell));
 		}
 	}
 	printf("firsstr-> %s\n", first_string);
