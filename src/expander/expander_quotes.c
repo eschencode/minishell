@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/17 13:56:45 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/17 14:13:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	expander_quotes(t_shell *shell)
 	{
 		token_str = shell->tokens[i].token;
 		printf("reading chr->%s\n", token_str);
-		if (first_flag == 0 && ft_strchr(token_str, '\"') != NULL)
+		if (first_flag == 0 && (ft_strchr(token_str, '\"') != NULL))
 		{
 			first_string = token_str;
 			first_i = i;
@@ -80,9 +80,10 @@ void	expander_quotes(t_shell *shell)
 			printf("copying -> %s\n", token_str);
 			strcat(new_str, token_str);
 			printf("created -> %s\n", new_str);
+			free(shell->tokens[first_i].token);
 			shell->tokens[first_i].token = new_str;
 			first_string = shell->tokens[first_i].token;
-			if (ft_strchr(token_str, '\"') != NULL)
+			if ((ft_strchr(token_str, '\"') != NULL))
 				first_flag = 0;
 			shift_tokens_up(shell, i, get_tokens_len(shell));
 			i--;
