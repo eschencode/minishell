@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/17 13:19:36 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/17 13:56:45 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void shift_tokens_up(t_shell *shell, int index, int size) {
 	int i;
 
 	i = index;
-	printf("freeing at index->%d\n", index);
 	free(shell->tokens[index].token);
 
     while (i < size) {
@@ -47,13 +46,13 @@ int		get_tokens_len(t_shell *shell)
 	i = 0;
 	while (shell->tokens[i].token)
 		i++;
-	printf("arr len -> %d\n", i);
 	return (i);
 }
 
 void	expander_quotes(t_shell *shell)
 {
 	int i;
+	int first_i;
 	int first_flag;
 	char *first_string;
 	char *token_str;
@@ -69,11 +68,20 @@ void	expander_quotes(t_shell *shell)
 		if (first_flag == 0 && ft_strchr(token_str, '\"') != NULL)
 		{
 			first_string = token_str;
+			first_i = i;
 			shell->tokens[i].type = WORD;
 			first_flag = 1;
 		}
 		else if (first_flag == 1)
 		{
+			new_str = malloc(sizeof(char) * (ft_strlen(first_string) + ft_strlen(token_str) + 2));
+			strcpy(new_str, first_string);
+			strcat(new_str, " ");
+			printf("copying -> %s\n", token_str);
+			strcat(new_str, token_str);
+			printf("created -> %s\n", new_str);
+			shell->tokens[first_i].token = new_str;
+			first_string = shell->tokens[first_i].token;
 			if (ft_strchr(token_str, '\"') != NULL)
 				first_flag = 0;
 			shift_tokens_up(shell, i, get_tokens_len(shell));
