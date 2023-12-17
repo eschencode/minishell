@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/17 14:13:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2023/12/17 15:49:41 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,46 @@ int		get_tokens_len(t_shell *shell)
 	return (i);
 }
 
+void	expander_single_quotes(t_shell *shell)
+{
+	int i;
+	int first_i;
+	int first_flag;
+	char *first_string;
+	char *token_str;
+	char *new_str;
+
+	i = -1;
+	first_flag = 0;
+	first_string = NULL;
+	while (shell->tokens[++i].token)
+	{
+		token_str = shell->tokens[i].token;
+		if (first_flag == 0 && (ft_strchr(token_str, '\'') != NULL))
+		{
+			first_string = token_str;
+			first_i = i;
+			shell->tokens[i].type = WORD;
+			first_flag = 1;
+		}
+		else if (first_flag == 1)
+		{
+			new_str = malloc(sizeof(char) * (ft_strlen(first_string) + ft_strlen(token_str) + 2));
+			strcpy(new_str, first_string);
+			strcat(new_str, " ");
+			strcat(new_str, token_str);
+			free(shell->tokens[first_i].token);
+			shell->tokens[first_i].token = new_str;
+			first_string = shell->tokens[first_i].token;
+			if ((ft_strchr(token_str, '\'') != NULL))
+				first_flag = 0;
+			shift_tokens_up(shell, i, get_tokens_len(shell));
+			i--;
+		}
+	}
+}
+
+
 void	expander_quotes(t_shell *shell)
 {
 	int i;
@@ -64,7 +104,6 @@ void	expander_quotes(t_shell *shell)
 	while (shell->tokens[++i].token)
 	{
 		token_str = shell->tokens[i].token;
-		printf("reading chr->%s\n", token_str);
 		if (first_flag == 0 && (ft_strchr(token_str, '\"') != NULL))
 		{
 			first_string = token_str;
@@ -77,9 +116,7 @@ void	expander_quotes(t_shell *shell)
 			new_str = malloc(sizeof(char) * (ft_strlen(first_string) + ft_strlen(token_str) + 2));
 			strcpy(new_str, first_string);
 			strcat(new_str, " ");
-			printf("copying -> %s\n", token_str);
 			strcat(new_str, token_str);
-			printf("created -> %s\n", new_str);
 			free(shell->tokens[first_i].token);
 			shell->tokens[first_i].token = new_str;
 			first_string = shell->tokens[first_i].token;
@@ -89,4 +126,5 @@ void	expander_quotes(t_shell *shell)
 			i--;
 		}
 	}
+	expander_single_quotes(shell);
 }
