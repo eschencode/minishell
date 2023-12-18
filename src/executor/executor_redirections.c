@@ -55,8 +55,3 @@ bool check_for_redirections(t_shell *shell, t_clist *cmd)
 		}
 	return(false);
 }
-
-int redirect(t_shell shell)
-{
-	
-}
