@@ -67,6 +67,7 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
+	int fd;
 	char *path;
 	t_clist **cmd;
 
@@ -78,9 +79,11 @@ int executor(t_shell *shell)
 	}
 	else
 	{
+		int stdin_backup = dup(STDIN_FILENO);
+		int stdout_backup = dup(STDOUT_FILENO);
+		fd = check_for_redirections(shell,*cmd);
 		if(check_if_builtin(shell, *cmd, 0, 1) == false)
 		{
-			check_for_redirections(shell,*cmd);
 			path = exe_path(shell, shell->clist->cmd[0]);
 			if(path != NULL)
 			{
@@ -88,6 +91,10 @@ int executor(t_shell *shell)
 			}
 			execute_externals(shell);
 		}
+			dup2(stdin_backup, STDIN_FILENO);
+			dup2(stdout_backup, STDOUT_FILENO);
+			close(stdin_backup);
+			close(stdout_backup);
 	}
 	return (0);
 }
