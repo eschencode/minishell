@@ -19,6 +19,10 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
 	//add here check for redirections later
+	if(check_for_redirections(shell,cmd) == true)
+	{
+		printf("REDIRECTIONS ;()");
+	}
 	error_check = ft_dup2(fd_in, fd_out);
 	if(!cmd->cmd[0])
 	{

@@ -73,4 +73,5 @@ void ft_expander(t_shell *shell)
 void checker(t_shell *shell)
 {
 	count_pipes(shell);
+	//check_for_redirections(shell);
 }
