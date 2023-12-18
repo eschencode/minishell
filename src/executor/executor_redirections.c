@@ -21,15 +21,24 @@
 bool check_for_redirections(t_shell *shell, t_clist *cmd)
 {
 	int i = 0;
-	int fd;
+	int fd = -1;
+
 	while(shell->tokens[i].token )
 	{
 		if(strcmp(shell->tokens[i].token, cmd->cmd[0]) == 0)
 		{
-			if (shell->tokens[i].type == RIGHT)
+			if (shell->tokens[i + 1].type == RIGHT)
 			{
-				printf("RIGHT token[%d]=%s\n",i,shell->tokens[i].token);
-				return(true);
+				printf("RIGHT token[%d]=%s\n file to write = %s\n",i,shell->tokens[i].token, shell->tokens[i +2].token);
+				fd = open(shell->tokens[i + 2].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+				if(fd == -1)
+				{
+					printf("error opening file:%s",shell->tokens[i + 2].token);
+					close(fd);
+				}
+				dup2(fd, STDOUT_FILENO);
+				close(fd);
+				return(fd);
 			}
 			else if(shell->tokens[i + 1].type == LEFT)
 			{
