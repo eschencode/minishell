@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/02 15:39:26 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:02:19 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,27 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 		pos++;
 	}
 	new_str[x] = '\0';
-	printf("newstr -> %s\n", new_str);
-	// free(str);
 	strcpy(str, new_str);
 	free(new_str);
 }
+
+void get_rid_of_quotes(char *str)
+{
+    int x = 0;
+    int y = 0;
+
+    while (str[x])
+    {
+        if (str[x] != '\'' && str[x] != '\"')
+        {
+            str[y] = str[x];
+            y++;
+        }
+        x++;
+    }
+    str[y] = '\0';
+}
+
 
 void token_str_expander(t_shell *shell, char *str)
 {
@@ -167,6 +183,7 @@ void token_str_expander(t_shell *shell, char *str)
 		}
 		x++;
 	}
+	get_rid_of_quotes(str);
 }
 
 
