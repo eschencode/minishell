@@ -62,18 +62,9 @@ typedef struct s_clist
 	int cmd_pos;
 	char **cmd;
 	int n_args;
-	bool pre_pipe;
-	bool post_pipe;
 	struct s_clist *next;
 } t_clist;
 
-typedef struct s_executor
-{
-	int current_cmd;
-	int pipe_fd[2];
-	int output_len;
-	char *output_str;
-} t_executor;
 
 typedef struct s_pipedata{
 	int	pids[100];
@@ -161,6 +152,9 @@ int 	env_get_id(t_shell *shell, char *var);
 
 // builtins_a_3
 bool	ft_heredoc(t_shell *shell, t_clist *cmd);
+
+//executor redirectios
+bool check_for_redirections(t_shell *shell, t_clist *cmd);
 
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);

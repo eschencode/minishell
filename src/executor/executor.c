@@ -47,15 +47,15 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	char *test;
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(cmd, fd_in, fd_out));
-	if (strcmp(shell->clist->cmd[0], "cd") == 0)
+	if (strcmp(cmd->cmd[0], "cd") == 0)
 		return (cd(*shell));
-	if (strcmp(shell->clist->cmd[0], "export") == 0)
+	if (strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
 	if(strcmp(cmd->cmd[0], "clear") == 0)
 		return (clearwindow(fd_in, fd_out));
-	if (strcmp(shell->clist->cmd[0], "unset") == 0)
-		return (ft_unset(shell, shell->clist->cmd[1], fd_in, fd_out));
-	if (strcmp(shell->clist->cmd[0], "printenv") == 0)
+	if (strcmp(cmd->cmd[0], "unset") == 0)
+		return (ft_unset(shell, cmd->cmd[1], fd_in, fd_out));
+	if (strcmp(cmd->cmd[0], "printenv") == 0)
 		return(print_env(shell->env, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
 		return(ft_echo(shell->clist, fd_in, fd_out));
@@ -67,6 +67,7 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
+	int fd;
 	char *path;
 	t_clist **cmd;
 
@@ -78,6 +79,9 @@ int executor(t_shell *shell)
 	}
 	else
 	{
+		int stdin_backup = dup(STDIN_FILENO);
+		int stdout_backup = dup(STDOUT_FILENO);
+		fd = check_for_redirections(shell,*cmd);
 		if(check_if_builtin(shell, *cmd, 0, 1) == false)
 		{
 			path = exe_path(shell, shell->clist->cmd[0]);
@@ -87,6 +91,10 @@ int executor(t_shell *shell)
 			}
 			execute_externals(shell);
 		}
+			dup2(stdin_backup, STDIN_FILENO);
+			dup2(stdout_backup, STDOUT_FILENO);
+			close(stdin_backup);
+			close(stdout_backup);
 	}
 	return (0);
 }

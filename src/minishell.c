@@ -108,7 +108,6 @@ void	minishell_loop()
 	char prompt[12] = "msh$ ";
 	t_tokens *tokens;
 	t_shell shell;
-	int i = -1;
 	shell.tokens_flag = 0;
 	rl_initialize();
 	using_history();
@@ -116,6 +115,8 @@ void	minishell_loop()
 	while(1)
 	{
 		shell.input_str = readline(prompt);
+		if(shell.input_str == NULL) // exits right but needs to free here 
+			return;
 		cd(shell);
 		if (eval_exit_loop(&shell, tokens))
 			return ;
