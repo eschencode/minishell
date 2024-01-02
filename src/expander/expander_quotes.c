@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/02 14:20:31 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:17:33 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,20 +115,16 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 	int x;
 	int new_len;
 	char *new_str;
-
-	printf("PUSHING\n");
-
+	
 	x = -1;
 	new_len = ft_strlen(str) - ft_strlen(var) + ft_strlen(val);
 	new_str = malloc(sizeof(char) * (new_len + 1));
-	printf("newlen -> %d, x -> %d, pos -> %d\n", new_len, x, pos);
 	while (++x < pos)
 		new_str[x] = str[x];
 	while (str[pos] && str[pos] != ' ' && str[pos] != '\"' && str[pos] != '\'')
 		pos++;
-	printf("pos -> %d\n", pos);
+	new_str[x] = '\0';
 	strcat(new_str, val);
-	printf("newstr -> %s\n", new_str);
 	x = x + ft_strlen(val);
 	while (str[pos])
 	{
@@ -137,8 +133,11 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 		pos++;
 	}
 	new_str[x] = '\0';
+	printf("newstr -> %s\n", new_str);
 	free(str);
-	str = new_str;
+	str = malloc(sizeof(char) * (ft_strlen(new_str) + 1));
+	strcpy(str, new_str);
+	free(new_str);
 }
 
 void token_str_expander(t_shell *shell, char *str)
@@ -149,9 +148,9 @@ void token_str_expander(t_shell *shell, char *str)
 	char *env;
 	char *val;
 
-	x = -1;
+	x = 0;
 	sq_flag = 0;
-	while (str[++x])
+	while (str[x])
 	{
 		if (sq_flag == 1 && str[x] == '\'')
 			sq_flag = 0;
@@ -167,6 +166,7 @@ void token_str_expander(t_shell *shell, char *str)
 			}
 			free(env);
 		}
+		x++;
 	}
 }
 
