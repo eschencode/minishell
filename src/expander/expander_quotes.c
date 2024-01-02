@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/02 15:17:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:39:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,7 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 	}
 	new_str[x] = '\0';
 	printf("newstr -> %s\n", new_str);
-	free(str);
-	str = malloc(sizeof(char) * (ft_strlen(new_str) + 1));
+	// free(str);
 	strcpy(str, new_str);
 	free(new_str);
 }
