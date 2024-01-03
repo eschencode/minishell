@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/17 13:54:13 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:36:49 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int	parser(t_shell *shell)
 {
 	shell->clist = NULL;
 	expander_quotes(shell);
-	print_tokens(shell->tokens);
+	// print_tokens(shell->tokens);
 	tokens_retype(shell);
 	clist_init(shell);
 	clist_args_fill(shell);

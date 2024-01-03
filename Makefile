@@ -33,6 +33,9 @@ fclean: clean
 re: fclean all
 	./$(NAME)
 
+v: fclean all
+	valgrind --leak-check=full ./$(NAME)
+
 run: $(NAME)
 	./$(NAME)
 
