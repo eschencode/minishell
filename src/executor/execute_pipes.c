@@ -35,6 +35,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 		//ft_error("exec error",*shell);
 		exit(EXIT_FAILURE);
 	}
+	return (0);
 }
 
 bool check_if_builtin1(t_clist *cmd)
@@ -58,8 +59,8 @@ bool check_if_builtin1(t_clist *cmd)
 /*check for built in or external set signals  */
 int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
-	char *path;
 	int ret;
+	char *path;
 
 	if (check_if_builtin1(cmd) == true)
 	{
@@ -75,6 +76,7 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		ret = execute_cmd(shell,cmd,fd_in,fd_out);
 		free(path);
 	}
+	return (ret);
 }
 
 int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out)

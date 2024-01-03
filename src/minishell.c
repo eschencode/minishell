@@ -32,7 +32,6 @@ void free_double_str(char **str)
 
 void ft_free_clist(t_shell *shell)
 {
-    int y;
     t_clist *tracer;
     t_clist *old_node;
 
@@ -137,7 +136,7 @@ void	minishell_loop()
 	}
 }
 
-int main(int argc, char **argv)
+int main()
 {
 	signal(SIGINT, signal_handler);
 	//clearwindow();

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2023/12/08 14:18:07 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:34:29 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool print_env(char **env_arry, int fd_in, int fd_out)
 	return (true);
 }
 
-void ft_error(char *errmsg, t_shell shell)
+void ft_error(char *errmsg)
 {
 	printf("ERROR %s\n",errmsg);
 	//ft_free_all(shell.tokens, &shell);

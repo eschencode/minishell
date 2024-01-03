@@ -6,13 +6,13 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/03 15:36:49 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:31:20 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_clist *new_node(t_shell *shell)
+t_clist *new_node(void)
 {
 	t_clist *clist_node;
 
@@ -63,18 +63,16 @@ void tokens_retype(t_shell *shell)
 void clist_init(t_shell *shell)
 {
 	int i;
-	int y;
 	t_clist *node;
 
 	i = -1;
-	y = -1;
 
 	// created nodes for each CMD and adds Command str pointer to each node
 	while (shell->tokens[++i].token)
 	{
 		if (shell->tokens[i].type == CMD)
 		{
-			node = new_node(shell);
+			node = new_node();
 			node->cmd_pos = i;
 			insert_node(shell, node);
 		}
