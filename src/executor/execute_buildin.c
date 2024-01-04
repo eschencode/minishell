@@ -21,7 +21,7 @@ int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out)
 	ret = safe_dup(&safe_in, &safe_out);
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(cmd, in, out));
-	if (strcmp(cmd->cmd[0], "cd") == 0)
+	if (strcmp(cmd->cmd[1], "cd") == 0)
 		return (cd(cmd->cmd[0], in, out));
 	if (strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, in, out)));

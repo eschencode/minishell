@@ -15,10 +15,9 @@ bool first_cd(t_shell shell)
 bool cd(char *cmd, int fd_in, int fd_out)
 {
 	ft_dup2(fd_in, fd_out);
-	cmd[ft_strlen(cmd)] = '\0';
-	if(chdir(cmd + 3) < 0)
-			printf("cant cd %s\n", cmd + 3);
-		return(true);
+	if(cmd == NULL || chdir(cmd) < 0)
+		printf("cant cd %s\n", cmd);
+	return(true);
 }
 
 bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out)

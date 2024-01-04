@@ -27,25 +27,22 @@ void free_double_str(char **str)
 	y = -1;
 	while (str[++y])
 		free(str[y]);
-	free(str);
 }
 
 void ft_free_clist(t_shell *shell)
 {
-    t_clist *tracer;
+    t_clist **tracer;
     t_clist *old_node;
 
-	tracer = shell->clist;
-	while (tracer->next)
+	tracer = &shell->clist;
+	while (*tracer)
 	{
-		old_node = tracer;
-		tracer = tracer->next;
+		old_node = *tracer;
+		*tracer = (*tracer)->next;
 		free_double_str(old_node->cmd);
+		free(old_node->cmd);
 		free(old_node);
 	}
-	// free last element (skips while statement)
-	free_double_str(tracer->cmd);
-	free(tracer);
 }
 
 void ft_free_all(t_tokens *tokens, t_shell *shell)
@@ -116,7 +113,6 @@ void	minishell_loop()
 		shell.input_str = readline(prompt);
 		if(shell.input_str == NULL) // exits right but needs to free here 
 			return;
-		first_cd(shell);
 		if (eval_exit_loop(&shell, tokens))
 			return ;
 		if (eval_input_error(&shell) == 0)
