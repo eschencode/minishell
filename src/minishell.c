@@ -36,6 +36,7 @@ void ft_free_clist(t_shell *shell)
     t_clist *old_node;
 
 	tracer = shell->clist;
+	printf("we freeding bitch!\n");
 	while (tracer->next)
 	{
 		old_node = tracer;
@@ -116,7 +117,6 @@ void	minishell_loop()
 		shell.input_str = readline(prompt);
 		if(shell.input_str == NULL) // exits right but needs to free here 
 			return;
-		first_cd(shell);
 		if (eval_exit_loop(&shell, tokens))
 			return ;
 		if (eval_input_error(&shell) == 0)
