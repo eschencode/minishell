@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2023/12/16 15:42:59 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:01:52 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void ft_expander(t_shell *shell);
 void 	signal_handler(int sig);
 
 //builtins
-bool 	cd(t_shell shell);
+bool 	cd(char *cmd, int fd_in, int fd_out);
+bool	first_cd(t_shell shell);
 
 //parser/parser.c
 int		parser(t_shell *shell);
@@ -128,7 +129,7 @@ int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
 int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out);
 
 //executor_utils.
-void ft_error(char *errmsg, t_shell shell);
+void ft_error(char *errmsg);
 bool print_env(char **env_arry, int fd_in, int fd_out);
 int	ft_dup2(int in, int out);
 char *exe_path(t_shell *shell, char *exe);
@@ -151,14 +152,13 @@ int 	get_val_offset(char *str);
 int 	env_get_id(t_shell *shell, char *var);
 
 // builtins_a_3
-bool	ft_heredoc(t_shell *shell, t_clist *cmd);
+bool	ft_heredoc(t_clist *cmd);
 
 //executor redirectios
 bool check_for_redirections(t_shell *shell, t_clist *cmd);
 
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
-
 
 void print_tokens(t_tokens *tokens);
 

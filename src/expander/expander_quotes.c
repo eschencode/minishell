@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/02 16:02:19 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:42:45 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ void token_str_expander(t_shell *shell, char *str)
 {
 	int x;
 	int sq_flag;
-	char *new_str;
 	char *env;
 	char *val;
 

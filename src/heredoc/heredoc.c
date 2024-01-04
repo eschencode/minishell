@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/15 14:28:05 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:40:51 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_heredoc_key(t_clist *cmd)
 	return (new_str);
 }
 
-bool	ft_heredoc(t_shell *shell, t_clist *cmd)
+bool	ft_heredoc(t_clist *cmd)
 {
 	int input_ret;
 	int heredoc_fd;
@@ -66,7 +66,6 @@ bool	ft_heredoc(t_shell *shell, t_clist *cmd)
 		}
 		free(heredoc_input);
 	}
-	
 	free(cmd->cmd[1]);
 	cmd->cmd[1] = ft_strdup("heredoc.txt");
 	free(heredoc_key);

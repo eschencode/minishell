@@ -1,6 +1,6 @@
 
 NAME	= minishell
-CFLAGS	= #-Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 CC		=  cc
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 

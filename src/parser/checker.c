@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2023/11/24 13:24:59 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:28:42 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void ft_expander(t_shell *shell)
 {
 	int y;
 	char *val;
-	int n;
 	t_clist **tracer;
 
 	tracer = &shell->clist;

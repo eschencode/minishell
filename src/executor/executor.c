@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/15 14:06:24 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:02:21 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,24 @@ int execute_externals(t_shell *shell)
 		if (execve(shell->clist->cmd[0],shell->clist->cmd,shell->env ) == -1)//shell->env;
 		{
 			printf("command not found: %s\n",shell->clist->cmd[0]);
-			ft_error("exec error",*shell);
+			ft_error("exec error");
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
 	{// This code is executed in the parent process
 		if (waitpid(child_pid, &child_status, 0) == -1)// Wait for the child process to complete
-			ft_error("waitpid",*shell);
+			ft_error("waitpid");
 	}
 	return 0;
 }
 
 bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
-	char *test;
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(cmd, fd_in, fd_out));
 	if (strcmp(cmd->cmd[0], "cd") == 0)
-		return (cd(*shell));
+		return (cd(cmd->cmd[0], fd_in, fd_out));
 	if (strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
 	if(strcmp(cmd->cmd[0], "clear") == 0)
@@ -60,14 +59,13 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
 		return(ft_echo(shell->clist, fd_in, fd_out));
 	if (ft_strncmp(shell->clist->cmd[1], "<<", 2) == 0)
- 		return (ft_heredoc(shell, cmd));
+ 		return (ft_heredoc(cmd));
 	return (false);
 }
 
 // fork only for ./bla bla and builtins on parent
 int executor(t_shell *shell)
 {
-	int fd;
 	char *path;
 	t_clist **cmd;
 
@@ -81,7 +79,7 @@ int executor(t_shell *shell)
 	{
 		int stdin_backup = dup(STDIN_FILENO);
 		int stdout_backup = dup(STDOUT_FILENO);
-		fd = check_for_redirections(shell,*cmd);
+		check_for_redirections(shell,*cmd);
 		if(check_if_builtin(shell, *cmd, 0, 1) == false)
 		{
 			path = exe_path(shell, shell->clist->cmd[0]);

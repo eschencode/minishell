@@ -45,7 +45,6 @@ t_tokens *tokenization(t_shell *shell, char *input)
 	num_tokens = 0;
 	i = 0;
 	split_input = ft_split(input, ' ');
-	free(input);
 	if(split_input)
 	{
 		while(split_input[num_tokens])
@@ -57,7 +56,7 @@ t_tokens *tokenization(t_shell *shell, char *input)
 	{
 		tokens[i].type = is_type(split_input[i]);
 		tokens[i].token = malloc((ft_strlen(split_input[i]) + 1) * sizeof(char));
-		ft_strlcpy(tokens[i].token, split_input[i], (ft_strlen(split_input[i])));
+		strcpy(tokens[i].token, split_input[i]);
 		tokens[i].id = i;
 		i++;
 	}

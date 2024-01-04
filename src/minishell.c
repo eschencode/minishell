@@ -32,7 +32,6 @@ void free_double_str(char **str)
 
 void ft_free_clist(t_shell *shell)
 {
-    int y;
     t_clist *tracer;
     t_clist *old_node;
 
@@ -117,7 +116,7 @@ void	minishell_loop()
 		shell.input_str = readline(prompt);
 		if(shell.input_str == NULL) // exits right but needs to free here 
 			return;
-		cd(shell);
+		first_cd(shell);
 		if (eval_exit_loop(&shell, tokens))
 			return ;
 		if (eval_input_error(&shell) == 0)
@@ -126,6 +125,7 @@ void	minishell_loop()
 				ft_free_tokens(tokens);
 			add_history(shell.input_str); //adds history of commands
 			tokens = tokenization(&shell, shell.input_str);
+			free(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);
@@ -137,7 +137,7 @@ void	minishell_loop()
 	}
 }
 
-int main(int argc, char **argv)
+int main()
 {
 	signal(SIGINT, signal_handler);
 	//clearwindow();
