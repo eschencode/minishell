@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/03 16:41:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:02:21 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(cmd, fd_in, fd_out));
 	if (strcmp(cmd->cmd[0], "cd") == 0)
-		return (cd(*shell));
+		return (cd(cmd->cmd[0], fd_in, fd_out));
 	if (strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
 	if(strcmp(cmd->cmd[0], "clear") == 0)

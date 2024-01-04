@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-bool cd(t_shell shell)
+bool first_cd(t_shell shell)
 {
 	if(shell.input_str[0] == 'c' && shell.input_str[1] == 'd' && shell.input_str[2] == ' ')
 		{
@@ -11,9 +11,18 @@ bool cd(t_shell shell)
 		return(true);
 }
 
+
+bool cd(char *cmd, int fd_in, int fd_out)
+{
+	ft_dup2(fd_in, fd_out);
+	cmd[ft_strlen(cmd)] = '\0';
+	if(chdir(cmd + 3) < 0)
+			printf("cant cd %s\n", cmd + 3);
+		return(true);
+}
+
 bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out)
 {
-	
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
 	{
 		ft_dup2(fd_in, fd_out);

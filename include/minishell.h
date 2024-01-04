@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/03 16:41:12 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/04 09:01:52 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void ft_expander(t_shell *shell);
 void 	signal_handler(int sig);
 
 //builtins
-bool 	cd(t_shell shell);
+bool 	cd(char *cmd, int fd_in, int fd_out);
+bool	first_cd(t_shell shell);
 
 //parser/parser.c
 int		parser(t_shell *shell);
@@ -158,7 +159,6 @@ bool check_for_redirections(t_shell *shell, t_clist *cmd);
 
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
-
 
 void print_tokens(t_tokens *tokens);
 

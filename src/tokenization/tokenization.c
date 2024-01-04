@@ -45,7 +45,6 @@ t_tokens *tokenization(t_shell *shell, char *input)
 	num_tokens = 0;
 	i = 0;
 	split_input = ft_split(input, ' ');
-	free(input);
 	if(split_input)
 	{
 		while(split_input[num_tokens])

@@ -116,7 +116,7 @@ void	minishell_loop()
 		shell.input_str = readline(prompt);
 		if(shell.input_str == NULL) // exits right but needs to free here 
 			return;
-		cd(shell);
+		first_cd(shell);
 		if (eval_exit_loop(&shell, tokens))
 			return ;
 		if (eval_input_error(&shell) == 0)
@@ -125,6 +125,7 @@ void	minishell_loop()
 				ft_free_tokens(tokens);
 			add_history(shell.input_str); //adds history of commands
 			tokens = tokenization(&shell, shell.input_str);
+			free(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);
