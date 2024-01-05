@@ -39,12 +39,11 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 	// check for tilde and substitute
 	if (path == NULL)
 		printf("CD: HOME not set, EXIT 1\n");
-	else
+	if (path != NULL)
 	{
+		add_path_to_hist(shell);
 		if(chdir(path) < 0)
 			printf("CD: No such file or directory: %s, EXIT 1\n", path);
-		else
-			add_path_to_hist(shell);
 	}
 	return(true);
 }
