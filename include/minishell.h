@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/04 09:01:52 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/05 09:58:54 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_shell
 	t_clist *clist;
 	int		env_flag;
 	char **env;
-	char*	path;
+	char *	path;
 	int	n_pipes;
 
 } t_shell;
@@ -107,7 +107,7 @@ void ft_expander(t_shell *shell);
 void 	signal_handler(int sig);
 
 //builtins
-bool 	cd(char *cmd, int fd_in, int fd_out);
+bool 	cd(t_shell *shell, char *cmd, int fd_in, int fd_out);
 bool	first_cd(t_shell shell);
 
 //parser/parser.c

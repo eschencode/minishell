@@ -129,6 +129,7 @@ void	minishell_loop()
 			ft_expander(&shell);
 			executor(&shell);
 			ft_free_clist(&shell);
+			// free(shell.path);
 		}
 	}
 }
