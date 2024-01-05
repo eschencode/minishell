@@ -11,12 +11,16 @@ bool first_cd(t_shell shell)
 		return(true);
 }
 
-
-bool cd(char *cmd, int fd_in, int fd_out)
+bool cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 {
+	char *path;
+
 	ft_dup2(fd_in, fd_out);
-	if(cmd == NULL || chdir(cmd) < 0)
-		printf("cant cd %s\n", cmd);
+	path = cmd;
+	if (cmd == NULL || strcmp(cmd, "~") == 0)
+		path = env_get_val(shell, "HOME");
+	if(chdir(path) < 0)
+		printf("cant cd %s\n", path);
 	return(true);
 }
 

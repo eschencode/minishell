@@ -22,7 +22,7 @@ int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out)
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(cmd, in, out));
 	if (strcmp(cmd->cmd[1], "cd") == 0)
-		return (cd(cmd->cmd[0], in, out));
+		return (cd(shell, cmd->cmd[0], in, out));
 	if (strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, in, out)));
 	if(strcmp(cmd->cmd[0], "clear") == 0)
