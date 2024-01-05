@@ -30,7 +30,17 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 
 	ft_dup2(fd_in, fd_out);
 	path = cmd;
-	if (cmd == NULL || strcmp(cmd, "~") == 0)
+	if (cmd == NULL)
+	{
+		path = env_get_val(shell, "HOME");
+		if (path == NULL)
+			printf("CD: HOME not set, EXIT 1\n");
+		if(chdir(path) < 0)
+			printf("CD: No such file or directory: %s, EXIT 1\n", path);
+		return (true);
+		
+	}
+	if (strcmp(cmd, "~") == 0)
 		path = env_get_val(shell, "HOME");
 	if (strcmp(cmd, "-") == 0)
 	{
