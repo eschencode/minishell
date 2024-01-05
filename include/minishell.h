@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/05 09:58:54 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:13:49 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ typedef struct s_shell
 	t_clist *clist;
 	int		env_flag;
 	char **env;
-	char *	path;
+	char *path;
+	char *cd_last_path;
 	int	n_pipes;
 
 } t_shell;

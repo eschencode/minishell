@@ -18,26 +18,24 @@ bool cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 	ft_dup2(fd_in, fd_out);
 	path = cmd;
 	if (cmd == NULL || strcmp(cmd, "~") == 0)
-	{
 		path = env_get_val(shell, "HOME");
-		if (path == NULL)
-			path = "HOME not set";
-	}
 	// check for tilde and substitute 
-	if(chdir(path) < 0)
-		printf("cant cd %s\n", path);
+	if (path == NULL)
+		printf("CD: HOME not set, EXIT 1\n");
+	else
+	{
+		if(chdir(path) < 0)
+			printf("CD: No such file or directory: %s, EXIT 1\n", path);
+	}
 	return(true);
 }
 
 bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out)
 {
-	if(strcmp(cmd->cmd[0], "pwd") == 0)
-	{
-		ft_dup2(fd_in, fd_out);
-				char cwd[1024];
-				if (getcwd(cwd, sizeof(cwd)) != NULL)
-					printf("%s\n", cwd);
-	}
+	ft_dup2(fd_in, fd_out);
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
 	return (true);
 }
 

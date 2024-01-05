@@ -108,11 +108,12 @@ void	minishell_loop()
 	rl_initialize();
 	using_history();
 	env_init(&shell);
+	shell.cd_last_path = NULL;
 	while(1)
 	{
 		shell.input_str = readline(prompt);
-		if(shell.input_str == NULL) // exits right but needs to free here 
-			return;
+		if (shell.input_str == NULL)
+			return ;
 		if (eval_exit_loop(&shell, tokens))
 			return ;
 		if (eval_input_error(&shell) == 0)
