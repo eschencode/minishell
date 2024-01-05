@@ -65,18 +65,18 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 }
 
 void env_init(t_shell *shell)
-{	
+{
 	int y;
 	int len;
-	extern char **__environ;
+	extern char **environ;
 
 	len = 0;
-	while (__environ[len])
+	while (environ[len])
 		len++;
 	shell->env = malloc(sizeof(char *) * (len + 1));
 	y = -1;
-	while (__environ[++y])
-		shell->env[y] = ft_strdup(__environ[y]);
+	while (environ[++y])
+		shell->env[y] = ft_strdup(environ[y]);
 	shell->env[y] = NULL;
 }
 
@@ -114,7 +114,7 @@ void	minishell_loop()
 	while(1)
 	{
 		shell.input_str = readline(prompt);
-		if(shell.input_str == NULL) // exits right but needs to free here 
+		if(shell.input_str == NULL) // exits right but needs to free here
 			return;
 		first_cd(shell);
 		if (eval_exit_loop(&shell, tokens))

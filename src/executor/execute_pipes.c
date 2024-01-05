@@ -18,12 +18,9 @@
 int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
-	//add here check for redirections later
-	if(check_for_redirections(shell,cmd) == true)
-	{
-		printf("REDIRECTIONS ;()");
-	}
-	error_check = ft_dup2(fd_in, fd_out);
+	check_redirections_pipes(shell,cmd, fd_in, fd_out);
+	error_check = ft_dup2(shell->redirect_in, shell->redirect_out);
+
 	if(!cmd->cmd[0])
 	{
 		error_check = -1;
@@ -36,6 +33,57 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 		exit(EXIT_FAILURE);
 	}
 	return (0);
+}
+
+
+bool	check_redirections_pipes(t_shell *shell,t_clist *cmd,int fd_in, int fd_out)
+{
+	int	i;
+	i = 0;
+	shell->redirect_in = fd_in;
+	shell->redirect_out = fd_out;
+
+	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, shell->saved_cmd) != 0))
+	{
+		i++;
+	}
+
+	if (shell->tokens[i + 1].type == RIGHT)
+	{
+		fd_out = open(shell->tokens[i + 2].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		shell->redirect_out = fd_out;
+	}
+	else if (shell->tokens[i + 3].type == RIGHT)
+	{
+		fd_out = open(shell->tokens[i + 4].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		shell->redirect_out = fd_out;
+	}
+	if(shell->tokens[i + 1].type == LEFT)
+	{
+		fd_in = open(shell->tokens[i + 2].token, O_RDONLY);
+		shell->redirect_in = fd_in;
+	}
+	else  if(shell->tokens[i + 3].type == LEFT)
+	{
+		fd_in = open(shell->tokens[i + 4].token, O_RDONLY);
+		shell->redirect_in = fd_in;
+	}
+	if(shell->tokens[i + 1].type == RIGHT_RIGHT)
+	{
+		fd_out = open(shell->tokens[i + 2].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		shell->redirect_out = fd_out;
+	}
+	else if(shell->tokens[i + 3].type == RIGHT_RIGHT)
+	{
+		fd_out = open(shell->tokens[i + 4].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);//do right paras here
+		shell->redirect_out = fd_out;
+	}
+	if(fd_out == -1 || fd_in == -1)
+	{
+		printf("error accesing file\n");
+		//add more eroro here probaby clos the fd too :()
+	}
+	return(0);
 }
 
 bool check_if_builtin1(t_clist *cmd)
@@ -71,7 +119,10 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		path = exe_path(shell, cmd->cmd[0]);//free later ?
 		if(path != NULL)
 		{
+			shell->saved_cmd = malloc(sizeof(char) * ft_strlen(cmd->cmd[0]));
+			shell->saved_cmd = ft_strdup(cmd->cmd[0]);
 			cmd->cmd[0] = path;
+			printf("cmd = %s and savedcmd %s",cmd->cmd[0],shell->saved_cmd);
 		}
 		ret = execute_cmd(shell,cmd,fd_in,fd_out);
 		free(path);
@@ -141,7 +192,7 @@ int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
 	close_all_pipes(pipedata, 2 * pipedata->child + 1, 2 * pipedata->child - 2);//+1 == write to -2 read from
 	fd_in = execute_pipe_cmd(shell , cmd, fd_in, fd_out);
 	exit(fd_in);
-}	
+}
 
 int run_parent(t_pipedata *pipedata)
 {//waits for all child to finish
