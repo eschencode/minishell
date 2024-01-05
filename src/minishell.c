@@ -61,6 +61,8 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 	free_env(shell);
 	if (shell->cd_last_path)
 		free(shell->cd_last_path);
+	if (shell->path)
+		free(shell->path);
 }
 
 void env_init(t_shell *shell)
@@ -111,6 +113,7 @@ void	minishell_loop()
 	using_history();
 	env_init(&shell);
 	shell.cd_last_path = NULL;
+	shell.path = NULL;
 	add_path_to_hist(&shell);
 	while(1)
 	{
