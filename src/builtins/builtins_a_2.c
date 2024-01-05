@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/01 09:07:48 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:06:17 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,26 @@ bool ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
     return true;
 }
 /*problem executing in pipe :()*/
-bool    ft_echo(t_clist *c_node, int fd_in, int fd_out)
+bool    ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out)
 {
     int y;
     int n;
+    char *var;
     char **cmd;
 
-   ft_dup2(fd_in, fd_out);
+    ft_dup2(fd_in, fd_out);
     y = 0;
     n = c_node->n_args;
     cmd = c_node->cmd;
     while (cmd[++y])
     {
-        printf("%s", cmd[y]);
+        if ((var = strstr(cmd[y], "$")) != NULL)
+        {
+            if (env_get_val(shell, var) != NULL)
+                printf("%s", cmd[y]);
+        }
+        else
+            printf("%s", cmd[y]);
         if (n != 1)
             printf(" ");
         n--;
