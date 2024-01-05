@@ -18,7 +18,12 @@ bool cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 	ft_dup2(fd_in, fd_out);
 	path = cmd;
 	if (cmd == NULL || strcmp(cmd, "~") == 0)
+	{
 		path = env_get_val(shell, "HOME");
+		if (path == NULL)
+			path = "HOME not set";
+	}
+	// check for tilde and substitute 
 	if(chdir(path) < 0)
 		printf("cant cd %s\n", path);
 	return(true);
