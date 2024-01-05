@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/05 09:58:54 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:24:56 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ typedef struct s_shell
 	t_clist *clist;
 	int		env_flag;
 	char **env;
-	char *	path;
+	char *path;
+	char *cd_last_path;
 	int	n_pipes;
 
 } t_shell;
@@ -135,7 +136,8 @@ int	ft_dup2(int in, int out);
 char *exe_path(t_shell *shell, char *exe);
 
 //builtins_l
-bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out);
+bool 	pwd_builtin(int fd_in, int fd_out);
+void	add_path_to_hist(t_shell *shell);
 int 	echo_l(t_shell shell);
 
 // builtins_a
