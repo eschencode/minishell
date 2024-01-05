@@ -26,6 +26,7 @@ void	add_path_to_hist(t_shell *shell)
 bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 {
 	char *path;
+	char *old_path;
 
 	ft_dup2(fd_in, fd_out);
 	path = cmd;
@@ -33,8 +34,12 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 		path = env_get_val(shell, "HOME");
 	if (strcmp(cmd, "-") == 0)
 	{
-		path = shell->cd_last_path;
-		printf("%s\n", path);
+		old_path = ft_strdup(shell->cd_last_path);
+		add_path_to_hist(shell);
+		printf("%s\n", old_path);
+		chdir(old_path);
+		free(old_path);
+		return(true);
 	}
 	// check for tilde and substitute
 	if (path == NULL)
