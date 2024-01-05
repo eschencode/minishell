@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/05 09:59:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:19:20 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int execute_externals(t_shell *shell)
 bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
-		return (pwd_builtin(cmd, fd_in, fd_out));
+		return (pwd_builtin(fd_in, fd_out));
 	if (strcmp(cmd->cmd[0], "cd") == 0)
 		return (cd(shell, cmd->cmd[1], fd_in, fd_out));
 	if (strcmp(cmd->cmd[0], "export") == 0)

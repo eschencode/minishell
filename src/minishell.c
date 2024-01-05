@@ -59,6 +59,8 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 	}
 	free(shell->input_str);
 	free_env(shell);
+	if (shell->cd_last_path)
+		free(shell->cd_last_path);
 }
 
 void env_init(t_shell *shell)
@@ -109,6 +111,7 @@ void	minishell_loop()
 	using_history();
 	env_init(&shell);
 	shell.cd_last_path = NULL;
+	add_path_to_hist(&shell);
 	while(1)
 	{
 		shell.input_str = readline(prompt);
