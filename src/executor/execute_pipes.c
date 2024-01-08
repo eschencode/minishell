@@ -17,6 +17,8 @@
 int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
+	shell->redirect_in = fd_in;
+	shell->redirect_out = fd_out;
 	check_redirections_pipes(shell, fd_in, fd_out);
 	error_check = ft_dup2(shell->redirect_in, shell->redirect_out);
 
@@ -39,51 +41,29 @@ bool	check_redirections_pipes(t_shell *shell,int fd_in, int fd_out)
 {
 	int	i;
 	i = 0;
-	shell->redirect_in = fd_in;
-	shell->redirect_out = fd_out;
 
 	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, shell->saved_cmd) != 0))
-	{
 		i++;
-	}
-
-	if (shell->tokens[i + 1].type == RIGHT)
-	{
-		fd_out = open(shell->tokens[i + 2].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-		shell->redirect_out = fd_out;
-	}
-	else if (shell->tokens[i + 3].type == RIGHT)
-	{
-		fd_out = open(shell->tokens[i + 4].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-		shell->redirect_out = fd_out;
-	}
-	if(shell->tokens[i + 1].type == LEFT)
-	{
-		fd_in = open(shell->tokens[i + 2].token, O_RDONLY);
-		shell->redirect_in = fd_in;
-	}
-	else  if(shell->tokens[i + 3].type == LEFT)
-	{
-		fd_in = open(shell->tokens[i + 4].token, O_RDONLY);
-		shell->redirect_in = fd_in;
-	}
-	if(shell->tokens[i + 1].type == RIGHT_RIGHT)
-	{
-		fd_out = open(shell->tokens[i + 2].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-		shell->redirect_out = fd_out;
-	}
-	else if(shell->tokens[i + 3].type == RIGHT_RIGHT)
-	{
-		fd_out = open(shell->tokens[i + 4].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);//do right paras here
-		shell->redirect_out = fd_out;
-	}
+	i++;
+	if(shell->tokens[i].token[0] == '-') //skips options
+		i++;
+	if (shell->tokens[i].type == RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	else if (shell->tokens[i + 2].type == RIGHT)
+		shell->redirect_out  = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if(shell->tokens[i].type == LEFT)
+		shell->redirect_in = open(shell->tokens[i + 1].token, O_RDONLY);
+	else if (shell->tokens[i + 2].type == LEFT)
+		shell->redirect_in = open(shell->tokens[i + 3].token, O_RDONLY);
+	if(shell->tokens[i].type == RIGHT_RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	if(fd_out == -1 || fd_in == -1)
-	{
-		printf("error accesing file\n");
-		//add more eroro here probaby clos the fd too :()
-	}
+		printf("error accesing file\n");//add more eroro here probaby clos the fd too :()
 	return(0);
 }
+
 
 bool check_if_builtin1(t_clist *cmd)
 {
