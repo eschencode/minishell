@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/05 17:50:55 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:05:01 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,8 @@ bool check_for_redirections(t_shell *shell, t_clist *cmd);
 void	expander_quotes(t_shell *shell);
 
 void print_tokens(t_tokens *tokens);
+
+
+void tilde_expander(t_shell *shell);
 
 #endif
