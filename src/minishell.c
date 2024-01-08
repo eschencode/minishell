@@ -114,6 +114,7 @@ void	minishell_loop()
 	env_init(&shell);
 	shell.cd_last_path = NULL;
 	shell.path = NULL;
+	shell.exe_path = NULL;
 	add_path_to_hist(&shell);
 	while(1)
 	{

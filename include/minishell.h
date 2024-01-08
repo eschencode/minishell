@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/08 14:05:01 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:12:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_shell
 	int redirect_in;
 	int redirect_out;
 	char	*saved_cmd;
+	char	*exe_path;
 
 } t_shell;
 
