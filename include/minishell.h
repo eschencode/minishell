@@ -161,7 +161,7 @@ bool	ft_heredoc(t_clist *cmd);
 
 //executor redirectios
 bool check_for_redirections(t_shell *shell, t_clist *cmd);
-
+bool check_for_redirections_out(t_shell *shell,t_clist *cmd);
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
 

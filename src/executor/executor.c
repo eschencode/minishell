@@ -63,28 +63,53 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	return (false);
 }
 
-// fork only for ./bla bla and builtins on parent
-int executor(t_shell *shell)
+
+void handle_redirections(t_shell *shell, t_clist **cmd)
 {
+    shell->redirect_in = STDIN_FILENO;
+    shell->redirect_out = STDOUT_FILENO;
+    check_for_redirections_out(shell,*cmd);
+    if (shell->redirect_in != STDIN_FILENO)
+    {
+        dup2(shell->redirect_in,STDIN_FILENO);
+        close(shell->redirect_in);
+    }
+    if (shell->redirect_out != STDOUT_FILENO)
+    {
+        dup2(shell->redirect_out,STDOUT_FILENO);
+        close(shell->redirect_out);
+    }
+}
+
+void	restore_stdin_stdout(int saved_stdin, int saved_stdout)
+{
+    dup2(saved_stdin,STDIN_FILENO);
+    dup2(saved_stdout,STDOUT_FILENO);
+    close(saved_stdin);
+    close(saved_stdout);
+}
+
+// fork only for ./bla bla and builtins on parent
+int	executor(t_shell *shell)
+{
+	int saved_stdin;
+	int saved_stdout;
 	t_clist **cmd;
 
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	cmd = &shell->clist;
 	if(shell->n_pipes > 0)
 	{
 		execute_pipes(shell);
 		return(0);
 	}
-	int stdin_backup = dup(STDIN_FILENO);
-	int stdout_backup = dup(STDOUT_FILENO);
-	check_for_redirections(shell, *cmd);
+	handle_redirections(shell, cmd);
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
 		shell->path = exe_path(shell, shell->clist->cmd[0]);
 		execute_externals(shell);
 	}
-	dup2(stdin_backup, STDIN_FILENO);
-	dup2(stdout_backup, STDOUT_FILENO);
-	close(stdin_backup);
-	close(stdout_backup);
+	restore_stdin_stdout(saved_stdin, saved_stdout);
 	return (0);
 }

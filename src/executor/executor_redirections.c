@@ -18,74 +18,30 @@
 >>: Appends standard output to a file, preserving existing content and adding new output at the end of the file.
 <: Redirects standard input to come from a file rather than from the keyboard*/
 
-bool check_for_redirections(t_shell *shell, t_clist *cmd)
+bool check_for_redirections_out(t_shell *shell, t_clist *cmd)
 {
-	int i = 0;
-	int fd = -1;
+	int i
 
+	i = 0;
 	if (shell->num_tokens <= 1)
 		return (false);
 
 	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, cmd->cmd[0]) != 0))
-	{
 		i++;
-	}
-		if (shell->tokens[i + 1].type == RIGHT)
-		{
-			fd = open(shell->tokens[i + 2].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-			if(fd == -1)
-			{
-				printf("error opening file:%s",shell->tokens[i + 2].token);
-				close(fd);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		else if(shell->tokens[i + 3].type == RIGHT)
-		{
-			fd = open(shell->tokens[i + 4].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-			if(fd == -1)
-			{
-				printf("error opening file:%s",shell->tokens[i + 2].token);
-				close(fd);
-			}
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-		}
-		if(shell->tokens[i + 1].type == LEFT)//add check if out and in check for more tokens
-		{
-			fd = open(shell->tokens[i + 2].token, O_RDONLY);
-			if(fd == -1)
-			{
-				printf("error opening file:%s",shell->tokens[i + 2].token);
-				close(fd);
-			}
-			dup2(fd,STDIN_FILENO);
-			close(fd);
-		}
-		else if(shell->tokens[i + 3].type == LEFT)//add check if out and in check for more tokens
-		{
-			fd = open(shell->tokens[i + 4].token, O_RDONLY);
-			if(fd == -1)
-			{
-				printf("error opening file:%s",shell->tokens[i + 4].token);
-				close(fd);
-			}
-			dup2(fd,STDIN_FILENO);
-			close(fd);
-		}
-		if(shell->tokens[i + 1].type == RIGHT_RIGHT)
-		{
-			fd = open(shell->tokens[i + 2].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-			dup2(fd,STDOUT_FILENO);
-			close(fd);
-		}
-		else if(shell->tokens[i + 3].type == RIGHT_RIGHT)
-		{
-			fd = open(shell->tokens[i + 4].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-			dup2(fd,STDOUT_FILENO);
-			close(fd);
-		}
-
+	i++;
+	if(shell->tokens[i].token[0] == '-')//skips options
+		i++;
+		if (shell->tokens[i].type == RIGHT)
+			shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		else if(shell->tokens[i + 2].type == RIGHT)
+			shell->redirect_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		if(shell->tokens[i].type == RIGHT_RIGHT)
+			shell->redirect_out = open(shell->tokens[i + 1].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+		else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
+			shell->redirect_out = open(shell->tokens[i + 3].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+		if(shell->tokens[i].type == LEFT)//add check if out and in check for more tokens
+			shell->redirect_in = open(shell->tokens[i + 1].token, O_RDONLY);
+		else if(shell->tokens[i + 2].type == LEFT)//add check if out and in check for more tokens
+			shell->redirect_in = open(shell->tokens[i + 3].token, O_RDONLY);
 	return(false);
 }
