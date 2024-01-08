@@ -20,7 +20,7 @@
 
 bool check_for_redirections_out(t_shell *shell, t_clist *cmd)
 {
-	int i
+	int i;
 
 	i = 0;
 	if (shell->num_tokens <= 1)
@@ -31,17 +31,18 @@ bool check_for_redirections_out(t_shell *shell, t_clist *cmd)
 	i++;
 	if(shell->tokens[i].token[0] == '-')//skips options
 		i++;
-		if (shell->tokens[i].type == RIGHT)
-			shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-		else if(shell->tokens[i + 2].type == RIGHT)
-			shell->redirect_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-		if(shell->tokens[i].type == RIGHT_RIGHT)
-			shell->redirect_out = open(shell->tokens[i + 1].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-		else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
-			shell->redirect_out = open(shell->tokens[i + 3].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-		if(shell->tokens[i].type == LEFT)//add check if out and in check for more tokens
-			shell->redirect_in = open(shell->tokens[i + 1].token, O_RDONLY);
-		else if(shell->tokens[i + 2].type == LEFT)//add check if out and in check for more tokens
-			shell->redirect_in = open(shell->tokens[i + 3].token, O_RDONLY);
+
+	if (shell->tokens[i].type == RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	else if(shell->tokens[i + 2].type == RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if(shell->tokens[i].type == RIGHT_RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 1].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
+		shell->redirect_out = open(shell->tokens[i + 3].token,  O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	if(shell->tokens[i].type == LEFT)//add check if out and in check for more tokens
+		shell->redirect_in = open(shell->tokens[i + 1].token, O_RDONLY);
+	else if(shell->tokens[i + 2].type == LEFT)//add check if out and in check for more tokens
+		shell->redirect_in = open(shell->tokens[i + 3].token, O_RDONLY);
 	return(false);
 }
