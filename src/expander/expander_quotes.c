@@ -6,22 +6,80 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/03 16:42:45 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:51:23 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *ft_realloc(char *str, int size)
+int		tilde_counter(t_shell *shell)
 {
-	char *new_str;
-	int old_size;
+	int i;
+	int n_tilde;
 
-	old_size = ft_strlen(str);
-	new_str = malloc(sizeof(char) * (old_size + size + 1));
-	strncpy(new_str, str, old_size);
-	free(str);
-	return (new_str);
+	i = -1;
+	n_tilde = 0;
+	while (shell->input_str[++i])
+	{
+		if (shell->input_str[i] == '~')
+		{
+			n_tilde++;
+		}
+	}
+	return (n_tilde);	
+}
+
+int		tilde_validator(t_shell *shell)
+{
+	int i;
+
+	i = -1;
+	while (shell->input_str[++i])
+	{
+		if (shell->input_str[i] == '~' && shell->input_str[i + 1])
+		{
+			if (shell->input_str[i + 1] == '~')
+				return (0);
+		}
+	}
+	return (1);	
+}
+
+void tilde_expander(t_shell *shell)
+{
+	int y;
+	int n_tilde;
+	int home_len;
+	char *home;
+	char **split;
+	char *new_str;
+	
+	n_tilde = tilde_counter(shell);
+	if (n_tilde > 1)
+	{
+		if (tilde_validator(shell) == 0)
+			return ;
+	}
+	if (n_tilde == 0)
+		return ;
+	home = env_get_val(shell, "HOME");
+	home_len = ft_strlen(home);
+	split = ft_split(shell->input_str, '~');
+	new_str = malloc(sizeof(char) * (ft_strlen(shell->input_str) + (n_tilde * home_len) + 1));
+	strcpy(new_str, split[0]);
+	y = 0;
+	while (split[++y])
+	{
+		strcat(new_str, home);
+		n_tilde--;
+		strcat(new_str,  split[y]);
+	}
+	if (n_tilde)
+		strcat(new_str, home);
+	free_double_str(split);
+	free(split);
+	free(shell->input_str);
+	shell->input_str = new_str;
 }
 
 void shift_tokens_up(t_shell *shell, int index, int size) {
@@ -38,6 +96,8 @@ void shift_tokens_up(t_shell *shell, int index, int size) {
 
     shell->tokens[size - 1].token = NULL;
 }
+
+
 
 int		get_tokens_len(t_shell *shell)
 {

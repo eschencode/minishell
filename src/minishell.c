@@ -127,6 +127,7 @@ void	minishell_loop()
 			if (shell.tokens_flag)
 				ft_free_tokens(tokens);
 			add_history(shell.input_str); //adds history of commands
+			tilde_expander(&shell);
 			tokens = tokenization(&shell, shell.input_str);
 			free(shell.input_str);
 			shell.tokens = tokens;
