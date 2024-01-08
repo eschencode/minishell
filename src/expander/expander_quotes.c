@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/08 14:48:45 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/08 14:51:23 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void tilde_expander(t_shell *shell)
 		strcat(new_str, home);
 	free_double_str(split);
 	free(split);
-	printf("newstr -> %s\n", new_str);
-	free(new_str);
+	free(shell->input_str);
+	shell->input_str = new_str;
 }
 
 void shift_tokens_up(t_shell *shell, int index, int size) {
