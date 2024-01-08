@@ -36,6 +36,8 @@ re: fclean all
 v: fclean all
 	valgrind --leak-check=full ./$(NAME)
 
+val:	valgrind --leak-check=full ./minishell
+
 run: $(NAME)
 	./$(NAME)
 

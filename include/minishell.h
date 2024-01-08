@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/04 09:01:52 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:50:55 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ typedef struct s_shell
 	t_clist *clist;
 	int		env_flag;
 	char **env;
-	char*	path;
+	char *path;
+	char *cd_last_path;
 	int	n_pipes;
 	int	redirect_in;
 	int	redirect_out;
@@ -110,7 +111,7 @@ void ft_expander(t_shell *shell);
 void 	signal_handler(int sig);
 
 //builtins
-bool 	cd(char *cmd, int fd_in, int fd_out);
+bool 	cd(t_shell *shell, char *cmd, int fd_in, int fd_out);
 bool	first_cd(t_shell shell);
 
 //parser/parser.c
@@ -139,7 +140,8 @@ int	ft_dup2(int in, int out);
 char *exe_path(t_shell *shell, char *exe);
 
 //builtins_l
-bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out);
+bool 	pwd_builtin(int fd_in, int fd_out);
+void	add_path_to_hist(t_shell *shell);
 int 	echo_l(t_shell shell);
 
 // builtins_a
@@ -150,7 +152,7 @@ void	free_env(t_shell *shell);
 // builtins_a_2
 int		is_in_env(t_shell *shell, char *str);
 bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out);
-bool    ft_echo(t_clist *c_node, int fd_in, int fd_out);
+bool    ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out);
 char 	*env_get_val(t_shell *shell, char *var);
 int 	get_val_offset(char *str);
 int 	env_get_id(t_shell *shell, char *var);

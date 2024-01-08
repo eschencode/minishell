@@ -11,25 +11,64 @@ bool first_cd(t_shell shell)
 		return(true);
 }
 
-
-bool cd(char *cmd, int fd_in, int fd_out)
+void	add_path_to_hist(t_shell *shell)
 {
-	ft_dup2(fd_in, fd_out);
-	cmd[ft_strlen(cmd)] = '\0';
-	if(chdir(cmd + 3) < 0)
-			printf("cant cd %s\n", cmd + 3);
-		return(true);
+	char cwd[1024];
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return ;
+	if (shell->cd_last_path != NULL)
+		free(shell->cd_last_path);
+	shell->cd_last_path = malloc(sizeof(char) * (ft_strlen(cwd) + 1));
+	strcpy(shell->cd_last_path, cwd);
 }
 
-bool 	pwd_builtin(t_clist *cmd, int fd_in, int fd_out)
+bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 {
-	if(strcmp(cmd->cmd[0], "pwd") == 0)
+	char *path;
+	char *old_path;
+
+	ft_dup2(fd_in, fd_out);
+	path = cmd;
+	if (cmd == NULL)
 	{
-		ft_dup2(fd_in, fd_out);
-				char cwd[1024];
-				if (getcwd(cwd, sizeof(cwd)) != NULL)
-					printf("%s\n", cwd);
+		path = env_get_val(shell, "HOME");
+		if (path == NULL)
+			printf("CD: HOME not set, EXIT 1\n");
+		if(chdir(path) < 0)
+			printf("CD: No such file or directory: %s, EXIT 1\n", path);
+		return (true);
+		
 	}
+	if (strcmp(cmd, "~") == 0)
+		path = env_get_val(shell, "HOME");
+	if (strcmp(cmd, "-") == 0)
+	{
+		old_path = ft_strdup(shell->cd_last_path);
+		add_path_to_hist(shell);
+		printf("%s\n", old_path);
+		chdir(old_path);
+		free(old_path);
+		return(true);
+	}
+	// check for tilde and substitute
+	if (path == NULL)
+		printf("CD: HOME not set, EXIT 1\n");
+	if (path != NULL)
+	{
+		add_path_to_hist(shell);
+		if(chdir(path) < 0)
+			printf("CD: No such file or directory: %s, EXIT 1\n", path);
+	}
+	return(true);
+}
+
+bool 	pwd_builtin(int fd_in, int fd_out)
+{
+	ft_dup2(fd_in, fd_out);
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
 	return (true);
 }
 

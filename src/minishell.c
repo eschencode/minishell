@@ -27,25 +27,22 @@ void free_double_str(char **str)
 	y = -1;
 	while (str[++y])
 		free(str[y]);
-	free(str);
 }
 
 void ft_free_clist(t_shell *shell)
 {
-    t_clist *tracer;
+    t_clist **tracer;
     t_clist *old_node;
 
-	tracer = shell->clist;
-	while (tracer->next)
+	tracer = &shell->clist;
+	while (*tracer)
 	{
-		old_node = tracer;
-		tracer = tracer->next;
+		old_node = *tracer;
+		*tracer = (*tracer)->next;
 		free_double_str(old_node->cmd);
+		free(old_node->cmd);
 		free(old_node);
 	}
-	// free last element (skips while statement)
-	free_double_str(tracer->cmd);
-	free(tracer);
 }
 
 void ft_free_all(t_tokens *tokens, t_shell *shell)
@@ -62,6 +59,10 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 	}
 	free(shell->input_str);
 	free_env(shell);
+	if (shell->cd_last_path)
+		free(shell->cd_last_path);
+	if (shell->path)
+		free(shell->path);
 }
 
 void env_init(t_shell *shell)
@@ -111,12 +112,14 @@ void	minishell_loop()
 	rl_initialize();
 	using_history();
 	env_init(&shell);
+	shell.cd_last_path = NULL;
+	shell.path = NULL;
+	add_path_to_hist(&shell);
 	while(1)
 	{
 		shell.input_str = readline(prompt);
-		if(shell.input_str == NULL) // exits right but needs to free here
-			return;
-		first_cd(shell);
+		if (shell.input_str == NULL)
+			return ;
 		if (eval_exit_loop(&shell, tokens))
 			return ;
 		if (eval_input_error(&shell) == 0)
@@ -133,6 +136,7 @@ void	minishell_loop()
 			ft_expander(&shell);
 			executor(&shell);
 			ft_free_clist(&shell);
+			// free(shell.path);
 		}
 	}
 }

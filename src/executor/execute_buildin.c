@@ -20,9 +20,9 @@ int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out)
 
 	ret = safe_dup(&safe_in, &safe_out);
 	if(strcmp(cmd->cmd[0], "pwd") == 0)
-		return (pwd_builtin(cmd, in, out));
-	if (strcmp(cmd->cmd[0], "cd") == 0)
-		return (cd(cmd->cmd[0], in, out));
+		return (pwd_builtin(in, out));
+	if (strcmp(cmd->cmd[1], "cd") == 0)
+		return (cd(shell, cmd->cmd[0], in, out));
 	if (strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, in, out)));
 	if(strcmp(cmd->cmd[0], "clear") == 0)
@@ -32,7 +32,7 @@ int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out)
 	if (strcmp(cmd->cmd[0], "printenv") == 0)
 		return(print_env(shell->env, in, out));
 	if (strcmp(cmd->cmd[0], "echo") == 0)
-		return(ft_echo(cmd, in, out));
+		return(ft_echo(shell, cmd, in, out));
 	ret = ft_dup2(safe_in, safe_out);
 	return(ret);
 }
