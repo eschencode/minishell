@@ -31,8 +31,8 @@ void free_double_str(char **str)
 
 void ft_free_clist(t_shell *shell)
 {
-    t_clist **tracer;
-    t_clist *old_node;
+	t_clist **tracer;
+	t_clist *old_node;
 
 	tracer = &shell->clist;
 	while (*tracer)
@@ -102,6 +102,38 @@ int eval_input_error(t_shell *shell)
 	}
 	return (0);
 }
+char *space_trimer(char *input_str)
+{
+	char *trimed_str;
+	char *ret_str;
+	int i, len;
+	trimed_str = ft_strtrim(input_str," ");
+	i = 0;
+	len = 0;
+	while(trimed_str[i] != '\0')
+	{
+		if(!(trimed_str[i] == ' ' && trimed_str[i + 1] == ' '))
+			len++;
+		i++;
+	}
+	ret_str = malloc(sizeof(char) * (len + 1));
+	i = 0;
+	len = 0;
+	while(trimed_str[i] != '\0')
+	{
+		if(!(trimed_str[i] == ' ' && trimed_str[i + 1] == ' '))
+		{
+			ret_str[len] = trimed_str[i];
+			len++;
+		}
+		i++;
+	}
+	ret_str[len] = '\0';
+	free(trimed_str);
+	return ret_str;
+}
+
+
 
 void	minishell_loop()
 {
@@ -118,7 +150,7 @@ void	minishell_loop()
 	add_path_to_hist(&shell);
 	while(1)
 	{
-		shell.input_str = readline(prompt);
+		shell.input_str = space_trimer(readline(prompt));
 		if (shell.input_str == NULL)
 			return ;
 		if (eval_exit_loop(&shell, tokens))
