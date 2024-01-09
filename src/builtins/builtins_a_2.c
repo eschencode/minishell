@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/05 18:06:17 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:54:59 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,11 @@ bool    ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out)
                 printf("%s", cmd[y]);
         }
         else
+        {
             printf("%s", cmd[y]);
-        if (n != 1)
-            printf(" ");
+            if (n != 1)
+                printf(" ");
+        }
         n--;
     }
     printf("\n");
