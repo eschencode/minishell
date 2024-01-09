@@ -60,6 +60,8 @@ char *exe_path(t_shell *shell, char *exe)
 	char *exe_path;
 	char **paths;
 
+	if(strchr(exe,'/'))//not sure if this is enugh :() looks like it works
+		return(exe);
 	path = env_get_val(shell, "PATH");
 	paths = ft_split(path, ':');
 	y = -1;
