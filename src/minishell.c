@@ -130,7 +130,6 @@ void	minishell_loop()
 			add_history(shell.input_str); //adds history of commands
 			tilde_expander(&shell);
 			tokens = tokenization(&shell, shell.input_str);
-			free(shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);
@@ -138,6 +137,7 @@ void	minishell_loop()
 			ft_expander(&shell);
 			executor(&shell);
 			ft_free_clist(&shell);
+			free(shell.input_str);
 			// free(shell.path);
 		}
 	}
