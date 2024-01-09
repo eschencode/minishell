@@ -92,48 +92,33 @@ int eval_exit_loop(t_shell *shell, t_tokens *tokens)
 	return (0);
 }
 
+int validate_input_str(t_shell *shell)
+{
+	int x;
+	char *str;
+
+
+	str = shell->input_str;
+	x = -1;
+	
+	while(str[++x])
+	{
+		if (str[x] != ' ' && str[x] != '\t')
+			return (0);
+	}
+	return (1);
+}
+
 int eval_input_error(t_shell *shell)
 {
 	if (shell->input_str == NULL || shell->input_str[0] == '\0' \
-	|| count_quotes(shell->input_str) % 2 != 0)
+	|| count_quotes(shell->input_str) % 2 != 0 || validate_input_str(shell) == 1)
 	{
 		free(shell->input_str);
 		return (1);
 	}
 	return (0);
 }
-char *space_trimer(char *input_str)
-{
-	char *trimed_str;
-	char *ret_str;
-	int i, len;
-	trimed_str = ft_strtrim(input_str," ");
-	i = 0;
-	len = 0;
-	while(trimed_str[i] != '\0')
-	{
-		if(!(trimed_str[i] == ' ' && trimed_str[i + 1] == ' '))
-			len++;
-		i++;
-	}
-	ret_str = malloc(sizeof(char) * (len + 1));
-	i = 0;
-	len = 0;
-	while(trimed_str[i] != '\0')
-	{
-		if(!(trimed_str[i] == ' ' && trimed_str[i + 1] == ' '))
-		{
-			ret_str[len] = trimed_str[i];
-			len++;
-		}
-		i++;
-	}
-	ret_str[len] = '\0';
-	free(trimed_str);
-	return ret_str;
-}
-
-
 
 void	minishell_loop()
 {
@@ -150,7 +135,7 @@ void	minishell_loop()
 	add_path_to_hist(&shell);
 	while(1)
 	{
-		shell.input_str = space_trimer(readline(prompt));
+		shell.input_str = readline(prompt);
 		if (shell.input_str == NULL)
 			return ;
 		if (eval_exit_loop(&shell, tokens))
