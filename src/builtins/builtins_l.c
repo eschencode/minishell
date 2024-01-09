@@ -40,8 +40,6 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 		return (true);
 		
 	}
-	if (strcmp(cmd, "~") == 0)
-		path = env_get_val(shell, "HOME");
 	if (strcmp(cmd, "-") == 0)
 	{
 		old_path = ft_strdup(shell->cd_last_path);
@@ -51,7 +49,6 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 		free(old_path);
 		return(true);
 	}
-	// check for tilde and substitute
 	if (path == NULL)
 		printf("CD: HOME not set, EXIT 1\n");
 	if (path != NULL)
