@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/10 12:09:36 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:23:25 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ int	executor(t_shell *shell)
 		shell->path = exe_path(shell, shell->clist->cmd[0]);
 		if (shell->path != NULL)
 			execute_externals(shell);
+		else
+		{
+			printf("command not found: %s\n",shell->clist->cmd[0]);
+			shell->exit_code = 127;
+		}
 	}
 	restore_stdin_stdout(saved_stdin, saved_stdout);
 	return (0);
