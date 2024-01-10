@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/08 15:14:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:46:10 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ char *exe_path(t_shell *shell, char *exe)
 	char *path;
 	char *exe_path;
 	char **paths;
-
-	if(strchr(exe,'/'))//not sure if this is enugh :() looks like it works
-		return(exe);
+	
 	path = env_get_val(shell, "PATH");
 	paths = ft_split(path, ':');
 	y = -1;
