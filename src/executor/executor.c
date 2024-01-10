@@ -6,13 +6,11 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/10 12:23:25 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:37:08 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../include/minishell.h"
-
 
 int execute_externals(t_shell *shell)
 {
@@ -34,6 +32,8 @@ int execute_externals(t_shell *shell)
 			shell->exit_code = 127;
 			exit(EXIT_FAILURE);
 		}
+		else
+			shell->exit_code = 0;
 	}
 	else
 	{// This code is executed in the parent process
