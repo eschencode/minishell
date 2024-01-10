@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/08 14:51:23 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 10:37:48 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void tilde_expander(t_shell *shell)
 	if (n_tilde == 0)
 		return ;
 	home = env_get_val(shell, "HOME");
+	if (home == NULL)
+		return ;
 	home_len = ft_strlen(home);
 	split = ft_split(shell->input_str, '~');
 	new_str = malloc(sizeof(char) * (ft_strlen(shell->input_str) + (n_tilde * home_len) + 1));

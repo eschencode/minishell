@@ -30,13 +30,20 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 
 	ft_dup2(fd_in, fd_out);
 	path = cmd;
-	if (cmd == NULL)
+	if (cmd == NULL || strcmp(cmd, "~") == 0)
 	{
 		path = env_get_val(shell, "HOME");
 		if (path == NULL)
-			printf("CD: HOME not set, EXIT 1\n");
+		{
+			printf("cd: HOME not set\n");
+			shell->exit_code = 1;
+			return (true);
+		}
 		if(chdir(path) < 0)
-			printf("CD: No such file or directory: %s, EXIT 1\n", path);
+		{
+			printf("cd: No such file or directory: %s\n", path);
+			shell->exit_code = 1;
+		}
 		return (true);
 		
 	}
@@ -49,13 +56,11 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 		free(old_path);
 		return(true);
 	}
-	if (path == NULL)
-		printf("CD: HOME not set, EXIT 1\n");
-	if (path != NULL)
+	add_path_to_hist(shell);
+	if(chdir(path) < 0)
 	{
-		add_path_to_hist(shell);
-		if(chdir(path) < 0)
-			printf("CD: No such file or directory: %s, EXIT 1\n", path);
+		printf("cd: No such file or directory: %s\n", path);
+		shell->exit_code = 1;
 	}
 	return(true);
 }

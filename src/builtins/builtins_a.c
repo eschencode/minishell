@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2023/12/01 09:55:24 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:26:46 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,21 @@ bool	export_reassign(t_shell *shell, char *str)
 	return (true);
 }
 
+void	push_to_env(t_shell *shell, char *str)
+{
+	int old_len;
+	char **env;
+	
+	old_len = count_str_arr(shell->env);
+	env = malloc(sizeof(char *) * (old_len + 1 + 1));
+	str_arr_cpy(env, shell->env);
+	free_double_str(shell->env);
+	free(shell->env);
+	env[old_len] = ft_strdup(str);
+	env[old_len + 1] = NULL;
+	shell->env = env;
+}
+
 bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 {
 	char	**env;
@@ -121,6 +136,7 @@ bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 	env = malloc(sizeof(char *) * (old_len + 1 + 1));
 	str_arr_cpy(env, shell->env);
 	free_double_str(shell->env);
+	free(shell->env);
 	env[old_len] = ft_strdup(cmd[1]);
 	env[old_len + 1] = NULL;
 	shell->env = env;

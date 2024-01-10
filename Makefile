@@ -8,7 +8,8 @@ SRC	= 	src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
 		src/signals/signals.c src/builtins/builtins_l.c src/parser/parser.c \
 		src/executor/executor.c src/builtins/builtins_a.c src/builtins/builtins_a_2.c\
 		src/executor/executor_utils.c src/executor/execute_pipes.c src/executor/execute_buildin.c \
-		src/executor/executor_redirections.c src/heredoc/heredoc.c src/expander/expander_quotes.c
+		src/executor/executor_redirections.c src/heredoc/heredoc.c src/expander/expander_quotes.c \
+		src/builtins/exit_check.c
 
 OBJ = $(SRC:.c=.o)
 
