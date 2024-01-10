@@ -40,7 +40,10 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 			return (true);
 		}
 		if(chdir(path) < 0)
-			printf("cd: No such file or directory: %s, EXIT 1\n", path);
+		{
+			printf("cd: No such file or directory: %s\n", path);
+			shell->exit_code = 1;
+		}
 		return (true);
 		
 	}
@@ -56,7 +59,7 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 	add_path_to_hist(shell);
 	if(chdir(path) < 0)
 	{
-		printf("cd: No such file or directory: %s, EXIT 1\n", path);
+		printf("cd: No such file or directory: %s\n", path);
 		shell->exit_code = 1;
 	}
 	return(true);

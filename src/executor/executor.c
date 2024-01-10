@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/10 10:56:21 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:02:32 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int execute_externals(t_shell *shell)
 	}
 	else if (child_pid == 0)
 	{// This code is executed in the child process
-		if (execve(shell->path, shell->clist->cmd, shell->env) == -1) //shell->env;
+		if (shell->path != NULL && execve(shell->path, shell->clist->cmd, shell->env) == -1) //shell->env;
 		{
 			printf("command not found: %s\n",shell->clist->cmd[0]);
 			ft_error("exec error");
+			shell->exit_code = 127;
 			exit(EXIT_FAILURE);
 		}
 	}
