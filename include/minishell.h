@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/08 15:12:26 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:59:40 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_clist
 	struct s_clist *next;
 } t_clist;
 
-
 typedef struct s_pipedata{
 	int	pids[100];
 	int	pipes[200];
@@ -91,9 +90,9 @@ typedef struct s_shell
 	int redirect_out;
 	char	*saved_cmd;
 	char	*exe_path;
+	int		exit_code;
 
 } t_shell;
-
 
 //minishell.c
 void ft_free_all(t_tokens *tokens, t_shell *shell);
@@ -170,5 +169,8 @@ void print_tokens(t_tokens *tokens);
 
 
 void tilde_expander(t_shell *shell);
+
+// builtins/exit_check.c
+bool	print_exit_status(t_shell *shell, int fd_in, int fd_out);
 
 #endif

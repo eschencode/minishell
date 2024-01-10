@@ -132,6 +132,7 @@ void	minishell_loop()
 	shell.cd_last_path = NULL;
 	shell.path = NULL;
 	shell.exe_path = NULL;
+	shell.exit_code = 0;
 	add_path_to_hist(&shell);
 	while(1)
 	{

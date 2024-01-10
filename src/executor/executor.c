@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/05 20:56:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 08:59:16 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		return(print_env(shell->env, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "echo") == 0)
 		return(ft_echo(shell, shell->clist, fd_in, fd_out));
+	if (strcmp(shell->clist->cmd[0], "$?") == 0)
+		return(print_exit_status(shell, fd_in, fd_out));
 	if (ft_strncmp(shell->clist->cmd[1], "<<", 2) == 0)
  		return (ft_heredoc(cmd));
 	return (false);
