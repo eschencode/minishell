@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/10 08:59:40 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:27:27 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,5 +172,8 @@ void tilde_expander(t_shell *shell);
 
 // builtins/exit_check.c
 bool	print_exit_status(t_shell *shell, int fd_in, int fd_out);
+
+
+void	push_to_env(t_shell *shell, char *str);
 
 #endif

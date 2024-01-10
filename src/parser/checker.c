@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/03 16:28:42 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/10 11:41:56 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ void count_pipes(t_shell *shell)
 void ft_expander(t_shell *shell)
 {
 	int y;
+	int exit_flag;
 	char *val;
 	t_clist **tracer;
 
 	tracer = &shell->clist;
+	exit_flag = 0;
 	while (*tracer)
 	{
 		y = -1;
@@ -62,6 +64,13 @@ void ft_expander(t_shell *shell)
 					val = env_get_val(shell, (*tracer)->cmd[y] + 1);
 					free((*tracer)->cmd[y]);
 					(*tracer)->cmd[y] = ft_strdup(val);
+				}
+				else if ((strcmp((*tracer)->cmd[y] + 1, "?") == 0) && exit_flag == 0)
+				{
+					val = ft_itoa(shell->exit_code);
+					free((*tracer)->cmd[y]);
+					(*tracer)->cmd[y] = val;
+					exit_flag = 1;
 				}
 			}
 		}
