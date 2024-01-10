@@ -13,14 +13,40 @@
 
 #include "../../include/minishell.h"
 
+bool	check_redirections_check(t_shell *shell)
+{
+	int	i;
+	i = 0;
+	if (strstr(shell->input_str, ">>") == NULL && strstr(shell->input_str, ">") == NULL && strstr(shell->input_str, "<") == NULL)
+		return (false);
+
+	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, shell->saved_cmd) != 0))
+		i++;
+	i++;
+	if(shell->tokens[i].token[0] == '-') //skips options
+		i++;
+	if (shell->tokens[i].type == RIGHT)
+		return(true);
+	else if (shell->tokens[i + 2].type == RIGHT)
+		return(true);
+	if(shell->tokens[i].type == LEFT)
+		return(true);
+	else if (shell->tokens[i + 2].type == LEFT)
+		return(true);
+	if(shell->tokens[i].type == RIGHT_RIGHT)
+		return(true);
+	else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
+		return(true);
+	return(false);
+}
 
 int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
-	shell->redirect_in = fd_in;
-	shell->redirect_out = fd_out;
-	check_redirections_pipes(shell, fd_in, fd_out);
-	error_check = ft_dup2(shell->redirect_in, shell->redirect_out);
+	if (check_redirections_check(shell) == true)
+		check_redirections_pipes(shell, &fd_in, &fd_out);
+
+	error_check = ft_dup2(fd_in, fd_out);
 
 	if(!cmd->cmd[0])
 	{
@@ -37,7 +63,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 }
 
 
-bool	check_redirections_pipes(t_shell *shell,int fd_in, int fd_out)
+bool	check_redirections_pipes(t_shell *shell,int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;
@@ -48,18 +74,18 @@ bool	check_redirections_pipes(t_shell *shell,int fd_in, int fd_out)
 	if(shell->tokens[i].token[0] == '-') //skips options
 		i++;
 	if (shell->tokens[i].type == RIGHT)
-		shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	else if (shell->tokens[i + 2].type == RIGHT)
-		shell->redirect_out  = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		*fd_out  = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if(shell->tokens[i].type == LEFT)
-		shell->redirect_in = open(shell->tokens[i + 1].token, O_RDONLY);
+		*fd_in = open(shell->tokens[i + 1].token, O_RDONLY);
 	else if (shell->tokens[i + 2].type == LEFT)
-		shell->redirect_in = open(shell->tokens[i + 3].token, O_RDONLY);
+		*fd_in = open(shell->tokens[i + 3].token, O_RDONLY);
 	if(shell->tokens[i].type == RIGHT_RIGHT)
-		shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
-		shell->redirect_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-	if(fd_out == -1 || fd_in == -1)
+		*fd_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	if(*fd_out == -1 || *fd_in == -1)
 		printf("error accesing file\n");//add more eroro here probaby clos the fd too :()
 	return(0);
 }
@@ -103,7 +129,7 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 			shell->saved_cmd = malloc(sizeof(char) * ft_strlen(cmd->cmd[0]));
 			shell->saved_cmd = ft_strdup(cmd->cmd[0]);
 			cmd->cmd[0] = path;
-			printf("cmd = %s and savedcmd %s",cmd->cmd[0],shell->saved_cmd);
+			//printf("cmd = %s and savedcmd %s",cmd->cmd[0],shell->saved_cmd);
 		}
 		ret = execute_cmd(shell,cmd,fd_in,fd_out);
 		free(path);
