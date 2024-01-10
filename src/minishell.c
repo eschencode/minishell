@@ -66,18 +66,18 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 }
 
 void env_init(t_shell *shell)
-{	
+{
 	int y;
 	int len;
-	extern char **__environ;
+	extern char **environ;
 
 	len = 0;
-	while (__environ[len])
+	while (environ[len])
 		len++;
 	shell->env = malloc(sizeof(char *) * (len + 1));
 	y = -1;
-	while (__environ[++y])
-		shell->env[y] = ft_strdup(__environ[y]);
+	while (environ[++y])
+		shell->env[y] = ft_strdup(environ[y]);
 	shell->env[y] = NULL;
 }
 
@@ -100,7 +100,7 @@ int validate_input_str(t_shell *shell)
 
 	str = shell->input_str;
 	x = -1;
-	
+
 	while(str[++x])
 	{
 		if (str[x] != ' ' && str[x] != '\t')
