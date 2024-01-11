@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/10 11:27:27 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:01:12 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ bool	check_redirections_check(t_shell *shell);
 void ft_error(char *errmsg);
 bool print_env(char **env_arry, int fd_in, int fd_out);
 int	ft_dup2(int in, int out);
-char *exe_path(t_shell *shell, char *exe);
+void exe_path(t_shell *shell, char *exe);
 
 //builtins_l
 bool 	pwd_builtin(int fd_in, int fd_out);

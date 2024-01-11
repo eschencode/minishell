@@ -1,6 +1,6 @@
 
 NAME	= minishell
-CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
 CC		=  cc
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
 
