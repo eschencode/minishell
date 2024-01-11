@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/09 13:19:30 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:37:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,10 @@ int get_val_offset(char *str)
         x++;
     x++;
     return (x);
+}
+
+bool ft_penis(void)
+{
+    printf("c=======================================3\n");
+    return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/11 14:01:12 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:37:45 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,8 @@ bool	print_exit_status(t_shell *shell, int fd_in, int fd_out);
 
 
 void	push_to_env(t_shell *shell, char *str);
+
+
+bool	ft_penis(void);
 
 #endif
