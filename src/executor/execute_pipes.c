@@ -113,7 +113,6 @@ bool check_if_builtin1(t_clist *cmd)
 int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
 	int ret;
-	char *path;
 
 	ret = 0;
 
@@ -123,16 +122,15 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	}
 	else
 	{
-		path = exe_path(shell, cmd->cmd[0]);//free later ?
-		if(path != NULL)
+		exe_path(shell, cmd->cmd[0]);
+		if(shell->exe_path != NULL)
 		{
 			shell->saved_cmd = malloc(sizeof(char) * ft_strlen(cmd->cmd[0]));
 			shell->saved_cmd = ft_strdup(cmd->cmd[0]);
-			cmd->cmd[0] = path;
+			cmd->cmd[0] = shell->path;
 			//printf("cmd = %s and savedcmd %s",cmd->cmd[0],shell->saved_cmd);
 		}
 		ret = execute_cmd(shell,cmd,fd_in,fd_out);
-		free(path);
 	}
 	return (ret);
 }

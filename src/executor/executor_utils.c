@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/10 12:46:10 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:13:45 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void ft_error(char *errmsg)
 	//ft_free_all(shell.tokens, &shell);
 }
 
-char *exe_path(t_shell *shell, char *exe)
+void exe_path(t_shell *shell, char *exe)
 {
 	int y;
 	char *path;
@@ -68,22 +68,20 @@ char *exe_path(t_shell *shell, char *exe)
 	y = -1;
 	while (paths[++y])
 	{
-		exe_path = malloc(sizeof(char) * (ft_strlen(paths[y]) + ft_strlen(exe) + 4));
-		ft_strlcpy(exe_path, paths[y], ft_strlen(paths[y]));
-		ft_strcat(exe_path, "/");
-		ft_strcat(exe_path, exe);
-		if (access(exe_path, F_OK | X_OK) == 0)
+		if (access(paths[y], F_OK | X_OK) == 0)
 		{
+			exe_path = malloc(sizeof(char) * (ft_strlen(paths[y]) + 1));
+			strcpy(exe_path, paths[y]);
+			ft_strcat(exe_path, "/");
+			ft_strcat(exe_path, exe);
 			free_double_str(paths);
 			free(paths);
 			if (shell->exe_path)
 				free(shell->exe_path);
 			shell->exe_path = exe_path;
-			return (exe_path);
+			return ;
 		}
-		free(exe_path);
 	}
 	free_double_str(paths);
 	free(paths);
-	return NULL;
 }

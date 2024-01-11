@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/10 12:37:08 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:03:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	executor(t_shell *shell)
 	handle_redirections(shell, cmd);
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
-		shell->path = exe_path(shell, shell->clist->cmd[0]);
+		exe_path(shell, shell->clist->cmd[0]);
 		execute_externals(shell);
 		//else
 		//{
