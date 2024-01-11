@@ -149,12 +149,15 @@ void	minishell_loop()
 				ft_free_tokens(tokens);
 			add_history(shell.input_str); //adds history of commands
 			tilde_expander(&shell);
+			if (strstr(shell.input_str, "\"") != NULL || strstr(shell.input_str, "\'") != NULL)
+				expander_quotes(&shell);
 			tokens = tokenization(&shell, shell.input_str);
 			shell.tokens = tokens;
 			shell.tokens_flag = 1;
 			checker(&shell);
 			parser(&shell);
 			ft_expander(&shell);
+			print_clist(&shell);
 			executor(&shell);
 			ft_free_clist(&shell);
 			free(shell.input_str);
