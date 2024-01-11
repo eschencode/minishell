@@ -1,8 +1,8 @@
 
 NAME	= minishell
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 CC		=  cc
-VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
+VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
 
 SRC	= 	src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
 		src/signals/signals.c src/builtins/builtins_l.c src/parser/parser.c \
