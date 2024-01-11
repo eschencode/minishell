@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/11 14:13:45 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:53:15 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void exe_path(t_shell *shell, char *exe)
 	y = -1;
 	while (paths[++y])
 	{
-		if (access(paths[y], F_OK | X_OK) == 0)
+		exe_path = malloc(sizeof(char) * (ft_strlen(paths[y]) + ft_strlen(exe) + 4));
+		ft_strlcpy(exe_path, paths[y], ft_strlen(paths[y]));
+		ft_strcat(exe_path, "/");
+		ft_strcat(exe_path, exe);
+		if (access(exe_path, F_OK | X_OK) == 0)
 		{
-			exe_path = malloc(sizeof(char) * (ft_strlen(paths[y]) + 1));
-			strcpy(exe_path, paths[y]);
-			ft_strcat(exe_path, "/");
-			ft_strcat(exe_path, exe);
 			free_double_str(paths);
 			free(paths);
 			if (shell->exe_path)
@@ -81,6 +81,7 @@ void exe_path(t_shell *shell, char *exe)
 			shell->exe_path = exe_path;
 			return ;
 		}
+		free(exe_path);
 	}
 	free_double_str(paths);
 	free(paths);
