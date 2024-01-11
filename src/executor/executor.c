@@ -25,6 +25,9 @@ int execute_externals(t_shell *shell)
 	}
 	else if (child_pid == 0)
 	{// This code is executed in the child process
+		if (shell->path == NULL)
+			shell->path = shell->clist->cmd[0];
+		
 		if (execve(shell->path, shell->clist->cmd, shell->env) == -1) //shell->env;
 		{
 			printf("command not found: %s\n",shell->clist->cmd[0]);
@@ -32,8 +35,6 @@ int execute_externals(t_shell *shell)
 			shell->exit_code = 127;
 			exit(EXIT_FAILURE);
 		}
-		else
-			shell->exit_code = 0;
 	}
 	else
 	{// This code is executed in the parent process
@@ -109,13 +110,12 @@ int	executor(t_shell *shell)
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
 		shell->path = exe_path(shell, shell->clist->cmd[0]);
-		if (shell->path != NULL)
-			execute_externals(shell);
-		else
-		{
-			printf("command not found: %s\n",shell->clist->cmd[0]);
-			shell->exit_code = 127;
-		}
+		execute_externals(shell);
+		//else
+		//{
+		//	printf("command not found: %s\n",shell->clist->cmd[0]);
+		//	shell->exit_code = 127;
+		//}
 	}
 	restore_stdin_stdout(saved_stdin, saved_stdout);
 	return (0);
