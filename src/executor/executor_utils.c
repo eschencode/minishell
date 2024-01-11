@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/11 14:53:15 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 15:11:20 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void exe_path(t_shell *shell, char *exe)
 	}
 	free_double_str(paths);
 	free(paths);
+	shell->exe_path = NULL;
 }

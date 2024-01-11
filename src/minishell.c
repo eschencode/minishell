@@ -61,6 +61,8 @@ void ft_free_all(t_tokens *tokens, t_shell *shell)
 	free_env(shell);
 	if (shell->cd_last_path)
 		free(shell->cd_last_path);
+	if (shell->exe_path)
+		free(shell->exe_path);
 	if (shell->path)
 		free(shell->path);
 }
