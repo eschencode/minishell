@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/10 10:37:48 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:25:28 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,45 +111,6 @@ int		get_tokens_len(t_shell *shell)
 	return (i);
 }
 
-void	expander_single_quotes(t_shell *shell)
-{
-	int i;
-	int first_i;
-	int first_flag;
-	char *first_string;
-	char *token_str;
-	char *new_str;
-
-	i = -1;
-	first_flag = 0;
-	first_string = NULL;
-	while (shell->tokens[++i].token)
-	{
-		token_str = shell->tokens[i].token;
-		if (first_flag == 0 && (ft_strchr(token_str, '\'') != NULL))
-		{
-			first_string = token_str;
-			first_i = i;
-			shell->tokens[i].type = WORD;
-			first_flag = 1;
-		}
-		else if (first_flag == 1)
-		{
-			new_str = malloc(sizeof(char) * (ft_strlen(first_string) + ft_strlen(token_str) + 2));
-			strcpy(new_str, first_string);
-			strcat(new_str, " ");
-			strcat(new_str, token_str);
-			free(shell->tokens[first_i].token);
-			shell->tokens[first_i].token = new_str;
-			first_string = shell->tokens[first_i].token;
-			if ((ft_strchr(token_str, '\'') != NULL))
-				first_flag = 0;
-			shift_tokens_up(shell, i, get_tokens_len(shell));
-			i--;
-		}
-	}
-}
-
 char *get_word_from_token(char *str, int start)
 {
 	int end;
@@ -170,6 +131,24 @@ char *get_word_from_token(char *str, int start)
 	}
 	env[x] = '\0';
 	return (env);
+}
+
+
+void get_rid_of_quotes(char *str)
+{
+    int x = 0;
+    int y = 0;
+
+    while (str[x])
+    {
+        if (str[x] != '\'' && str[x] != '\"')
+        {
+            str[y] = str[x];
+            y++;
+        }
+        x++;
+    }
+    str[y] = '\0';
 }
 
 void push_val_into_str(char *str, char *val, char *var, int pos)
@@ -199,23 +178,31 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 	free(new_str);
 }
 
-void get_rid_of_quotes(char *str)
+char *ret_push_val_into_str(char *str, char *val, char *var, int pos)
 {
-    int x = 0;
-    int y = 0;
-
-    while (str[x])
-    {
-        if (str[x] != '\'' && str[x] != '\"')
-        {
-            str[y] = str[x];
-            y++;
-        }
-        x++;
-    }
-    str[y] = '\0';
+	int x;
+	int new_len;
+	char *new_str;
+	
+	x = -1;
+	new_len = ft_strlen(str) - ft_strlen(var) + ft_strlen(val);
+	new_str = malloc(sizeof(char) * (new_len + 1));
+	while (++x < pos)
+		new_str[x] = str[x];
+	while (str[pos] && str[pos] != ' ' && str[pos] != '\"' && str[pos] != '\'')
+		pos++;
+	new_str[x] = '\0';
+	strcat(new_str, val);
+	x = x + ft_strlen(val);
+	while (str[pos])
+	{
+		new_str[x] = str[pos];
+		x++;
+		pos++;
+	}
+	new_str[x] = '\0';
+	return (new_str);
 }
-
 
 void token_str_expander(t_shell *shell, char *str)
 {
@@ -263,43 +250,65 @@ void value_expander(t_shell *shell)
 	
 }
 
+void print_d_str(char **str)
+{
+	int y;
+
+	y = -1;
+	while (str[++y])
+		printf("hh %s\n", str[y]);
+}
+
+char *trim_until_space(char *str)
+{
+	int x;
+	char *trimmed;
+
+	x = 0;
+	while (str[x] && str[x] != ' ' && str[x] != '	' && str[x] != '\"' && str[x] != '\'')
+		x++;
+	trimmed = malloc(sizeof(char) * (x + 1));
+	ft_strlcpy(trimmed, str, x);
+	return (trimmed);
+}
+
 void	expander_quotes(t_shell *shell)
 {
-	int i;
-	int first_i;
-	int first_flag;
-	char *first_string;
-	char *token_str;
+	int x;
+	char *var;
+	char *val;
 	char *new_str;
+	int sq_mode;
+	int dq_mode;
 
-	i = -1;
-	first_flag = 0;
-	first_string = NULL;
-	while (shell->tokens[++i].token)
+
+	x = -1;
+	dq_mode = 0;
+	sq_mode = 0;
+	while (shell->input_str[++x])
 	{
-		token_str = shell->tokens[i].token;
-		if (first_flag == 0 && (ft_strchr(token_str, '\"') != NULL))
+		if (shell->input_str[x] == '\"')
+			dq_mode = 1;
+		else if (shell->input_str[x] == '\"' && dq_mode == 1)
+			dq_mode = 0;
+		if (shell->input_str[x] == '\'')
+			sq_mode = 1;
+		else if (shell->input_str[x] == '\'' && sq_mode == 1)
+			sq_mode = 0;
+		if (dq_mode == 1 && sq_mode != 1 && shell->input_str[x] == '$')
 		{
-			first_string = token_str;
-			first_i = i;
-			shell->tokens[i].type = WORD;
-			first_flag = 1;
-		}
-		else if (first_flag == 1)
-		{
-			new_str = malloc(sizeof(char) * (ft_strlen(first_string) + ft_strlen(token_str) + 2));
-			strcpy(new_str, first_string);
-			strcat(new_str, " ");
-			strcat(new_str, token_str);
-			free(shell->tokens[first_i].token);
-			shell->tokens[first_i].token = new_str;
-			first_string = shell->tokens[first_i].token;
-			if ((ft_strchr(token_str, '\"') != NULL))
-				first_flag = 0;
-			shift_tokens_up(shell, i, get_tokens_len(shell));
-			i--;
+			var = trim_until_space(shell->input_str + x + 1);
+			val = env_get_val(shell, var);
+			if (val != NULL)
+			{
+				new_str = ret_push_val_into_str(shell->input_str, val, var, x);
+				free(shell->input_str);
+				shell->input_str = new_str;
+			}
+			free(var);
 		}
 	}
-	expander_single_quotes(shell);
-	value_expander(shell);
+	get_rid_of_quotes(shell->input_str);
+	
+	return ;
 }
