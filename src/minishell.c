@@ -157,7 +157,6 @@ void	minishell_loop()
 			checker(&shell);
 			parser(&shell);
 			ft_expander(&shell);
-			print_clist(&shell);
 			executor(&shell);
 			ft_free_clist(&shell);
 			free(shell.input_str);

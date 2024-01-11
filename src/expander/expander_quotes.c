@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/11 17:05:24 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:25:28 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,32 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 	free(new_str);
 }
 
+char *ret_push_val_into_str(char *str, char *val, char *var, int pos)
+{
+	int x;
+	int new_len;
+	char *new_str;
+	
+	x = -1;
+	new_len = ft_strlen(str) - ft_strlen(var) + ft_strlen(val);
+	new_str = malloc(sizeof(char) * (new_len + 1));
+	while (++x < pos)
+		new_str[x] = str[x];
+	while (str[pos] && str[pos] != ' ' && str[pos] != '\"' && str[pos] != '\'')
+		pos++;
+	new_str[x] = '\0';
+	strcat(new_str, val);
+	x = x + ft_strlen(val);
+	while (str[pos])
+	{
+		new_str[x] = str[pos];
+		x++;
+		pos++;
+	}
+	new_str[x] = '\0';
+	return (new_str);
+}
+
 void token_str_expander(t_shell *shell, char *str)
 {
 	int x;
@@ -251,7 +277,7 @@ void	expander_quotes(t_shell *shell)
 	int x;
 	char *var;
 	char *val;
-	char *input_str;
+	char *new_str;
 	int sq_mode;
 	int dq_mode;
 
@@ -259,28 +285,30 @@ void	expander_quotes(t_shell *shell)
 	x = -1;
 	dq_mode = 0;
 	sq_mode = 0;
-	input_str = shell->input_str;
-	while (input_str[++x])
+	while (shell->input_str[++x])
 	{
-		if (input_str[x] == '\"')
+		if (shell->input_str[x] == '\"')
 			dq_mode = 1;
-		else if (input_str[x] == '\"' && dq_mode == 1)
+		else if (shell->input_str[x] == '\"' && dq_mode == 1)
 			dq_mode = 0;
-		if (input_str[x] == '\'')
+		if (shell->input_str[x] == '\'')
 			sq_mode = 1;
-		else if (input_str[x] == '\'' && sq_mode == 1)
+		else if (shell->input_str[x] == '\'' && sq_mode == 1)
 			sq_mode = 0;
-		if (dq_mode == 1 && input_str[x] == '$')
+		if (dq_mode == 1 && sq_mode != 1 && shell->input_str[x] == '$')
 		{
-			var = trim_until_space(input_str + x + 1);
+			var = trim_until_space(shell->input_str + x + 1);
 			val = env_get_val(shell, var);
-			free(var);
 			if (val != NULL)
 			{
-				
+				new_str = ret_push_val_into_str(shell->input_str, val, var, x);
+				free(shell->input_str);
+				shell->input_str = new_str;
 			}
+			free(var);
 		}
 	}
+	get_rid_of_quotes(shell->input_str);
 	
 	return ;
 }
