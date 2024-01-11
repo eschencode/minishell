@@ -27,11 +27,9 @@ int execute_externals(t_shell *shell)
 	{// This code is executed in the child process
 		if (shell->path == NULL)
 			shell->path = shell->clist->cmd[0];
-		
 		if (execve(shell->path, shell->clist->cmd, shell->env) == -1) //shell->env;
 		{
-			printf("command not found: %s\n",shell->clist->cmd[0]);
-			ft_error("exec error");
+			ft_error("command not found");
 			shell->exit_code = 127;
 			exit(EXIT_FAILURE);
 		}

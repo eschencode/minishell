@@ -44,7 +44,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
 	if (check_redirections_check(shell) == true)
-		check_redirections_pipes(shell, &fd_in, &fd_out);
+		handel_redirections_pipes(shell, &fd_in, &fd_out);
 
 	error_check = ft_dup2(fd_in, fd_out);
 
@@ -63,7 +63,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 }
 
 
-bool	check_redirections_pipes(t_shell *shell,int *fd_in, int *fd_out)
+bool	handel_redirections_pipes(t_shell *shell,int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;
@@ -186,7 +186,7 @@ int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
 		fd_in = pipedata->fd_in;
 		fd_out = pipedata->pipes[1];
 	}
-	if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
+	else if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
 	{
 		fd_in = pipedata->pipes[2 * pipedata->child - 2];
 		fd_out = pipedata->fd_out;

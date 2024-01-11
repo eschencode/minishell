@@ -16,22 +16,24 @@
 int	ft_dup2(int in, int out)
 {
 	int error_check;
+	int fd_in = in;
+	int fd_out = out;
 
-	error_check = dup2(in, STDIN_FILENO);
+	error_check = dup2(fd_in, STDIN_FILENO);
 	if(error_check == -1)
 	{
-		close(in);
+		close(fd_in);
 		fprintf(stderr, "Error duplicating input: %s\n", strerror(errno));
 		return(perror("dup in"),errno);
 	}
-	error_check = dup2(out, STDOUT_FILENO);
+	error_check = dup2(fd_out, STDOUT_FILENO);
 	if(error_check == -1)
 	{
-		close(out);
+		close(fd_out);
 		return(perror("dup out"),errno);
 	}
-	if(out != 1)//stdout --> should print on terminal
-		close(out);
+	if(fd_out != 1)//stdout --> should print on terminal
+		close(fd_out);
 	return(0);
 }
 
@@ -49,7 +51,8 @@ bool print_env(char **env_arry, int fd_in, int fd_out)
 
 void ft_error(char *errmsg)
 {
-	printf("ERROR %s\n",errmsg);
+	ft_putendl_fd(errmsg,2);
+	//printf("ERROR %s\n",errmsg);
 	//ft_free_all(shell.tokens, &shell);
 }
 
