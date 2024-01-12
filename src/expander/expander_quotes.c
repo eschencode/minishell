@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/12 15:15:44 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:16:27 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,15 +205,6 @@ void token_str_expander(t_shell *shell, char *str)
 		x++;
 	}
 	get_rid_of_quotes(str);
-}
-
-void print_d_str(char **str)
-{
-	int y;
-
-	y = -1;
-	while (str[++y])
-		printf("hh %s\n", str[y]);
 }
 
 char *trim_until_space(char *str)
