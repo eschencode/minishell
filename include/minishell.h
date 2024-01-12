@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/12 15:11:24 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:12:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void 	signal_handler(int sig);
 
 //builtins
 bool 	cd(t_shell *shell, char *cmd, int fd_in, int fd_out);
-bool	first_cd(t_shell shell);
 
 //parser/parser.c
 int		parser(t_shell *shell);
