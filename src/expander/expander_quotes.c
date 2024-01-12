@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/11 17:31:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:14:22 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,6 @@ void tilde_expander(t_shell *shell)
 	free(split);
 	free(shell->input_str);
 	shell->input_str = new_str;
-}
-
-void shift_tokens_up(t_shell *shell, int index, int size) {
-    
-	int i;
-
-	i = index;
-	free(shell->tokens[index].token);
-
-    while (i < size) {
-        shell->tokens[i].token = shell->tokens[i + 1].token;
-		i++;
-    }
-
-    shell->tokens[size - 1].token = NULL;
 }
 
 
