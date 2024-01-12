@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/12 15:14:44 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:15:44 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,22 +205,6 @@ void token_str_expander(t_shell *shell, char *str)
 		x++;
 	}
 	get_rid_of_quotes(str);
-}
-
-
-void value_expander(t_shell *shell)
-{
-	int i;
-	char *token_str;
-
-	i = -1;
-	while (shell->tokens[++i].token)
-	{
-		token_str = shell->tokens[i].token;
-		if (ft_strchr(token_str, '\"') != NULL || ft_strchr(token_str, '\'') != NULL)
-			token_str_expander(shell, token_str);
-	}
-	
 }
 
 void print_d_str(char **str)
