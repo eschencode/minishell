@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/12 15:14:22 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:14:44 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,6 @@ void tilde_expander(t_shell *shell)
 	free(split);
 	free(shell->input_str);
 	shell->input_str = new_str;
-}
-
-
-
-int		get_tokens_len(t_shell *shell)
-{
-	int i;
-
-	i = 0;
-	while (shell->tokens[i].token)
-		i++;
-	return (i);
 }
 
 char *get_word_from_token(char *str, int start)
