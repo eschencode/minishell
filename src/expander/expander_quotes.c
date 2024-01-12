@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/11 17:31:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:16:27 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,33 +82,6 @@ void tilde_expander(t_shell *shell)
 	free(split);
 	free(shell->input_str);
 	shell->input_str = new_str;
-}
-
-void shift_tokens_up(t_shell *shell, int index, int size) {
-    
-	int i;
-
-	i = index;
-	free(shell->tokens[index].token);
-
-    while (i < size) {
-        shell->tokens[i].token = shell->tokens[i + 1].token;
-		i++;
-    }
-
-    shell->tokens[size - 1].token = NULL;
-}
-
-
-
-int		get_tokens_len(t_shell *shell)
-{
-	int i;
-
-	i = 0;
-	while (shell->tokens[i].token)
-		i++;
-	return (i);
 }
 
 char *get_word_from_token(char *str, int start)
@@ -232,31 +205,6 @@ void token_str_expander(t_shell *shell, char *str)
 		x++;
 	}
 	get_rid_of_quotes(str);
-}
-
-
-void value_expander(t_shell *shell)
-{
-	int i;
-	char *token_str;
-
-	i = -1;
-	while (shell->tokens[++i].token)
-	{
-		token_str = shell->tokens[i].token;
-		if (ft_strchr(token_str, '\"') != NULL || ft_strchr(token_str, '\'') != NULL)
-			token_str_expander(shell, token_str);
-	}
-	
-}
-
-void print_d_str(char **str)
-{
-	int y;
-
-	y = -1;
-	while (str[++y])
-		printf("hh %s\n", str[y]);
 }
 
 char *trim_until_space(char *str)

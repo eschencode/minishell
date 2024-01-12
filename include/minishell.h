@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/11 17:37:45 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:12:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void 	signal_handler(int sig);
 
 //builtins
 bool 	cd(t_shell *shell, char *cmd, int fd_in, int fd_out);
-bool	first_cd(t_shell shell);
 
 //parser/parser.c
 int		parser(t_shell *shell);
@@ -154,7 +153,6 @@ int		is_in_env(t_shell *shell, char *str);
 bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out);
 bool    ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out);
 char 	*env_get_val(t_shell *shell, char *var);
-int 	get_val_offset(char *str);
 int 	env_get_id(t_shell *shell, char *var);
 
 // builtins_a_3
@@ -170,10 +168,6 @@ void print_tokens(t_tokens *tokens);
 
 
 void tilde_expander(t_shell *shell);
-
-// builtins/exit_check.c
-bool	print_exit_status(t_shell *shell, int fd_in, int fd_out);
-
 
 void	push_to_env(t_shell *shell, char *str);
 

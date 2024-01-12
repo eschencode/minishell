@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/11 17:37:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:11:24 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,18 +158,6 @@ int env_get_id(t_shell *shell, char *var)
     while (shell->env[y] && (ft_strncmp(var, shell->env[y], n) != 0))
         y++;
     return (y);
-}
-
-int get_val_offset(char *str)
-{
-    int x;
-
-    printf("str -> %s\n", str);
-    x = -1;
-    while (str[x] != '=')
-        x++;
-    x++;
-    return (x);
 }
 
 bool ft_penis(void)
