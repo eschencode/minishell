@@ -47,14 +47,11 @@ void ft_free_clist(t_shell *shell)
 
 void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
-	int i = 0;
+	int i = -1;
 	if (shell->tokens != NULL)
 	{
-		while(tokens[i].token != NULL)
-		{
+		while(tokens[++i].token != NULL)
 			free(tokens[i].token);
-			i++;
-		}
 		free(tokens);
 	}
 	free(shell->input_str);
@@ -169,5 +166,6 @@ int main()
 	t_shell shell;
 	signal(SIGINT, signal_handler);
 	//clearwindow();
+	minishell_init(&shell);
 	minishell_loop(&shell);
 }
