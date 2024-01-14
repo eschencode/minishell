@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/14 11:03:50 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/14 14:31:32 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,9 @@ void	push_to_env(t_shell *shell, char *str);
 void	run_expanders(t_shell *shell);
 
 bool	ft_penis(void);
+
+int		env_find_row(t_shell *shell, char *str);
+int		count_str_arr(char **str);
+void	str_arr_cpy(char **new, char **old);
 
 #endif
