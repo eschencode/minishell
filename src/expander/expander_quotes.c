@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/12 15:16:27 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/14 14:02:00 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void	expander_quotes(t_shell *shell)
 			sq_mode = 1;
 		else if (shell->input_str[x] == '\'' && sq_mode == 1)
 			sq_mode = 0;
-		if (dq_mode == 1 && sq_mode != 1 && shell->input_str[x] == '$')
+		if (sq_mode != 1 && shell->input_str[x] == '$')
 		{
 			var = trim_until_space(shell->input_str + x + 1);
 			val = env_get_val(shell, var);
