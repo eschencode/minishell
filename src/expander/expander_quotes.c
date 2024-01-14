@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/14 14:02:00 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/14 14:11:23 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,16 +220,29 @@ char *trim_until_space(char *str)
 	return (trimmed);
 }
 
-void	expander_quotes(t_shell *shell)
+void value_inserter(t_shell *shell, int x)
 {
-	int x;
 	char *var;
 	char *val;
 	char *new_str;
+	
+	var = trim_until_space(shell->input_str + x + 1);
+	val = env_get_val(shell, var);
+	if (val != NULL)
+	{
+		new_str = ret_push_val_into_str(shell->input_str, val, var, x);
+		free(shell->input_str);
+		shell->input_str = new_str;
+	}
+	free(var);
+}
+
+void	expander_quotes(t_shell *shell)
+{
+	int x;
 	int sq_mode;
 	int dq_mode;
-
-
+	
 	x = -1;
 	dq_mode = 0;
 	sq_mode = 0;
@@ -244,19 +257,7 @@ void	expander_quotes(t_shell *shell)
 		else if (shell->input_str[x] == '\'' && sq_mode == 1)
 			sq_mode = 0;
 		if (sq_mode != 1 && shell->input_str[x] == '$')
-		{
-			var = trim_until_space(shell->input_str + x + 1);
-			val = env_get_val(shell, var);
-			if (val != NULL)
-			{
-				new_str = ret_push_val_into_str(shell->input_str, val, var, x);
-				free(shell->input_str);
-				shell->input_str = new_str;
-			}
-			free(var);
-		}
+			value_inserter(shell, x);
 	}
 	get_rid_of_quotes(shell->input_str);
-	
-	return ;
 }
