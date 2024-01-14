@@ -47,14 +47,11 @@ void ft_free_clist(t_shell *shell)
 
 void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
-	int i = 0;
-	if (shell->tokens_flag)
+	int i = -1;
+	if (shell->tokens != NULL)
 	{
-		while(tokens[i].token != NULL)
-		{
+		while(tokens[++i].token != NULL)
 			free(tokens[i].token);
-			i++;
-		}
 		free(tokens);
 	}
 	free(shell->input_str);
@@ -122,52 +119,49 @@ int eval_input_error(t_shell *shell)
 	return (0);
 }
 
-void	minishell_loop()
+void minishell_init(t_shell *shell)
 {
-	char prompt[12] = "msh$ ";
-	t_tokens *tokens;
-	t_shell shell;
-	shell.tokens_flag = 0;
+	shell->tokens = NULL;
 	rl_initialize();
 	using_history();
-	env_init(&shell);
-	shell.cd_last_path = NULL;
-	shell.path = NULL;
-	shell.exe_path = NULL;
-	shell.exit_code = 0;
-	add_path_to_hist(&shell);
+	env_init(shell);
+	shell->cd_last_path = NULL;
+	shell->path = NULL;
+	shell->exe_path = NULL;
+	shell->exit_code = 0;
+	add_path_to_hist(shell);
+}
+
+void	minishell_loop(t_shell *shell)
+{
+	char prompt[6] = "msh$ ";
 	while(1)
 	{
-		shell.input_str = readline(prompt);
-		if (shell.input_str == NULL)
+		shell->input_str = readline(prompt);
+		if (shell->input_str == NULL || eval_exit_loop(shell, shell->tokens))
 			return ;
-		if (eval_exit_loop(&shell, tokens))
-			return ;
-		if (eval_input_error(&shell) == 0)
+		if (eval_input_error(shell) == 0)
 		{
-			if (shell.tokens_flag)
-				ft_free_tokens(tokens);
-			add_history(shell.input_str); //adds history of commands
-			tilde_expander(&shell);
-			if (strstr(shell.input_str, "\"") != NULL || strstr(shell.input_str, "\'") != NULL)
-				expander_quotes(&shell);
-			tokens = tokenization(&shell, shell.input_str);
-			shell.tokens = tokens;
-			shell.tokens_flag = 1;
-			checker(&shell);
-			parser(&shell);
-			ft_expander(&shell);
-			executor(&shell);
-			ft_free_clist(&shell);
-			free(shell.input_str);
-			// free(shell.path);
+			if (shell->tokens != NULL)
+				ft_free_tokens(shell->tokens);
+			add_history(shell->input_str);
+			run_expanders(shell);
+			// tokenizer
+			shell->tokens = tokenization(shell, shell->input_str);
+			parser(shell);
+			ft_expander(shell);
+			executor(shell);
+			ft_free_clist(shell);
+			free(shell->input_str);
 		}
 	}
 }
 
 int main()
 {
+	t_shell shell;
 	signal(SIGINT, signal_handler);
 	//clearwindow();
-	minishell_loop();
+	minishell_init(&shell);
+	minishell_loop(&shell);
 }

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/12 15:12:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/14 11:03:50 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int 	count_quotes(char *input);
 // parser/checker.c
 void 	checker(t_shell *shell);
 void ft_expander(t_shell *shell);
+void count_pipes(t_shell *shell);
 
 //signals
 void 	signal_handler(int sig);
@@ -171,6 +172,8 @@ void tilde_expander(t_shell *shell);
 
 void	push_to_env(t_shell *shell, char *str);
 
+// expanders.c
+void	run_expanders(t_shell *shell);
 
 bool	ft_penis(void);
 
