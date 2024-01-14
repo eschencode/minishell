@@ -48,7 +48,7 @@ void ft_free_clist(t_shell *shell)
 void ft_free_all(t_tokens *tokens, t_shell *shell)
 {
 	int i = 0;
-	if (shell->tokens_flag)
+	if (shell->tokens != NULL)
 	{
 		while(tokens[i].token != NULL)
 		{
@@ -124,7 +124,6 @@ int eval_input_error(t_shell *shell)
 
 void minishell_init(t_shell *shell)
 {
-	shell->tokens_flag = 0;
 	shell->tokens = NULL;
 	rl_initialize();
 	using_history();
@@ -148,14 +147,13 @@ void	minishell_loop(t_shell *shell)
 			return ;
 		if (eval_input_error(shell) == 0)
 		{
-			if (shell->tokens_flag)
+			if (shell->tokens != NULL)
 				ft_free_tokens(shell->tokens);
 			add_history(shell->input_str);
 			tilde_expander(shell);
 			if (strstr(shell->input_str, "\"") != NULL || strstr(shell->input_str, "\'") != NULL)
 				expander_quotes(shell);
 			shell->tokens = tokenization(shell, shell->input_str);
-			shell->tokens_flag = 1;
 			checker(shell);
 			parser(shell);
 			ft_expander(shell);
