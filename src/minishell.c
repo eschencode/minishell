@@ -146,7 +146,6 @@ void	minishell_loop(t_shell *shell)
 				ft_free_tokens(shell->tokens);
 			add_history(shell->input_str);
 			run_expanders(shell);
-			// tokenizer
 			shell->tokens = tokenization(shell, shell->input_str);
 			parser(shell);
 			ft_expander(shell);
