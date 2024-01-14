@@ -160,7 +160,6 @@ int main()
 {
 	t_shell shell;
 	signal(SIGINT, signal_handler);
-	//clearwindow();
 	minishell_init(&shell);
 	minishell_loop(&shell);
 }
