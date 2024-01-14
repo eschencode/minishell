@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/12 15:19:20 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/14 10:56:24 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,4 @@ void ft_expander(t_shell *shell)
 		}
 		tracer = &(*tracer)->next;
 	}
-}
-
-void checker(t_shell *shell)
-{
-	count_pipes(shell);
 }

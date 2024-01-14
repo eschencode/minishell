@@ -138,20 +138,16 @@ void	minishell_loop(t_shell *shell)
 	while(1)
 	{
 		shell->input_str = readline(prompt);
-		if (shell->input_str == NULL)
-			return ;
-		if (eval_exit_loop(shell, shell->tokens))
+		if (shell->input_str == NULL || eval_exit_loop(shell, shell->tokens))
 			return ;
 		if (eval_input_error(shell) == 0)
 		{
 			if (shell->tokens != NULL)
 				ft_free_tokens(shell->tokens);
 			add_history(shell->input_str);
-			tilde_expander(shell);
-			if (strstr(shell->input_str, "\"") != NULL || strstr(shell->input_str, "\'") != NULL)
-				expander_quotes(shell);
+			run_expanders(shell);
+			// tokenizer
 			shell->tokens = tokenization(shell, shell->input_str);
-			checker(shell);
 			parser(shell);
 			ft_expander(shell);
 			executor(shell);
