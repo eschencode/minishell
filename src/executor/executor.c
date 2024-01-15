@@ -66,20 +66,20 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 }
 
 
-void handle_redirections(t_shell *shell, t_clist **cmd)
+void handle_redirections(t_shell *shell, t_clist **cmd,int fd_in,int fd_out)
 {
-    shell->redirect_in = STDIN_FILENO;
-    shell->redirect_out = STDOUT_FILENO;
-    check_for_redirections_out(shell,*cmd);
-    if (shell->redirect_in != STDIN_FILENO)
+    fd_in = STDIN_FILENO;
+    fd_out = STDOUT_FILENO;
+    check_redirections(shell,*cmd,&fd_in,&fd_out);
+    if (fd_in != STDIN_FILENO)
     {
-        dup2(shell->redirect_in,STDIN_FILENO);
-        close(shell->redirect_in);
+        dup2(fd_in,STDIN_FILENO);
+        close(fd_in);
     }
-    if (shell->redirect_out != STDOUT_FILENO)
+    if (fd_out != STDOUT_FILENO)
     {
-        dup2(shell->redirect_out,STDOUT_FILENO);
-        close(shell->redirect_out);
+        dup2(fd_out,STDOUT_FILENO);
+        close(fd_out);
     }
 }
 
@@ -94,10 +94,12 @@ void	restore_stdin_stdout(int saved_stdin, int saved_stdout)
 // fork only for ./bla bla and builtins on parent
 int	executor(t_shell *shell)
 {
+	int fd_in = 0;
+	int fd_out = 0;
 	int saved_stdin;
 	int saved_stdout;
 	t_clist **cmd;
-
+	
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	cmd = &shell->clist;
@@ -106,16 +108,11 @@ int	executor(t_shell *shell)
 		execute_pipes(shell);
 		return(0);
 	}
-	handle_redirections(shell, cmd);
+	handle_redirections(shell, cmd,fd_in,fd_out);
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
 		exe_path(shell, shell->clist->cmd[0]);
 		execute_externals(shell);
-		//else
-		//{
-		//	printf("command not found: %s\n",shell->clist->cmd[0]);
-		//	shell->exit_code = 127;
-		//}
 	}
 	restore_stdin_stdout(saved_stdin, saved_stdout);
 	return (0);

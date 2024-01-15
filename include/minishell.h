@@ -90,7 +90,6 @@ typedef struct s_shell
 	int	n_pipes;
 	int redirect_in;
 	int redirect_out;
-	char	*saved_cmd;
 	char	*exe_path;
 	int		exit_code;
 	int		loop_exit;
@@ -134,8 +133,9 @@ int first_pipe(t_shell *shell, t_clist *cmd);
 int last_pipe(t_shell *shell, t_clist *cmd);
 int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
 int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out);
-bool	check_redirections_check(t_shell *shell);
-bool	check_redirections_pipes(t_shell *shell,int *fd_in, int *fd_out);
+
+//executor redir
+bool check_redirections(t_shell *shell,t_clist *cmd, int *fd_in, int *fd_out);
 //executor_utils.
 void ft_error(char *errmsg);
 bool print_env(char **env_arry, int fd_in, int fd_out);
