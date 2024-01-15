@@ -18,7 +18,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
 	
-	check_redirections_pipes(shell,cmd, &fd_in, &fd_out);
+	check_redirections(shell,cmd, &fd_in, &fd_out);
 	error_check = ft_dup2(fd_in, fd_out);
 
 	if(!cmd->cmd[0])
@@ -38,37 +38,6 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 		exit(EXIT_FAILURE);
 	}
 	return (0);
-}
-
-
-bool	check_redirections_pipes(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
-{
-	int	i;
-	i = 0;
-	if (strstr(shell->input_str, ">>") == NULL && strstr(shell->input_str, ">") == NULL && strstr(shell->input_str, "<") == NULL)
-		return (false);
-	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, cmd->cmd[0]) != 0))
-		i++;
-	i++;
-	if(shell->tokens[i].token[0] == '-') //skips options
-		i++;
-	while(shell->tokens[i].token && shell->tokens[i].type == ARG)//skip args
-		      i++;
-	if (shell->tokens[i].type == RIGHT)
-		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	else if (shell->tokens[i + 2].type == RIGHT)
-		*fd_out  = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	if(shell->tokens[i].type == LEFT)
-		*fd_in = open(shell->tokens[i + 1].token, O_RDONLY);
-	else if (shell->tokens[i + 2].type == LEFT)
-		*fd_in = open(shell->tokens[i + 3].token, O_RDONLY);
-	if(shell->tokens[i].type == RIGHT_RIGHT)
-		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-	else if(shell->tokens[i + 2].type == RIGHT_RIGHT)
-		*fd_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-	if(*fd_out == -1 || *fd_in == -1)
-		printf("error accesing file\n");//add more eroro here probaby clos the fd too :()
-	return(0);
 }
 
 
