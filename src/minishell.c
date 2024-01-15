@@ -166,7 +166,7 @@ void sigint_handler(int sig)
 void eof_handler(int sig)
 {
 	if (sig == SIGTERM)
-		printf("CAUGHT EOF !!!\n");
+		exit(0);
 }
 
 void sigs_init(struct sigaction *sa_int, struct sigaction *sa_eof)
