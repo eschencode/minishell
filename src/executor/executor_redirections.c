@@ -33,6 +33,8 @@ bool check_for_redirections_out(t_shell *shell, t_clist *cmd)
 	i++;
 	if(shell->tokens[i].token[0] == '-') //skips options
 		i++;
+	while(shell->tokens[i].token && shell->tokens[i].type == ARG)
+		i++;
 	if (shell->tokens[i].type == RIGHT)
 		shell->redirect_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	else if(shell->tokens[i + 2].type == RIGHT)
