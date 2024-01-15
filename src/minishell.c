@@ -120,6 +120,7 @@ int eval_input_error(t_shell *shell)
 	return (0);
 }
 
+
 void minishell_init(t_shell *shell)
 {
 	shell->tokens = NULL;
@@ -152,24 +153,45 @@ void	minishell_loop(t_shell *shell)
 	}
 }
 
-void signal_handler(int sig)
+void sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(STDOUT_FILENO, NULL, 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 }
 
+void eof_handler(int sig)
+{
+	if (sig == SIGTERM)
+		printf("CAUGHT EOF !!!\n");
+}
+
+void sigs_init(struct sigaction *sa_int, struct sigaction *sa_eof)
+{
+	sa_int->sa_handler = sigint_handler;
+    sigemptyset(&sa_int->sa_mask);
+    sa_int->sa_flags = 0;
+
+	sa_eof->sa_handler = eof_handler;
+    sigemptyset(&sa_eof->sa_mask);
+    sa_eof->sa_flags = 0;
+
+	sigaction(SIGINT, sa_int, NULL);
+	sigaction(SIGTERM, sa_eof, NULL);
+}
+
 // run on signal code 1, exit on signal code 0
 int main()
 {
 	t_shell shell;
+	struct sigaction sa_int;
+	struct sigaction sa_eof;
 	shell.loop_exit = 0;
 
-	signal(SIGINT, signal_handler);
+	sigs_init(&sa_int, &sa_eof);
 	minishell_init(&shell);
 
 	while (shell.loop_exit == 0)

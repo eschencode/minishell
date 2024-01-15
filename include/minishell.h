@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/15 13:09:22 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:27:13 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_pipedata{
 	int	fd_out;
 }	t_pipedata;
 
+
 typedef struct s_shell
 {
 	t_tokens *tokens;
@@ -93,6 +94,7 @@ typedef struct s_shell
 	char	*exe_path;
 	int		exit_code;
 	int		loop_exit;
+	
 } t_shell;
 
 //minishell.c
