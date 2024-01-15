@@ -122,7 +122,6 @@ int eval_input_error(t_shell *shell)
 	return (0);
 }
 
-
 void minishell_init(t_shell *shell)
 {
 	shell->tokens = NULL;
@@ -161,6 +160,7 @@ void sigint_handler(int sig)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
