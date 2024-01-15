@@ -16,7 +16,7 @@ void signal_handler(int sig)
 	if(sig == SIGINT)
 	{
 		write(1,"\n", 2);
-		write(1,"msh$ ", 5);
+		write(1,"msh$ ", 6);
 		// signal(SIGINT, signal_handler);
 	}
 }
