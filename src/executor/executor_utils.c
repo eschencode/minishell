@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/11 15:53:40 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:48:29 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void exe_path(t_shell *shell, char *exe)
 	char **paths;
 	
 	path = env_get_val(shell, "PATH");
+	if (path == NULL)
+	{
+		shell->exe_path = NULL;
+		return ;
+	}
 	paths = ft_split(path, ':');
 	y = -1;
 	while (paths[++y])
