@@ -97,7 +97,7 @@ int	executor(t_shell *shell)
 	int saved_stdin;
 	int saved_stdout;
 	t_clist **cmd;
-
+	
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	cmd = &shell->clist;
