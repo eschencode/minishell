@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/14 14:11:23 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:36:52 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,12 +228,16 @@ void value_inserter(t_shell *shell, int x)
 	
 	var = trim_until_space(shell->input_str + x + 1);
 	val = env_get_val(shell, var);
+	if (val == NULL && strcmp(var, "?") == 0)
+		val = ft_itoa(shell->exit_code);
 	if (val != NULL)
 	{
 		new_str = ret_push_val_into_str(shell->input_str, val, var, x);
 		free(shell->input_str);
 		shell->input_str = new_str;
 	}
+	if (strcmp(var, "?") == 0)
+		free(val);
 	free(var);
 }
 
