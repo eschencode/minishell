@@ -82,7 +82,8 @@ void env_init(t_shell *shell)
 
 int eval_exit_loop(t_shell *shell, t_tokens *tokens)
 {
-	if (ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) == 0 || \
+	if (shell->input_str == NULL || \
+	ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) == 0 || \
 	ft_strncmp(shell->input_str, "q", ft_strlen("q")) == 0)
 	{
 		ft_free_all(tokens, shell);
@@ -111,8 +112,9 @@ int validate_input_str(t_shell *shell)
 
 int eval_input_error(t_shell *shell)
 {
-	if (shell->input_str == NULL || shell->input_str[0] == '\0' \
-	|| count_quotes(shell->input_str) % 2 != 0 || validate_input_str(shell) == 1)
+	if (shell->input_str[0] == '\0' \
+	|| count_quotes(shell->input_str) % 2 != 0 \
+	|| validate_input_str(shell) == 1)
 	{
 		free(shell->input_str);
 		return (1);
@@ -137,7 +139,7 @@ void	minishell_loop(t_shell *shell)
 {
 	char prompt[6] = "msh$ ";
 	shell->input_str = readline(prompt);
-	if (shell->input_str == NULL || eval_exit_loop(shell, shell->tokens))
+	if (eval_exit_loop(shell, shell->tokens))
 		return ;
 	if (eval_input_error(shell) == 0)
 	{
@@ -163,35 +165,22 @@ void sigint_handler(int sig)
 	}
 }
 
-void eof_handler(int sig)
-{
-	if (sig == SIGTERM)
-		exit(0);
-}
-
-void sigs_init(struct sigaction *sa_int, struct sigaction *sa_eof)
+void sigs_init(struct sigaction *sa_int)
 {
 	sa_int->sa_handler = sigint_handler;
     sigemptyset(&sa_int->sa_mask);
     sa_int->sa_flags = 0;
 
-	sa_eof->sa_handler = eof_handler;
-    sigemptyset(&sa_eof->sa_mask);
-    sa_eof->sa_flags = 0;
-
 	sigaction(SIGINT, sa_int, NULL);
-	sigaction(SIGTERM, sa_eof, NULL);
 }
 
-// run on signal code 1, exit on signal code 0
 int main()
 {
 	t_shell shell;
 	struct sigaction sa_int;
-	struct sigaction sa_eof;
 	shell.loop_exit = 0;
 
-	sigs_init(&sa_int, &sa_eof);
+	sigs_init(&sa_int);
 	minishell_init(&shell);
 
 	while (shell.loop_exit == 0)
