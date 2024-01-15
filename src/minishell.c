@@ -86,6 +86,7 @@ int eval_exit_loop(t_shell *shell, t_tokens *tokens)
 	ft_strncmp(shell->input_str, "q", ft_strlen("q")) == 0)
 	{
 		ft_free_all(tokens, shell);
+		shell->exit_code = 1;
 		return (1);
 	}
 	return (0);
@@ -128,37 +129,39 @@ void minishell_init(t_shell *shell)
 	shell->cd_last_path = NULL;
 	shell->path = NULL;
 	shell->exe_path = NULL;
-	shell->exit_code = 0;
 	add_path_to_hist(shell);
 }
 
 void	minishell_loop(t_shell *shell)
 {
 	char prompt[6] = "msh$ ";
-	while(1)
+	shell->input_str = readline(prompt);
+	if (shell->input_str == NULL || eval_exit_loop(shell, shell->tokens))
+		return ;
+	if (eval_input_error(shell) == 0)
 	{
-		shell->input_str = readline(prompt);
-		if (shell->input_str == NULL || eval_exit_loop(shell, shell->tokens))
-			return ;
-		if (eval_input_error(shell) == 0)
-		{
-			if (shell->tokens != NULL)
-				ft_free_tokens(shell->tokens);
-			add_history(shell->input_str);
-			run_expanders(shell);
-			shell->tokens = tokenization(shell, shell->input_str);
-			parser(shell);
-			executor(shell);
-			ft_free_clist(shell);
-			free(shell->input_str);
-		}
+		if (shell->tokens != NULL)
+			ft_free_tokens(shell->tokens);
+		add_history(shell->input_str);
+		run_expanders(shell);
+		shell->tokens = tokenization(shell, shell->input_str);
+		parser(shell);
+		executor(shell);
+		ft_free_clist(shell);
+		free(shell->input_str);
 	}
 }
 
+// run on signal code 1, exit on signal code 0
 int main()
 {
 	t_shell shell;
+	shell.signal_code = 1;
+	shell.exit_code = 0;
+
 	signal(SIGINT, signal_handler);
 	minishell_init(&shell);
-	minishell_loop(&shell);
+
+	while (shell.signal_code == 1 && shell.exit_code == 0)
+		minishell_loop(&shell);
 }
