@@ -44,7 +44,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
 	if (check_redirections_check(shell) == true)
-		handel_redirections_pipes(shell, &fd_in, &fd_out);
+		check_redirections_pipes(shell, &fd_in, &fd_out);
 
 	error_check = ft_dup2(fd_in, fd_out);
 
@@ -63,16 +63,17 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 }
 
 
-bool	handel_redirections_pipes(t_shell *shell,int *fd_in, int *fd_out)
+bool	check_redirections_pipes(t_shell *shell,int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;
-
 	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, shell->saved_cmd) != 0))
 		i++;
 	i++;
 	if(shell->tokens[i].token[0] == '-') //skips options
 		i++;
+	while(shell->tokens[i].token && shell->tokens[i].type == ARG)
+        i++;
 	if (shell->tokens[i].type == RIGHT)
 		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	else if (shell->tokens[i + 2].type == RIGHT)
@@ -122,12 +123,12 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	}
 	else
 	{
-		exe_path(shell, cmd->cmd[0]);
+		exe_path(shell, cmd->cmd[0]);//free later ?
 		if(shell->exe_path != NULL)
 		{
 			shell->saved_cmd = malloc(sizeof(char) * ft_strlen(cmd->cmd[0]));
 			shell->saved_cmd = ft_strdup(cmd->cmd[0]);
-			cmd->cmd[0] = shell->path;
+			cmd->cmd[0] = shell->exe_path;
 			//printf("cmd = %s and savedcmd %s",cmd->cmd[0],shell->saved_cmd);
 		}
 		ret = execute_cmd(shell,cmd,fd_in,fd_out);
@@ -184,7 +185,7 @@ int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
 		fd_in = pipedata->fd_in;
 		fd_out = pipedata->pipes[1];
 	}
-	else if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
+	if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
 	{
 		fd_in = pipedata->pipes[2 * pipedata->child - 2];
 		fd_out = pipedata->fd_out;
