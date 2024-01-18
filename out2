@@ -1,0 +1,19 @@
+drwxr-xr-x 2 leschenb 2022_berlin      25 Jan 18 11:32 include
+drwxr-xr-x 3 leschenb 2022_berlin      19 Jan 18 11:32 libs
+drwxr-xr-x 9 leschenb 2022_berlin     173 Jan 18 11:33 src
+-rw------- 1 leschenb 2022_berlin       0 Jan 18 11:33 out
+-rw-r--r-- 1 leschenb 2022_berlin      10 Jan 18 11:32 heredoc.txt
+-rw-r--r-- 1 leschenb 2022_berlin    1158 Jan 18 11:32 Makefile
+-rw-r--r-- 1 leschenb 2022_berlin 1568599 Jan 18 11:32 en.subject.pdf
+-rw-r--r-- 1 leschenb 2022_berlin    2690 Jan 18 11:32 README.md
+-rwxr-xr-x 1 leschenb 2022_berlin   81088 Jan 18 11:33 minishell
+total 1624
+-rw-r--r-- 1 leschenb 2022_berlin 1568599 Jan 18 11:32 en.subject.pdf
+-rw-r--r-- 1 leschenb 2022_berlin      10 Jan 18 11:32 heredoc.txt
+drwxr-xr-x 2 leschenb 2022_berlin      25 Jan 18 11:32 include
+drwxr-xr-x 3 leschenb 2022_berlin      19 Jan 18 11:32 libs
+-rw-r--r-- 1 leschenb 2022_berlin    1158 Jan 18 11:32 Makefile
+-rwxr-xr-x 1 leschenb 2022_berlin   81088 Jan 18 11:33 minishell
+-rw------- 1 leschenb 2022_berlin       0 Jan 18 11:33 out
+-rw-r--r-- 1 leschenb 2022_berlin    2690 Jan 18 11:32 README.md
+drwxr-xr-x 9 leschenb 2022_berlin     173 Jan 18 11:33 src

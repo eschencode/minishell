@@ -33,8 +33,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 	}
 	if(execve(cmd->cmd[0],cmd->cmd, shell->env) == -1)//
 	{
-		printf("command not found: %s\n",cmd->cmd[0]);
-		//ft_error("exec error",*shell);
+		ft_error("comand not found");
 		exit(EXIT_FAILURE);
 	}
 	return (0);
@@ -119,14 +118,14 @@ void	close_all_pipes(t_pipedata *pipedata, int chase_one, int chase_tow)
 /*sets up the filedisriptors -->execute_pipe_cmd*/
 int	run_child(t_shell *shell,t_pipedata *pipedata, t_clist *cmd)
 {
-	int	fd_in;
-	int fd_out;
+	int	fd_in = -1;
+	int fd_out = -1;
 	if(pipedata->child == 0)//is first command --> input stdin output pipe
 	{
 		fd_in = pipedata->fd_in;
 		fd_out = pipedata->pipes[1];
 	}
-	if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
+	else if(pipedata->child == pipedata->childs - 1)//its last so from pipe to stdout
 	{
 		fd_in = pipedata->pipes[2 * pipedata->child - 2];
 		fd_out = pipedata->fd_out;
