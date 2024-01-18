@@ -35,7 +35,12 @@ bool	check_redirections(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
 	while(shell->tokens[i].token && shell->tokens[i].type == ARG)//skip args
 		      i++;
 	if (i + 1 < shell->num_tokens && shell->tokens[i+1].token && shell->tokens[i].type == RIGHT)
-		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+		{
+			printf("found re\n");
+			*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+			printf("fdout=%d\n",*fd_out);
+		}
+		
 	else if (i + 3 < shell->num_tokens && shell->tokens[i +3].token && shell->tokens[i + 2].type == RIGHT)
 		*fd_out  = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if(i + 1 < shell->num_tokens && shell->tokens[i+1].token && shell->tokens[i].type == LEFT)

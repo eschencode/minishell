@@ -1,6 +1,6 @@
 .SILENT:
 NAME	= minishell
-CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS	= #-Wall -Wextra -Werror -g #-fsanitize=address
 CC		=  cc
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
 
@@ -27,7 +27,7 @@ all: $(NAME)
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling libft..$(NO_COLOR)"
-	@$(MAKE) -C ./libs/libft
+	@$(MAKE) -s -C ./libs/libft
 	@echo "$(GREEN)Done compiling libft.$(NO_COLOR)"
 
 $(NAME): $(OBJ) $(LIBFT)
@@ -36,15 +36,15 @@ $(NAME): $(OBJ) $(LIBFT)
 
 clean:
 	@echo "$(RED)Cleaning up...$(NO_COLOR)"
-	@$(MAKE) $@ -C ./libs/libft
+	@$(MAKE) $@ -s -C ./libs/libft
 	@rm -rf $(OBJ)
 	@echo "$(RED)Done cleaning up.$(NO_COLOR)"
 
 fclean: clean
 	@echo "$(RED)Cleaning up...$(NO_COLOR)"
 	@rm -rf $(NAME)
-	@$(MAKE) $@ -C ./libs/libft
-	@echo "$(RED)Done cleaning up."$(NO_COLOR)
+	@$(MAKE) $@ -s -C ./libs/libft
+	@echo "$(RED)Done cleaning up.$(NO_COLOR)"
 
 re: fclean all
 	@./$(NAME)
