@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 17:14:54 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:19:30 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*get_trim_str(char *str)
 		len = get_regular_len(str);
 	new_str = malloc(sizeof(char) * len + 2);
 	strncpy(new_str, str, len);
-	new_str[6] = '\0';
+	new_str[len] = '\0';
 	return (new_str);
 }
 
