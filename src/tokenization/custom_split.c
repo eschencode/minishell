@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 17:19:30 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:51:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,17 @@ char *fast_forward_str(char *str)
 
 char **add_element(char **array, int current_size, char *new_element)
 {
-
 	if (array == NULL)
 	{
 		array = malloc(sizeof(char *) * 2);
 		array[0] = new_element;
 		array[1] = NULL;
+		return (array);
 	}
-	
-	array = realloc(array, (current_size + 1) * sizeof(char*));
-
+	array = realloc(array, (current_size + 2) * sizeof(char*));
 	array[current_size] = new_element;
-
-	return array;
+	array[current_size + 1] = NULL;
+	return (array);
 }
 
 
@@ -48,7 +46,7 @@ int		get_regular_len(char *str)
 	len = 0;
 	while (str[len] && str[len] != ' ' && str[len] != '\t')
 		len++;
-	printf("str \"%s\" len %d\n", str, len);
+	printf("str %s len %d\n", str, len);
 	return (len);
 }
 
@@ -94,22 +92,36 @@ int		get_double_str_len(char **str)
 	return (y);
 }
 
+void print_double_str(char **str)
+{
+	int y;
+
+
+	y = -1;
+	printf("---DOUBLESTR---\n");
+	while (str[++y])
+		printf("%s\n", str[y]);
+}
+
 void	custom_split(char *str)
 {
-	char 	*test_str;
 	char	**split;
+	char	*org_ptr;
+	char 	*test_str;
 	char	*trim_str;
 
 	split = NULL;
 	test_str = fast_forward_str(str);
-	test_str = ft_strdup(test_str);
+	test_str = strdup(test_str);
+	org_ptr = test_str;
 	while (*test_str)
 	{
 		trim_str = get_trim_str(fast_forward_str(test_str));
 		split = add_element(split, get_double_str_len(split), trim_str);
-		test_str += ft_strlen(trim_str);
+		test_str += ft_strlen(trim_str) + 1;
 	}
+	print_double_str(split);
 	free_double_str(split);
 	free(split);
-	free(test_str);
+	free(org_ptr);
 }
