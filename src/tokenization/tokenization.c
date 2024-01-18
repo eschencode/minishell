@@ -43,6 +43,7 @@ void	tokenization(t_shell *shell, char *input)
 
 	i = 0;
 	shell->num_tokens = 0;
+	custom_split(input);
 	split_input = ft_split(input, ' ');
 	while(split_input[shell->num_tokens])
 		shell->num_tokens++;

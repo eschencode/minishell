@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/18 13:28:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:50:04 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,8 @@ bool	ft_penis(void);
 int		env_find_row(t_shell *shell, char *str);
 int		count_str_arr(char **str);
 void	str_arr_cpy(char **new, char **old);
+
+void	custom_split(char *str);
+char 	*fast_forward_str(char *str);
 
 #endif
