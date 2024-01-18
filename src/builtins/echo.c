@@ -35,7 +35,7 @@ bool    ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out)
     char *var;
     char *n_str;
     char **cmd;
-
+	
     ft_dup2(fd_in, fd_out);
     y = 0;
     n_flag = 0;

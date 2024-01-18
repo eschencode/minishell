@@ -34,6 +34,7 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 	if(execve(cmd->cmd[0],cmd->cmd, shell->env) == -1)//
 	{
 		ft_error("comand not found");
+		shell->exit_code = 127;
 		exit(EXIT_FAILURE);
 	}
 	return (0);
