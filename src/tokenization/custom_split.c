@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 17:58:59 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:13:04 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		get_regular_len(char *str)
 	len = 0;
 	while (str[len] && str[len] != ' ' && str[len] != '\t')
 		len++;
-	printf("str %s len %d\n", str, len);
 	return (len);
 }
 
@@ -71,7 +70,6 @@ int		get_quotes_len(char *str)
 		len++;
 	if (str[len] == c)
 		len++;
-	printf("str %s len %d\n", str, len);
 	return (len);
 }
 
@@ -116,7 +114,7 @@ void print_double_str(char **str)
 		printf("%s\n", str[y]);
 }
 
-void	custom_split(char *str)
+char **custom_split(char *str)
 {
 	char	**split;
 	char	*org_ptr;
@@ -130,12 +128,11 @@ void	custom_split(char *str)
 	while (*test_str)
 	{
 		trim_str = get_trim_str(fast_forward_str(test_str));
+		// printf("double len -> %d timstr -> %s\n", get_double_str_len(split), trim_str);
 		split = add_element(split, get_double_str_len(split), trim_str);
 		test_str += ft_strlen(trim_str);
 		test_str += fast_forward_str_int(test_str);
 	}
-	print_double_str(split);
-	free_double_str(split);
-	free(split);
 	free(org_ptr);
+	return (split);
 }
