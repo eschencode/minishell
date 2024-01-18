@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/15 13:27:13 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:28:34 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void free_double_str(char **str);
 
 
 // tokenization/tokenization.c
-t_tokens *tokenization(t_shell *shell, char *input);
+void	tokenization(t_shell *shell, char *input);
 int 	count_quotes(char *input);
 
 // parser/checker.c
@@ -169,10 +169,10 @@ bool check_for_redirections_out(t_shell *shell,t_clist *cmd);
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
 
-void print_tokens(t_tokens *tokens);
+void	print_tokens(t_tokens *tokens);
 
 
-void tilde_expander(t_shell *shell);
+void	tilde_expander(t_shell *shell);
 
 void	push_to_env(t_shell *shell, char *str);
 

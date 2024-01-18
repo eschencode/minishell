@@ -35,24 +35,19 @@ int count_quotes(char *input)
 	return (quotes);
 }
 
-t_tokens *tokenization(t_shell *shell, char *input)
+void	tokenization(t_shell *shell, char *input)
 {
 	int i;
-	int num_tokens;
 	char **split_input;
 	t_tokens *tokens;
 
-	num_tokens = 0;
 	i = 0;
+	shell->num_tokens = 0;
 	split_input = ft_split(input, ' ');
-	if(split_input)
-	{
-		while(split_input[num_tokens])
-			num_tokens++;
-	}
-	shell->num_tokens = num_tokens;
-	tokens = malloc((num_tokens + 1) * sizeof(t_tokens));
-	while(i < num_tokens)
+	while(split_input[shell->num_tokens])
+		shell->num_tokens++;
+	tokens = malloc((shell->num_tokens + 1) * sizeof(t_tokens));
+	while(i < shell->num_tokens)
 	{
 		tokens[i].type = is_type(split_input[i]);
 		tokens[i].token = malloc((ft_strlen(split_input[i]) + 1) * sizeof(char));
@@ -62,9 +57,7 @@ t_tokens *tokenization(t_shell *shell, char *input)
 	}
 	tokens[i].token = NULL;
 	tokens[i].id = -1;
-	i = -1;
-	while (split_input[++i])
-		free(split_input[i]);
+	free_double_str(split_input);
 	free(split_input);
-	return(tokens);
+	shell->tokens = tokens;
 }
