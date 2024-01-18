@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 17:51:26 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:58:59 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ char *fast_forward_str(char *str)
 	while (str[x] && (str[x] == ' ' || str[x] == '\t'))
 		x++;
 	return (str + x);
+}
+
+int fast_forward_str_int(char *str)
+{
+	int x;
+
+	x = 0;
+	while (str[x] && (str[x] == ' ' || str[x] == '\t'))
+		x++;
+	return (x);
 }
 
 char **add_element(char **array, int current_size, char *new_element)
@@ -59,6 +69,9 @@ int		get_quotes_len(char *str)
 	len = 1;
 	while (str[len] && str[len] != c)
 		len++;
+	if (str[len] == c)
+		len++;
+	printf("str %s len %d\n", str, len);
 	return (len);
 }
 
@@ -118,7 +131,8 @@ void	custom_split(char *str)
 	{
 		trim_str = get_trim_str(fast_forward_str(test_str));
 		split = add_element(split, get_double_str_len(split), trim_str);
-		test_str += ft_strlen(trim_str) + 1;
+		test_str += ft_strlen(trim_str);
+		test_str += fast_forward_str_int(test_str);
 	}
 	print_double_str(split);
 	free_double_str(split);
