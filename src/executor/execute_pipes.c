@@ -83,10 +83,10 @@ int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out)
 
 	i = 0;
 	ptr = shell->clist;
-	pipedata->child = 0;
-	pipedata->childs = 0;
 	pipedata->fd_in = fd_in;
 	pipedata->fd_out = fd_out;
+	pipedata->child = 0;
+	pipedata->childs = 0;
 	ft_memset(pipedata->pids, 0 , 100);
 	ft_memset(pipedata->pipes, 0 , 200);
 	while(ptr)

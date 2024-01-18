@@ -56,7 +56,11 @@ void tokens_retype(t_shell *shell)
 		}
 		if (shell->tokens[i].type == LEFT_LEFT)
 			shell->tokens[i].type = ARG;
-			
+		else if(shell->tokens[i].type == RIGHT || shell->tokens[i].type == RIGHT_RIGHT || shell->tokens[i].type == LEFT)
+		{
+			if(shell->tokens[++i].token)//makessure there is more token
+				shell->tokens[i].type = FILE_NAME;//added to fix redirect out beeing seen as cmd 
+		}
 	}
 }
 

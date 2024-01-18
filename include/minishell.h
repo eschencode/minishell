@@ -46,7 +46,8 @@ typedef enum{
 	RIGHT,
 	RIGHT_RIGHT,
 	LEFT,
-	LEFT_LEFT
+	LEFT_LEFT,
+	FILE_NAME
 } TokenType;
 
 typedef struct s_tokens
