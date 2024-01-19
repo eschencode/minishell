@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/19 12:53:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:19:48 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,41 @@ void print_double_str(char **str)
 {
 	int y;
 
-
 	y = -1;
 	printf("---DOUBLESTR---\n");
 	while (str[++y])
 		printf("%s\n", str[y]);
+}
+
+void get_rid_of_quotes_str(char *str)
+{
+    int x = 0;
+    int y = 0;
+
+	printf("removing for -> %s\n", str);
+    while (str[x])
+    {
+        if (str[x] != '\'' && str[x] != '\"')
+        {
+            str[y] = str[x];
+            y++;
+        }
+        x++;
+    }
+    str[y] = '\0';
+}
+
+void remove_quotes_split(char **str)
+{
+	int y;
+	char *new_str;
+
+	y = -1;
+	while (str[++y])
+	{
+		if (strchr(str[y], '\"') != NULL || strchr(str[y], '\'') != NULL)
+			get_rid_of_quotes_str(str[y]);
+	}
 }
 
 char **custom_split(char *str)
@@ -130,5 +160,6 @@ char **custom_split(char *str)
 		test_str += fast_forward_str_int(test_str);
 	}
 	free(org_ptr);
+	remove_quotes_split(split);
 	return (split);
 }
