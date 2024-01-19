@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 18:13:04 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:23:05 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ char **add_element(char **array, int current_size, char *new_element)
 	array[current_size + 1] = NULL;
 	return (array);
 }
-
-
 
 int		get_regular_len(char *str)
 {
@@ -89,7 +87,6 @@ char	*get_trim_str(char *str)
 	return (new_str);
 }
 
-
 int		get_double_str_len(char **str)
 {
 	int y;
@@ -107,19 +104,48 @@ void print_double_str(char **str)
 {
 	int y;
 
-
 	y = -1;
 	printf("---DOUBLESTR---\n");
 	while (str[++y])
 		printf("%s\n", str[y]);
 }
 
+void get_rid_of_quotes_str(char *str)
+{
+    int x = 0;
+    int y = 0;
+
+    while (str[x])
+    {
+        if (str[x] != '\'' && str[x] != '\"')
+        {
+            str[y] = str[x];
+            y++;
+        }
+        x++;
+    }
+    str[y] = '\0';
+}
+
+void remove_quotes_split(char **str)
+{
+	int y;
+	char *new_str;
+
+	y = -1;
+	while (str[++y])
+	{
+		if (strchr(str[y], '\"') != NULL || strchr(str[y], '\'') != NULL)
+			get_rid_of_quotes_str(str[y]);
+	}
+}
+
 char **custom_split(char *str)
 {
-	char	**split;
-	char	*org_ptr;
-	char 	*test_str;
-	char	*trim_str;
+	char		*org_ptr;
+	char 		*test_str;
+	char		*trim_str;
+	char		**split;
 
 	split = NULL;
 	test_str = fast_forward_str(str);
@@ -127,12 +153,12 @@ char **custom_split(char *str)
 	org_ptr = test_str;
 	while (*test_str)
 	{
-		trim_str = get_trim_str(fast_forward_str(test_str));
-		// printf("double len -> %d timstr -> %s\n", get_double_str_len(split), trim_str);
+		trim_str = get_trim_str(test_str);
 		split = add_element(split, get_double_str_len(split), trim_str);
 		test_str += ft_strlen(trim_str);
 		test_str += fast_forward_str_int(test_str);
 	}
 	free(org_ptr);
+	remove_quotes_split(split);
 	return (split);
 }
