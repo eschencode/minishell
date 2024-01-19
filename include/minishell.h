@@ -160,8 +160,9 @@ bool    ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out);
 char 	*env_get_val(t_shell *shell, char *var);
 int 	env_get_id(t_shell *shell, char *var);
 
-// builtins_a_3
-bool	ft_heredoc(t_clist *cmd);
+// heredoc
+int	ft_heredoc(t_shell *shell, t_clist *cmd);
+int heredoc_check(t_shell *shell, t_clist *cmd);
 
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);

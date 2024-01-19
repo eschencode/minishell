@@ -60,8 +60,6 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		return(ft_echo(shell, shell->clist, fd_in, fd_out));
 	if (strcmp(shell->clist->cmd[0], "penis") == 0)
 		return(ft_penis());
-	if (ft_strncmp(shell->clist->cmd[1], "<<", 2) == 0)
- 		return (ft_heredoc(cmd));
 	return (false);
 }
 

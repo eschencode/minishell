@@ -12,9 +12,18 @@
 
 #include "../../include/minishell.h"
 
+int heredoc_check(t_shell *shell, t_clist *cmd)
+{
+	int i = 0;
+	if(strcmp(cmd->cmd[1],"<<") == 0)
+		return(1);
+	else
+		return(0);
+}
+
 int heredoc_syntax_check(t_clist *cmd)
 {
-	if (ft_strlen(cmd->cmd[1]) < 3)
+	if(ft_strlen(cmd->cmd[2]) < 3)
 	{
 		printf("msh: parse error near newline\n");
 		return (1);
@@ -33,31 +42,31 @@ char	*get_heredoc_key(t_clist *cmd)
 {
 	char *key;
 	char *new_str;
-
-	key = cmd->cmd[1];
-	key = key + 2;
+	
+	key = cmd->cmd[2];
+	//key = key + 2;
 	new_str = ft_strdup(key);
 	return (new_str);
 }
 
-bool	ft_heredoc(t_clist *cmd)
+int	ft_heredoc(t_shell *shell, t_clist *cmd)
 {
 	int input_ret;
 	int heredoc_fd;
 	char *heredoc_key;
 	char *heredoc_input;
-	
 	if (heredoc_syntax_check(cmd) == 1)
 		return (true);
 	heredoc_fd = heredoc_create();
 	if (heredoc_fd == -1)
-		return (true);
+		printf("error creating heredoc");
+		//return (true);
 	heredoc_key = get_heredoc_key(cmd);
 	heredoc_input = NULL;
 	input_ret = -1;
 	while (input_ret != 0)
 	{
-		heredoc_input = readline("heredoc> ");
+		heredoc_input = readline("> ");
 		input_ret = ft_strncmp(heredoc_key, heredoc_input, ft_strlen(heredoc_input));
 		if (input_ret != 0)
 		{
@@ -67,7 +76,9 @@ bool	ft_heredoc(t_clist *cmd)
 		free(heredoc_input);
 	}
 	free(cmd->cmd[1]);
+	free(cmd->cmd[2]);
 	cmd->cmd[1] = ft_strdup("heredoc.txt");
+	cmd->cmd[2] = NULL;
 	free(heredoc_key);
-	return (false);
+	return (0);
 }
