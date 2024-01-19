@@ -15,7 +15,7 @@
 int heredoc_check(t_shell *shell, t_clist *cmd)
 {
 	int i = 0;
-	if(strcmp(cmd->cmd[1],"<<") == 0)
+	if(cmd->cmd[1] && strcmp(cmd->cmd[1],"<<") == 0)
 		return(1);
 	else
 		return(0);
@@ -23,7 +23,7 @@ int heredoc_check(t_shell *shell, t_clist *cmd)
 
 int heredoc_syntax_check(t_clist *cmd)
 {
-	if(ft_strlen(cmd->cmd[2]) < 3)
+	if(cmd->cmd[2] && ft_strlen(cmd->cmd[2]) < 3)
 	{
 		printf("msh: parse error near newline\n");
 		return (1);
@@ -44,7 +44,6 @@ char	*get_heredoc_key(t_clist *cmd)
 	char *new_str;
 	
 	key = cmd->cmd[2];
-	//key = key + 2;
 	new_str = ft_strdup(key);
 	return (new_str);
 }
