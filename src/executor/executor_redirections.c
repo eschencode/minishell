@@ -17,7 +17,12 @@
 >: Redirects standard output to a file, overwriting its contents if the file exists
 >>: Appends standard output to a file, preserving existing content and adding new output at the end of the file.
 <: Redirects standard input to come from a file rather than from the keyboard*/
-bool	check_redirections(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
+int ft_error_file(char *errmsg)
+{
+	ft_putendl_fd(errmsg,2);
+	return(0);
+}
+int	check_redirections(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;
@@ -46,7 +51,18 @@ bool	check_redirections(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
 		*fd_out = open(shell->tokens[i + 1].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	else if(i + 3 < shell->num_tokens && shell->tokens[i + 3].token && shell->tokens[i + 2].type == RIGHT_RIGHT)
 		*fd_out = open(shell->tokens[i + 3].token, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
-	if(*fd_out == -1 || *fd_in == -1)
-		printf("error accesing file\n");//add more eroro here probaby clos the fd too :()
+	if(*fd_in == -1)
+	{
+		ft_error_file("No such file or directory");
+		close(*fd_in);
+		return(-1);//add more eroro here probaby clos the fd too :()
+	}
+	if(*fd_out == -1)
+	{
+		ft_error_file("No such file or directory");
+		close(*fd_out);
+		return(-1);
+	}
+		
 	return(0);
 }

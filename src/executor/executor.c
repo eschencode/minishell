@@ -66,11 +66,12 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 }
 
 
-void handle_redirections(t_shell *shell, t_clist **cmd,int fd_in,int fd_out)
+int handle_redirections(t_shell *shell, t_clist **cmd,int fd_in,int fd_out)
 {
     fd_in = STDIN_FILENO;
     fd_out = STDOUT_FILENO;
-    check_redirections(shell,*cmd,&fd_in,&fd_out);
+    if(check_redirections(shell,*cmd,&fd_in,&fd_out) == -1)
+		return(-1);
     if (fd_in != STDIN_FILENO)
     {
         dup2(fd_in,STDIN_FILENO);
@@ -81,6 +82,7 @@ void handle_redirections(t_shell *shell, t_clist **cmd,int fd_in,int fd_out)
         dup2(fd_out,STDOUT_FILENO);
         close(fd_out);
     }
+	return(0);
 }
 
 void	restore_stdin_stdout(int saved_stdin, int saved_stdout)
@@ -108,7 +110,8 @@ int	executor(t_shell *shell)
 		execute_pipes(shell);
 		return(0);
 	}
-	handle_redirections(shell, cmd,fd_in,fd_out);
+	if (handle_redirections(shell, cmd,fd_in,fd_out) == -1)
+		return(0);
 	if(check_if_builtin(shell, *cmd, 0, 1) == false)
 	{
 		exe_path(shell, shell->clist->cmd[0]);

@@ -18,7 +18,8 @@ int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out)
 {
 	int error_check;
 	
-	check_redirections(shell,cmd, &fd_in, &fd_out);
+	if(check_redirections(shell,cmd, &fd_in, &fd_out) == -1)
+		return(1);
 	error_check = ft_dup2(fd_in, fd_out);
 
 	if(!cmd->cmd[0])

@@ -11,7 +11,6 @@ int safe_dup(int *safe_in, int *safe_out)
 	return(0);
 }
 
-
 int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out)
 {
 	int	safe_in;
