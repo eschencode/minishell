@@ -136,7 +136,7 @@ int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
 int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out);
 
 //executor redir
-bool check_redirections(t_shell *shell,t_clist *cmd, int *fd_in, int *fd_out);
+int check_redirections(t_shell *shell,t_clist *cmd, int *fd_in, int *fd_out);
 //executor_utils.
 void ft_error(char *errmsg);
 bool print_env(char **env_arry, int fd_in, int fd_out);
@@ -163,9 +163,6 @@ int 	env_get_id(t_shell *shell, char *var);
 // builtins_a_3
 bool	ft_heredoc(t_clist *cmd);
 
-//executor redirectios
-bool check_for_redirections(t_shell *shell, t_clist *cmd);
-bool check_for_redirections_out(t_shell *shell,t_clist *cmd);
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
 
