@@ -26,6 +26,8 @@ int	check_redirections(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;
+	if(heredoc_check(shell,cmd) != 0)
+		ft_heredoc(shell,cmd);
 	if (strstr(shell->input_str, ">>") == NULL && strstr(shell->input_str, ">") == NULL && strstr(shell->input_str, "<") == NULL)
 		return (false);
 	while(shell->tokens[i].token && (strcmp(shell->tokens[i].token, cmd->cmd[0]) != 0))
