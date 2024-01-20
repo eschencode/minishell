@@ -148,9 +148,9 @@ void	minishell_loop(t_shell *shell)
 		add_history(shell->input_str);
 		run_expanders(shell);
 		tokenization(shell, shell->input_str);
-		print_tokens(shell->tokens);
+		// print_tokens(shell->tokens);
 		parser(shell);
-		print_clist(shell);
+		// print_clist(shell);
 		executor(shell);
 		ft_free_clist(shell);
 		free(shell->input_str);
