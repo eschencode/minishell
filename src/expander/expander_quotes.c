@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/21 15:16:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:42:02 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,8 @@ void	expander_quotes(t_shell *shell)
 			sq_mode = 0;
 		if (sq_mode != 1 && shell->input_str[x] == '$')
 			value_inserter(shell, x);
+		if (x >= (int)ft_strlen(shell->input_str))
+			return ;
 	}
 	// get_rid_of_quotes(shell->input_str);
 }
