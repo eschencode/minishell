@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/19 13:23:05 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:04:44 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void get_rid_of_quotes_str(char *str)
 void remove_quotes_split(char **str)
 {
 	int y;
-	char *new_str;
 
 	y = -1;
 	while (str[++y])

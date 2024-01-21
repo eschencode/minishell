@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 14:23:50 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:02:37 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,23 @@ char *trim_until_space(char *str)
 	return (trimmed);
 }
 
+void remove_bad_env(char *str, int len)
+{	
+	int		beg;
+	char 	*new_str;
+	
+	beg = len;
+	len++;
+	while (str[len] != ' ' || str[len] != '\t')
+		len++;
+	
+	new_str = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
+	strncpy(new_str, str, beg);
+	strcat(new_str, str + len);
+	printf("new-> %s\n", new_str);
+	free(new_str);
+}
+
 void value_inserter(t_shell *shell, int x)
 {
 	char *var;
@@ -235,6 +252,12 @@ void value_inserter(t_shell *shell, int x)
 		new_str = ret_push_val_into_str(shell->input_str, val, var, x);
 		free(shell->input_str);
 		shell->input_str = new_str;
+	}
+	if (val == NULL)
+	{
+		remove_bad_env(shell->input_str, x);
+		// free(shell->input_str);
+		// shell->input_str = new_str;
 	}
 	if (strcmp(var, "?") == 0)
 		free(val);
