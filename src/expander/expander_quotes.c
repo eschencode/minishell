@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/21 15:02:37 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:16:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,21 +220,20 @@ char *trim_until_space(char *str)
 	return (trimmed);
 }
 
-void remove_bad_env(char *str, int len)
-{	
+char *remove_bad_env(char *str, int len)
+{
 	int		beg;
 	char 	*new_str;
 	
 	beg = len;
+	new_str = malloc(sizeof(char) * ft_strlen(str) + 1);
 	len++;
-	while (str[len] != ' ' || str[len] != '\t')
+	while (str[len] && str[len] != ' ' && str[len] != '\t')
 		len++;
-	
-	new_str = malloc(sizeof(char) * (ft_strlen(str) - len + 1));
 	strncpy(new_str, str, beg);
+	new_str[beg] = '\0';
 	strcat(new_str, str + len);
-	printf("new-> %s\n", new_str);
-	free(new_str);
+	return (new_str);
 }
 
 void value_inserter(t_shell *shell, int x)
@@ -255,9 +254,9 @@ void value_inserter(t_shell *shell, int x)
 	}
 	if (val == NULL)
 	{
-		remove_bad_env(shell->input_str, x);
-		// free(shell->input_str);
-		// shell->input_str = new_str;
+		new_str = remove_bad_env(shell->input_str, x);
+		free(shell->input_str);
+		shell->input_str = new_str;
 	}
 	if (strcmp(var, "?") == 0)
 		free(val);
