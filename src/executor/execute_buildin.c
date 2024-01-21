@@ -31,7 +31,7 @@ int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out)
 	if (strcmp(cmd->cmd[0], "printenv") == 0)
 		return(print_env(shell->env, in, out));
 	if (strcmp(cmd->cmd[0], "echo") == 0)
-		return(ft_echo(shell, cmd, in, out));
+		return(ft_echo(cmd, in, out));
 	ret = ft_dup2(safe_in, safe_out);
 	return(ret);
 }

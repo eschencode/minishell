@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/18 14:23:50 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/21 16:04:54 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,22 @@ char *trim_until_space(char *str)
 	return (trimmed);
 }
 
+char *remove_bad_env(char *str, int len)
+{
+	int		beg;
+	char 	*new_str;
+	
+	beg = len;
+	new_str = malloc(sizeof(char) * ft_strlen(str) + 1);
+	len++;
+	while (str[len] && str[len] != ' ' && str[len] != '\t')
+		len++;
+	strncpy(new_str, str, beg);
+	new_str[beg] = '\0';
+	strcat(new_str, str + len);
+	return (new_str);
+}
+
 void value_inserter(t_shell *shell, int x)
 {
 	char *var;
@@ -236,6 +252,12 @@ void value_inserter(t_shell *shell, int x)
 		free(shell->input_str);
 		shell->input_str = new_str;
 	}
+	if (val == NULL)
+	{
+		new_str = remove_bad_env(shell->input_str, x);
+		free(shell->input_str);
+		shell->input_str = new_str;
+	}
 	if (strcmp(var, "?") == 0)
 		free(val);
 	free(var);
@@ -248,20 +270,22 @@ void	expander_quotes(t_shell *shell)
 	int dq_mode;
 	
 	x = -1;
-	dq_mode = 0;
-	sq_mode = 0;
-	while (shell->input_str[++x])
-	{
-		if (shell->input_str[x] == '\"')
-			dq_mode = 1;
-		else if (shell->input_str[x] == '\"' && dq_mode == 1)
-			dq_mode = 0;
-		if (shell->input_str[x] == '\'')
-			sq_mode = 1;
-		else if (shell->input_str[x] == '\'' && sq_mode == 1)
-			sq_mode = 0;
-		if (sq_mode != 1 && shell->input_str[x] == '$')
-			value_inserter(shell, x);
-	}
-	// get_rid_of_quotes(shell->input_str);
+    dq_mode = 0;
+    sq_mode = 0;
+    while (shell->input_str[++x])
+    {
+        if (shell->input_str[x] == '\"' && dq_mode == 0)
+            dq_mode = 1;
+        else if (shell->input_str[x] == '\"' && dq_mode == 1)
+            dq_mode = 0;
+        if (shell->input_str[x] == '\'' && sq_mode == 0)
+            sq_mode = 1;
+        else if (shell->input_str[x] == '\'' && sq_mode == 1)
+            sq_mode = 0;
+        if (sq_mode != 1 && shell->input_str[x] == '$')
+            value_inserter(shell, x);
+        if (x >= (int)ft_strlen(shell->input_str))
+            return ;
+    }
+    // get_rid_of_quotes(shell->input_str);
 }

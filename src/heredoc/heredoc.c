@@ -6,15 +6,14 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/03 16:40:51 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:01:23 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int heredoc_check(t_shell *shell, t_clist *cmd)
+int heredoc_check(t_clist *cmd)
 {
-	int i = 0;
 	if(cmd->cmd[1] && strcmp(cmd->cmd[1],"<<") == 0)
 		return(1);
 	else
@@ -48,7 +47,7 @@ char	*get_heredoc_key(t_clist *cmd)
 	return (new_str);
 }
 
-int	ft_heredoc(t_shell *shell, t_clist *cmd)
+int	ft_heredoc(t_clist *cmd)
 {
 	int input_ret;
 	int heredoc_fd;
