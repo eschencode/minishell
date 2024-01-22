@@ -146,12 +146,41 @@ int syntaxchecker_onlyretoken(t_shell *shell)
 		return(0);
 }
 
+int exit_check(t_shell *shell)
+{
+	int i =0;
+	if(!(ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) == 0))
+		return(0);
+	if(shell->num_tokens > 2)
+	{
+		printf("to mamy arguments for exit\n");
+		return(1);
+	}	
+	if(shell->num_tokens == 2)
+	{
+		while(shell->tokens[1].token[i] != '\0')
+		{
+			if(!ft_isdigit(shell->tokens[1].token[i]))
+			{
+				printf("exit only takes numeric arguments\n");
+				return(1);
+			}
+			i++;
+		}
+		exit(ft_atoi(shell->tokens[1].token));
+	}
+	else
+	{
+		
+		exit(0);
+	}
+	return(1);
+}
+
 void	minishell_loop(t_shell *shell)
 {
 	char prompt[6] = "msh$ ";
 	shell->input_str = readline(prompt);
-	if (eval_exit_loop(shell, shell->tokens))
-		return ;
 	if (eval_input_error(shell) == 0)
 	{
 		if (shell->tokens != NULL)
@@ -159,6 +188,8 @@ void	minishell_loop(t_shell *shell)
 		add_history(shell->input_str);
 		run_expanders(shell);
 		tokenization(shell, shell->input_str);
+		if (exit_check(shell) == 1)
+			return;
 		if (syntaxchecker_onlyretoken(shell) == 1)
 			return;
 		// print_tokens(shell->tokens);
