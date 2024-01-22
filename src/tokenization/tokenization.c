@@ -2,15 +2,18 @@
 
 TokenType is_type(const char *token)
 {
+	if (ft_strlen(token) >= 2)
+	{
+		if(token[0] == '>' && token[1] == '>')
+			return(RIGHT_RIGHT);
+		if(token[0] == '<' && token[1] == '<')
+			return(LEFT_LEFT);
+	}
 	if(token[0] == '|')
 		return(PIPE);
-	if(token[0] == '<' && token[1] == '<')
-		return(LEFT_LEFT);
-	else if(token[0] == '<')
+	if(token[0] == '<')
 		return(LEFT);
-	if(token[0] == '>' && token[1] == '>')
-		return(RIGHT_RIGHT);
-	else if(token[0] == '>')
+	if(token[0] == '>')
 		return(RIGHT);
 	return(WORD);
 }
