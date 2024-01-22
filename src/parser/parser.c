@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/14 10:56:53 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:17:01 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void tokens_retype(t_shell *shell)
 	int i;
 
 	i = -1;
-	while (shell->tokens[++i].token)
+	while (i < shell->num_tokens && shell->tokens[++i].token)
 	{
 		if (shell->tokens[i].type == WORD)
 		{
