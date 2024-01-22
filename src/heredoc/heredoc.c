@@ -14,7 +14,7 @@
 
 int heredoc_check(t_clist *cmd)
 {
-	if(cmd->cmd[1] && strcmp(cmd->cmd[1],"<<") == 0)
+	if(cmd && cmd->cmd && cmd->cmd[1] && strcmp(cmd->cmd[1],"<<") == 0)
 		return(1);
 	else
 		return(0);
@@ -33,7 +33,7 @@ int heredoc_syntax_check(t_clist *cmd)
 int		heredoc_create(void)
 {
 	int fd;
-	fd = open("heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
+	fd = open("src/heredoc/heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	return (fd);
 }
 

@@ -135,6 +135,17 @@ void minishell_init(t_shell *shell)
 	add_path_to_hist(shell);
 }
 
+int syntaxchecker_onlyretoken(t_shell *shell)
+{
+	if(shell->num_tokens == 1 && (shell->tokens[0].type == RIGHT || shell->tokens[0].type == RIGHT_RIGHT ||shell->tokens[0].type == LEFT || shell->tokens[0].type == LEFT_LEFT))
+	{
+		printf("syntax error\n");
+		return(1);
+	}
+	else 
+		return(0);
+}
+
 void	minishell_loop(t_shell *shell)
 {
 	char prompt[6] = "msh$ ";
@@ -148,6 +159,8 @@ void	minishell_loop(t_shell *shell)
 		add_history(shell->input_str);
 		run_expanders(shell);
 		tokenization(shell, shell->input_str);
+		if (syntaxchecker_onlyretoken(shell) == 1)
+			return;
 		// print_tokens(shell->tokens);
 		parser(shell);
 		// print_clist(shell);
