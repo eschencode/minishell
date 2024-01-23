@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 12:09:34 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:42:59 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	exit_check(t_shell *shell)
 		printf("to many arguments for exit\n");
 		return (1);
 	}
-	if (shell->num_tokens < 1)
+	if (shell->num_tokens <= 1)
 		exit(0);
 	while (shell->tokens[1].token[i] != '\0')
 	{
