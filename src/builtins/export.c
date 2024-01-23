@@ -14,7 +14,7 @@
 
 bool	export_reassign(t_shell *shell, char *str)
 {
-	int y;
+	int	y;
 
 	y = env_find_row(shell, str);
 	free(shell->env[y]);
@@ -22,10 +22,10 @@ bool	export_reassign(t_shell *shell, char *str)
 	return (true);
 }
 
-int		export_syntax_check(char **str)
+int	export_syntax_check(char **str)
 {
-	int x;
-	int count;
+	int	x;
+	int	count;
 
 	if (ft_strchr(str[1], '=') == NULL)
 		return (1);
@@ -52,8 +52,7 @@ bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 	if (export_syntax_check(cmd))
 		return (true);
 	if (is_in_env(shell, cmd[1]))
-		return(export_reassign(shell, cmd[1]));
-
+		return (export_reassign(shell, cmd[1]));
 	old_len = count_str_arr(shell->env);
 	env = malloc(sizeof(char *) * (old_len + 1 + 1));
 	str_arr_cpy(env, shell->env);
