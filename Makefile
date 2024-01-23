@@ -11,12 +11,12 @@ YELLOW			= \033[0;33m
 NO_COLOR		= \033[0m
 
 SRC	= 	src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
-		src/signals/signals.c src/builtins/builtins_l.c src/parser/parser.c \
-		src/executor/executor.c src/builtins/builtins_a.c src/builtins/builtins_a_2.c\
+		src/signals/signals.c src/builtins/pwd.c src/parser/parser.c \
+		src/executor/executor.c src/builtins/env.c src/builtins/unset.c\
 		src/executor/executor_utils.c src/executor/execute_pipes.c src/executor/execute_buildin.c \
 		src/executor/executor_redirections.c src/heredoc/heredoc.c src/expander/expander_quotes.c \
 		src/expander/expanders.c src/builtins/export.c src/builtins/echo.c src/tokenization/custom_split.c \
-		src/helpers/frees.c
+		src/executor/execute_pipes_part2.c src/executor/path_util.c src/builtins/cd.c src/helpers/frees.c
 
 OBJ = $(SRC:.c=.o)
 
