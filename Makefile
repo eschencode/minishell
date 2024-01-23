@@ -14,7 +14,7 @@ SRC	= 	src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
 		src/signals/signals.c src/builtins/pwd.c src/parser/parser.c \
 		src/executor/executor.c src/builtins/env.c src/builtins/unset.c\
 		src/executor/executor_utils.c src/executor/execute_pipes.c src/executor/execute_buildin.c \
-		src/executor/executor_redirections.c src/heredoc/heredoc.c src/expander/expander_quotes.c \
+		src/executor/executor_redirections.c src/heredoc/heredoc.c src/expander/expander_helpers.c \
 		src/expander/expanders.c src/builtins/export.c src/builtins/echo.c src/tokenization/custom_split.c \
 		src/executor/execute_pipes_part2.c src/executor/path_util.c src/builtins/cd.c src/helpers/frees.c \
 		src/helpers/main_helpers.c src/helpers/more_main_helpers.c
