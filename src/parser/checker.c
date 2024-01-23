@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 14:41:51 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 21:00:15 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:00:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,4 @@ void	count_pipes(t_shell *shell)
 			shell->n_pipes++;
 	}
 }
+
