@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/21 15:03:49 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:49:11 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 }
 
 
-int handle_redirections(t_shell *shell, t_clist **cmd,int fd_in,int fd_out)
+int handle_redirections(t_shell *shell, t_clist **cmd, int fd_in, int fd_out)
 {
     fd_in = STDIN_FILENO;
     fd_out = STDOUT_FILENO;
-    if(check_redirections(shell,*cmd,&fd_in,&fd_out) == -1)
+    if(check_redirections(shell, *cmd, &fd_in, &fd_out) == -1)
 		return(-1);
     if (fd_in != STDIN_FILENO)
     {
