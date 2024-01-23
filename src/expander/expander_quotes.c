@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/21 16:04:54 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:29:28 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,9 +130,9 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 	int new_len;
 	char *new_str;
 	
-	x = -1;
 	new_len = ft_strlen(str) - ft_strlen(var) + ft_strlen(val);
 	new_str = malloc(sizeof(char) * (new_len + 1));
+	x = -1;
 	while (++x < pos)
 		new_str[x] = str[x];
 	while (str[pos] && str[pos] != ' ' && str[pos] != '\"' && str[pos] != '\'')
@@ -149,6 +149,33 @@ void push_val_into_str(char *str, char *val, char *var, int pos)
 	new_str[x] = '\0';
 	strcpy(str, new_str);
 	free(new_str);
+}
+
+
+char *ret_push_val_into_str_tilde(char *str, char *val, char *var, int pos)
+{
+	int x;
+	int new_len;
+	char *new_str;
+	
+	new_len = ft_strlen(str) - ft_strlen(var) + ft_strlen(val);
+	new_str = malloc(sizeof(char) * (new_len + 1));
+	x = -1;
+	while (++x < pos)
+		new_str[x] = str[x];
+	while (str[pos] && str[pos] == '~')
+		pos++;
+	new_str[x] = '\0';
+	strcat(new_str, val);
+	x = x + ft_strlen(val);
+	while (str[pos])
+	{
+		new_str[x] = str[pos];
+		x++;
+		pos++;
+	}
+	new_str[x] = '\0';
+	return (new_str);
 }
 
 char *ret_push_val_into_str(char *str, char *val, char *var, int pos)
@@ -263,6 +290,28 @@ void value_inserter(t_shell *shell, int x)
 	free(var);
 }
 
+void value_inserter_tilde(t_shell *shell, int x)
+{
+	char *var;
+	char *val;
+	char *new_str;
+	
+	var = ft_strdup("~");
+	val = env_get_val(shell , "HOME");
+	if (val == NULL)
+	{
+		free(var);
+		return ;
+	}
+	if (val != NULL)
+	{
+		new_str = ret_push_val_into_str_tilde(shell->input_str, val, var, x);
+		free(shell->input_str);
+		shell->input_str = new_str;
+	}
+	free(var);
+}
+
 void	expander_quotes(t_shell *shell)
 {
 	int x;
@@ -284,6 +333,8 @@ void	expander_quotes(t_shell *shell)
             sq_mode = 0;
         if (sq_mode != 1 && shell->input_str[x] == '$')
             value_inserter(shell, x);
+		if (sq_mode != 1 && shell->input_str[x] == '~')
+			value_inserter_tilde(shell, x);
         if (x >= (int)ft_strlen(shell->input_str))
             return ;
     }
