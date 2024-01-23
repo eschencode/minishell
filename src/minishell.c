@@ -1,74 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
+/*   Updated: 2024/01/23 12:09:34 by aeastman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-void print_tokens(t_tokens *tokens)
+void	env_init(t_shell *shell)
 {
-	int i = 0;
-	while(tokens[i].token != NULL)
-	{
-		printf("token %d: :%s: :%d:\n",tokens[i].id, tokens[i].token, tokens[i].type);
-		i++;
-	}
-}
-
-void ft_free_tokens(t_tokens *tokens)
-{
-	int i = 0;
-		while(tokens[i].token != NULL)
-		{
-			free(tokens[i].token);
-			i++;
-		}
-	free(tokens);
-}
-
-void free_double_str(char **str)
-{
-	int y;
-	y = -1;
-	while (str[++y])
-		free(str[y]);
-}
-
-void ft_free_clist(t_shell *shell)
-{
-	t_clist **tracer;
-	t_clist *old_node;
-
-	tracer = &shell->clist;
-	while (*tracer)
-	{
-		old_node = *tracer;
-		*tracer = (*tracer)->next;
-		free_double_str(old_node->cmd);
-		free(old_node->cmd);
-		free(old_node);
-	}
-}
-
-void ft_free_all(t_tokens *tokens, t_shell *shell)
-{
-	int i = -1;
-	if (shell->tokens != NULL)
-	{
-		while(tokens[++i].token != NULL)
-			free(tokens[i].token);
-		free(tokens);
-	}
-	free(shell->input_str);
-	free_env(shell);
-	if (shell->cd_last_path)
-		free(shell->cd_last_path);
-	if (shell->exe_path)
-		free(shell->exe_path);
-	if (shell->path)
-		free(shell->path);
-}
-
-void env_init(t_shell *shell)
-{
-	int y;
-	int len;
-	extern char **environ;
+	int				y;
+	int				len;
+	extern	char 	**environ;
 
 	len = 0;
 	while (environ[len])
@@ -80,7 +28,7 @@ void env_init(t_shell *shell)
 	shell->env[y] = NULL;
 }
 
-int eval_exit_loop(t_shell *shell, t_tokens *tokens)
+int	eval_exit_loop(t_shell *shell, t_tokens *tokens)
 {
 	if (shell->input_str == NULL || \
 	ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) == 0 || \
@@ -93,16 +41,14 @@ int eval_exit_loop(t_shell *shell, t_tokens *tokens)
 	return (0);
 }
 
-int validate_input_str(t_shell *shell)
+int	validate_input_str(t_shell *shell)
 {
-	int x;
-	char *str;
-
+	int		x;
+	char	*str;
 
 	str = shell->input_str;
 	x = -1;
-
-	while(str[++x])
+	while (str[++x])
 	{
 		if (str[x] != ' ' && str[x] != '\t')
 			return (0);
@@ -110,7 +56,7 @@ int validate_input_str(t_shell *shell)
 	return (1);
 }
 
-int eval_input_error(t_shell *shell)
+int	eval_input_error(t_shell *shell)
 {
 	if (shell->input_str[0] == '\0' \
 	|| count_quotes(shell->input_str) % 2 != 0 \
@@ -122,7 +68,7 @@ int eval_input_error(t_shell *shell)
 	return (0);
 }
 
-void minishell_init(t_shell *shell)
+void	minishell_init(t_shell *shell)
 {
 	shell->tokens = NULL;
 	rl_initialize();
@@ -135,46 +81,44 @@ void minishell_init(t_shell *shell)
 	add_path_to_hist(shell);
 }
 
-int syntaxchecker_onlyretoken(t_shell *shell)
+int	syntaxchecker_onlyretoken(t_shell *shell)
 {
-	if(shell->num_tokens == 1 && (shell->tokens[0].type == RIGHT || shell->tokens[0].type == RIGHT_RIGHT ||shell->tokens[0].type == LEFT || shell->tokens[0].type == LEFT_LEFT))
+	if (shell->num_tokens == 1 && (shell->tokens[0].type == RIGHT || \
+	shell->tokens[0].type == RIGHT_RIGHT || shell->tokens[0].type == LEFT || \
+	shell->tokens[0].type == LEFT_LEFT))
 	{
-		printf("syntax error\n");
+		printf ("syntax error\n");
 		return(1);
 	}
 	else 
 		return(0);
 }
 
-int exit_check(t_shell *shell)
+int	exit_check(t_shell *shell)
 {
-	int i =0;
-	if(!(ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) == 0))
-		return(0);
-	if(shell->num_tokens > 2)
+	int	i;
+
+	i = 0;
+	if (ft_strncmp(shell->input_str, "exit", ft_strlen("exit")) != 0)
+		return (0);
+	if (shell->num_tokens > 2)
 	{
-		printf("to mamy arguments for exit\n");
-		return(1);
-	}	
-	if(shell->num_tokens == 2)
-	{
-		while(shell->tokens[1].token[i] != '\0')
-		{
-			if(!ft_isdigit(shell->tokens[1].token[i]))
-			{
-				printf("exit only takes numeric arguments\n");
-				return(1);
-			}
-			i++;
-		}
-		exit(ft_atoi(shell->tokens[1].token));
+		printf("to many arguments for exit\n");
+		return (1);
 	}
-	else
-	{
-		
+	if (shell->num_tokens < 1)
 		exit(0);
+	while (shell->tokens[1].token[i] != '\0')
+	{
+		if (!ft_isdigit(shell->tokens[1].token[i]))
+		{
+			printf("exit only takes numeric arguments\n");
+			return (1);
+		}
+		i++;
 	}
-	return(1);
+	exit(ft_atoi(shell->tokens[1].token));
+	return (1);
 }
 
 void	minishell_loop(t_shell *shell)
@@ -201,7 +145,7 @@ void	minishell_loop(t_shell *shell)
 	}
 }
 
-int main()
+int	main()
 {
 	t_shell shell;
 	struct sigaction sa_int;

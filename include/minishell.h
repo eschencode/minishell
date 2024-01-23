@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 11:42:32 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:06:10 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,8 @@ void sigint_handler(int sig);
 void sigquit_handler(int sig);
 void sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
 
+
+void	ft_free_clist(t_shell *shell);
+void	ft_free_tokens(t_tokens *tokens);
 
 #endif
