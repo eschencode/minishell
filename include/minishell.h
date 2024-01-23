@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 16:01:04 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:13:15 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,16 @@ void sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
 
 void	ft_free_clist(t_shell *shell);
 void	ft_free_tokens(t_tokens *tokens);
+
+
+int		validate_input_str(t_shell *shell);
+int		catch_eof_signal(t_shell *shell);
+int		weird_token_catcher(t_shell *shell);
+int		exit_check(t_shell *shell);
+void	env_init(t_shell *shell);
+
+
+void	exit_routine(t_shell *shell, int exit_code);
+int		check_str_digit(char *str);
 
 #endif
