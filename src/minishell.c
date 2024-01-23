@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 19:14:15 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:30:39 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	minishell_loop(t_shell *shell)
 		if (shell->tokens != NULL)
 			ft_free_tokens(shell->tokens);
 		add_history(shell->input_str);
-		run_expanders(shell);
+		expander_quotes(shell);
 		tokenization(shell, shell->input_str);
 		if (exit_check(shell) == 1)
 			return ;
