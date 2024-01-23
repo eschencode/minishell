@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 20:31:36 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:59:59 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int 	count_quotes(char *input);
 
 // parser/checker.c
 void 	checker(t_shell *shell);
-void ft_expander(t_shell *shell);
 void count_pipes(t_shell *shell);
 
 //signals
