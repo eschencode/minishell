@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:55:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 11:55:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:06:55 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	ft_free_all(t_tokens *tokens, t_shell *shell)
 			free(tokens[i].token);
 		free(tokens);
 	}
-	free(shell->input_str);
+	if (shell->input_str != NULL)
+		free(shell->input_str);
 	free_env(shell);
 	if (shell->cd_last_path)
 		free(shell->cd_last_path);
