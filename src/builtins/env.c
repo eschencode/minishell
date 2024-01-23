@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_a.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:41:06 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/14 14:30:11 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:07:22 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-bool	clearwindow(int fd_in, int fd_out)
-{
-	ft_dup2(fd_in, fd_out);
-	printf("\033[H\033[J");
-	return (true);
-}
 
 int	count_str_arr(char **str)
 {
@@ -51,11 +44,11 @@ void	free_env(t_shell *shell)
 	free(shell->env);
 }
 
-int env_find_row(t_shell *shell, char *str)
+int	env_find_row(t_shell *shell, char *str)
 {
-		int n;
-    int x;
-	int y;
+	int	n;
+	int	x;
+	int	y;
 
 	y = -1;
 	n = 0;
@@ -65,21 +58,21 @@ int env_find_row(t_shell *shell, char *str)
 	{
 		if (ft_strncmp(shell->env[y], str, n) == 0)
 		{
-            x = 0;
-            while (shell->env[y][x] && shell->env[y][x] != '=')
-                x++;
-            if (n == x)
-                return (y);
-        }
+			x = 0;
+			while (shell->env[y][x] && shell->env[y][x] != '=')
+				x++;
+			if (n == x)
+				return (y);
+		}
 	}
 	return (-1);
 }
 
 void	push_to_env(t_shell *shell, char *str)
 {
-	int old_len;
-	char **env;
-	
+	int		old_len;
+	char	**env;
+
 	old_len = count_str_arr(shell->env);
 	env = malloc(sizeof(char *) * (old_len + 1 + 1));
 	str_arr_cpy(env, shell->env);
