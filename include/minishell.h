@@ -204,4 +204,7 @@ void sigquit_handler(int sig);
 void sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
 
 
+void	ft_free_clist(t_shell *shell);
+void	ft_free_tokens(t_tokens *tokens);
+
 #endif

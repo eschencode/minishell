@@ -16,7 +16,7 @@ SRC	= 	src/minishell.c src/tokenization/tokenization.c src/parser/checker.c \
 		src/executor/executor_utils.c src/executor/execute_pipes.c src/executor/execute_buildin.c \
 		src/executor/executor_redirections.c src/heredoc/heredoc.c src/expander/expander_quotes.c \
 		src/expander/expanders.c src/builtins/export.c src/builtins/echo.c src/tokenization/custom_split.c \
-		src/executor/execute_pipes_part2.c src/executor/path_util.c src/builtins/cd.c
+		src/executor/execute_pipes_part2.c src/executor/path_util.c src/builtins/cd.c src/helpers/frees.c
 
 OBJ = $(SRC:.c=.o)
 
