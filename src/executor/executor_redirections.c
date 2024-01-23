@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:41:15 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/21 15:02:02 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 10:44:57 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int ft_error_file(char *errmsg)
 	ft_putendl_fd(errmsg,2);
 	return(0);
 }
-int	check_redirections(t_shell *shell,t_clist *cmd,int *fd_in, int *fd_out)
+int	check_redirections(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;
