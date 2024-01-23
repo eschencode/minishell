@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 11:42:32 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:01:04 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,22 +126,33 @@ int 	executor(t_shell *shell);
 bool check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 
 //executor bulitin
-int handle_builtin_cmd(t_shell *shell,t_clist *cmd, int in, int out);
-
+int	safe_dup(int *safe_in, int *safe_out);
+int	handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out);
 //execute pipes
-int execute_pipes(t_shell *shell);
-int first_pipe(t_shell *shell, t_clist *cmd);
-int last_pipe(t_shell *shell, t_clist *cmd);
-int init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
-int execute_cmd(t_shell *shell,t_clist *cmd, int fd_in, int fd_out);
+int	execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
+bool	check_if_builtin1(t_clist *cmd);
+int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
+int	init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
+void	close_all_pipes(t_pipedata *pipedata, int chase_one, int chase_tow);
+//execute_pipes_part2
+int	run_child(t_shell *shell, t_pipedata *pipedata, t_clist *cmd);
+int	run_parent(t_pipedata *pipedata);
+int	execute_pipes(t_shell *shell);
 
 //executor redir
-int check_redirections(t_shell *shell,t_clist *cmd, int *fd_in, int *fd_out);
+int	check_redirections(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out);
+int	handle_redirections(t_shell *shell, int i, int *fd_in, int *fd_out);
+int	handle_file_error(int *fd_in, int *fd_out);
+
 //executor_utils.
-void ft_error(char *errmsg);
-bool print_env(char **env_arry, int fd_in, int fd_out);
 int	ft_dup2(int in, int out);
-void exe_path(t_shell *shell, char *exe);
+bool	print_env(char **env_arry, int fd_in, int fd_out);
+void	ft_error(char *errmsg);
+//path_util.c
+char	*create_exe_path(char *path, char *exe);
+void	free_resources(t_shell *shell, char **paths);
+void	set_exe_path(t_shell *shell, char *exe_path, char **paths);
+void	exe_path(t_shell *shell, char *exe);
 
 //builtins_l
 bool 	pwd_builtin(int fd_in, int fd_out);
