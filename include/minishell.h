@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/21 15:03:07 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 11:42:32 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,5 +185,12 @@ void	str_arr_cpy(char **new, char **old);
 
 char 	**custom_split(char *str);
 char 	*fast_forward_str(char *str);
+
+
+// signals
+void sigint_handler(int sig);
+void sigquit_handler(int sig);
+void sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
+
 
 #endif
