@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:05:57 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 19:08:22 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:15:00 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	env_init(t_shell *shell)
 {
 	int				y;
 	int				len;
-	extern	char 	**environ;
+	extern char		**environ;
 
 	len = 0;
 	while (environ[len])
