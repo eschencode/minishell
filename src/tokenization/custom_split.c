@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 11:45:38 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:56:37 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_trim_str(char *str)
 	else
 		len = get_regular_len(str);
 	new_str = malloc(sizeof(char) * len + 2);
-	strncpy(new_str, str, len);
+	ft_strlcpy(new_str, str, len);
 	new_str[len] = '\0';
 	return (new_str);
 }
@@ -66,7 +66,7 @@ void	remove_quotes_split(char **str)
 	y = -1;
 	while (str[++y])
 	{
-		if (strchr(str[y], '\"') != NULL || strchr(str[y], '\'') != NULL)
+		if (ft_strchr(str[y], '\"') != NULL || ft_strchr(str[y], '\'') != NULL)
 			get_rid_of_quotes_str(str[y]);
 	}
 }
@@ -80,7 +80,7 @@ char	**custom_split(char *str)
 
 	split = NULL;
 	test_str = fast_forward_str(str);
-	test_str = strdup(test_str);
+	test_str = ft_strdup(test_str);
 	org_ptr = test_str;
 	while (*test_str)
 	{

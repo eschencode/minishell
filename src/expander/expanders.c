@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanders.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:01:27 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 20:30:48 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:54:46 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*remove_bad_env(char *str, int len)
 	len++;
 	while (str[len] && str[len] != ' ' && str[len] != '\t')
 		len++;
-	strncpy(new_str, str, beg);
+	ft_strlcpy(new_str, str, beg);
 	new_str[beg] = '\0';
-	strcat(new_str, str + len);
+	ft_strcat(new_str, str + len);
 	return (new_str);
 }
 
@@ -50,7 +50,7 @@ void	value_inserter(t_shell *shell, int x)
 
 	var = trim_until_space(shell->input_str + x + 1);
 	val = env_get_val(shell, var);
-	if (val == NULL && strcmp(var, "?") == 0)
+	if (val == NULL && ft_strcmp(var, "?") == 0)
 		val = ft_itoa(shell->exit_code);
 	if (val != NULL)
 	{
@@ -64,7 +64,7 @@ void	value_inserter(t_shell *shell, int x)
 		free(shell->input_str);
 		shell->input_str = new_str;
 	}
-	if (strcmp(var, "?") == 0)
+	if (ft_strcmp(var, "?") == 0)
 		free(val);
 	free(var);
 }

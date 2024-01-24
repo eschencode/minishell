@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 16:39:09 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:56:29 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	heredoc_check(t_clist *cmd)
 {
-	if (cmd && cmd->cmd && cmd->cmd[1] && strcmp(cmd->cmd[1], "<<") == 0)
+	if (cmd && cmd->cmd && cmd->cmd[1] && ft_strcmp(cmd->cmd[1], "<<") == 0)
 		return (1);
 	else
 		return (0);

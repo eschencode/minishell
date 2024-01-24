@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_a_2.c                                     :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 16:55:27 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:43:17 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
 	while (cmd[x] && cmd[x] != '=')
 		x++;
 	y = 0;
-	while (strncmp(shell->env[y], cmd, x) != 0)
+	while (ft_strncmp(shell->env[y], cmd, x) != 0)
 		y++;
 	free(shell->env[y]);
 	while (shell->env[y + 1])

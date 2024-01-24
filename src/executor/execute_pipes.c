@@ -40,19 +40,19 @@ int	execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 
 bool	check_if_builtin1(t_clist *cmd)
 {
-	if (strcmp(cmd->cmd[0], "pwd") == 0)
+	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
 		return (true);
-	if (strcmp(cmd->cmd[0], "cd") == 0)
+	if (ft_strcmp(cmd->cmd[0], "cd") == 0)
 		return (true);
-	if (strcmp(cmd->cmd[0], "export") == 0)
+	if (ft_strcmp(cmd->cmd[0], "export") == 0)
 		return (true);
-	if (strcmp(cmd->cmd[0], "clear") == 0)
+	if (ft_strcmp(cmd->cmd[0], "clear") == 0)
 		return (true);
-	if (strcmp(cmd->cmd[0], "unset") == 0)
+	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
 		return (true);
-	if (strcmp(cmd->cmd[0], "printenv") == 0)
+	if (ft_strcmp(cmd->cmd[0], "printenv") == 0)
 		return (true);
-	if (strcmp(cmd->cmd[0], "echo") == 0)
+	if (ft_strcmp(cmd->cmd[0], "echo") == 0)
 		return (true);
 	return (false);
 }

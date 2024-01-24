@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 13:40:25 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:50:34 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,21 @@ int	execute_externals(t_shell *shell)
 
 bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
-	if (strcmp(cmd->cmd[0], "pwd") == 0)
+	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(fd_in, fd_out));
-	if (strcmp(cmd->cmd[0], "cd") == 0)
+	if (ft_strcmp(cmd->cmd[0], "cd") == 0)
 		return (cd(shell, cmd->cmd[1], fd_in, fd_out));
-	if (strcmp(cmd->cmd[0], "export") == 0)
+	if (ft_strcmp(cmd->cmd[0], "export") == 0)
 		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
-	if (strcmp(cmd->cmd[0], "clear") == 0)
+	if (ft_strcmp(cmd->cmd[0], "clear") == 0)
 		return (clearwindow(fd_in, fd_out));
-	if (strcmp(cmd->cmd[0], "unset") == 0)
+	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
 		return (ft_unset(shell, cmd->cmd[1], fd_in, fd_out));
-	if (strcmp(cmd->cmd[0], "printenv") == 0)
+	if (ft_strcmp(cmd->cmd[0], "printenv") == 0)
 		return (print_env(shell->env, fd_in, fd_out));
-	if (strcmp(shell->clist->cmd[0], "echo") == 0)
+	if (ft_strcmp(shell->clist->cmd[0], "echo") == 0)
 		return (ft_echo(shell->clist, fd_in, fd_out));
-	if (strcmp(shell->clist->cmd[0], "penis") == 0)
+	if (ft_strcmp(shell->clist->cmd[0], "penis") == 0)
 		return (ft_penis());
 	return (false);
 }
