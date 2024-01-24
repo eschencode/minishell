@@ -27,6 +27,8 @@ int	export_syntax_check(char **str)
 	int	x;
 	int	count;
 
+	if (str[1] == NULL)
+		return (1);
 	if (ft_strchr(str[1], '=') == NULL)
 		return (1);
 	x = -1;
