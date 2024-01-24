@@ -16,7 +16,7 @@ int	execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 {
 	int	error_check;
 
-	if (check_redirections(shell, cmd, &fd_in, &fd_out) == -1)
+	if (check_redir(shell, cmd, &fd_in, &fd_out) == -1)
 		return (1);
 	error_check = ft_dup2(fd_in, fd_out);
 	if (!cmd->cmd[0])
@@ -74,7 +74,7 @@ int	execute_pipe_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	return (ret);
 }
 
-int	init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out)
+int	init_piped(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out)
 {
 	t_clist	*ptr;
 	int		i;

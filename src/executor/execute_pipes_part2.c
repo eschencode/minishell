@@ -6,12 +6,11 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:34:35 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 13:01:54 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:23:35 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 /*sets up the filedisriptors -->execute_pipe_cmd*/
 int	run_child(t_shell *shell, t_pipedata *pipedata, t_clist *cmd)
@@ -73,7 +72,7 @@ int	execute_pipes(t_shell *shell)
 	t_pipedata	*pipedata;
 
 	pipedata = malloc(sizeof(t_pipedata));
-	init_pipe_data(shell, pipedata, 0, 1);
+	init_piped(shell, pipedata, 0, 1);
 	cmd = shell->clist;
 	while (cmd)
 	{

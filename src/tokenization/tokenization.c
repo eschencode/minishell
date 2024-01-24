@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:51:49 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 11:53:22 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:39:43 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-TokenType	is_type(const char *token)
+t_TokenType	is_type(const char *token)
 {
 	if (ft_strlen(token) >= 2)
 	{
