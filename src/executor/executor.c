@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 13:40:25 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:47:57 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	execute_externals(t_shell *shell)
 	else
 	{
 		waitpid(child_pid, &child_status, 0);
-		if WIFEXITED(child_status)
-			shell->exit_code = child_status;
+		push_exit_code(shell, child_status);
 	}
 	return (0);
 }
