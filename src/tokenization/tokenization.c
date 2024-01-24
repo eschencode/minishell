@@ -1,27 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/24 11:51:49 by aeastman          #+#    #+#             */
+/*   Updated: 2024/01/24 11:53:22 by aeastman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-TokenType is_type(const char *token)
+TokenType	is_type(const char *token)
 {
 	if (ft_strlen(token) >= 2)
 	{
-		if(token[0] == '>' && token[1] == '>')
-			return(RIGHT_RIGHT);
-		if(token[0] == '<' && token[1] == '<')
-			return(LEFT_LEFT);
+		if (token[0] == '>' && token[1] == '>')
+			return (RIGHT_RIGHT);
+		if (token[0] == '<' && token[1] == '<')
+			return (LEFT_LEFT);
 	}
-	if(token[0] == '|')
-		return(PIPE);
-	if(token[0] == '<')
-		return(LEFT);
-	if(token[0] == '>')
-		return(RIGHT);
-	return(WORD);
+	if (token[0] == '|')
+		return (PIPE);
+	if (token[0] == '<')
+		return (LEFT);
+	if (token[0] == '>')
+		return (RIGHT);
+	return (WORD);
 }
 
-int count_quotes(char *input)
+int	count_quotes(char *input)
 {
-	int i;
-	int quotes;
+	int	i;
+	int	quotes;
 
 	i = -1;
 	quotes = 0;
@@ -35,21 +47,21 @@ int count_quotes(char *input)
 
 void	tokenization(t_shell *shell, char *input)
 {
-	int i;
-	char **split_input;
-	t_tokens *tokens;
+	int			i;
+	char		**split_input;
+	t_tokens	*tokens;
 
 	i = 0;
 	shell->num_tokens = 0;
 	split_input = custom_split(input);
-	// split_input = ft_split(input, ' ');
-	while(split_input[shell->num_tokens])
+	while (split_input[shell->num_tokens])
 		shell->num_tokens++;
 	tokens = malloc((shell->num_tokens + 1) * sizeof(t_tokens));
-	while(i < shell->num_tokens)
+	while (i < shell->num_tokens)
 	{
 		tokens[i].type = is_type(split_input[i]);
-		tokens[i].token = malloc((ft_strlen(split_input[i]) + 1) * sizeof(char));
+		tokens[i].token = malloc((ft_strlen(split_input[i]) + 1) \
+		* sizeof(char));
 		strcpy(tokens[i].token, split_input[i]);
 		tokens[i].id = i;
 		i++;

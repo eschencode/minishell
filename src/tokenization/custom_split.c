@@ -6,75 +6,16 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/21 15:04:44 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:45:38 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char *fast_forward_str(char *str)
-{
-	int x;
-
-	x = 0;
-	while (str[x] && (str[x] == ' ' || str[x] == '\t'))
-		x++;
-	return (str + x);
-}
-
-int fast_forward_str_int(char *str)
-{
-	int x;
-
-	x = 0;
-	while (str[x] && (str[x] == ' ' || str[x] == '\t'))
-		x++;
-	return (x);
-}
-
-char **add_element(char **array, int current_size, char *new_element)
-{
-	if (array == NULL)
-	{
-		array = malloc(sizeof(char *) * 2);
-		array[0] = new_element;
-		array[1] = NULL;
-		return (array);
-	}
-	array = realloc(array, (current_size + 2) * sizeof(char*));
-	array[current_size] = new_element;
-	array[current_size + 1] = NULL;
-	return (array);
-}
-
-int		get_regular_len(char *str)
-{
-	int len;
-
-	len = 0;
-	while (str[len] && str[len] != ' ' && str[len] != '\t')
-		len++;
-	return (len);
-}
-
-int		get_quotes_len(char *str)
-{
-	char c;
-	int len;
-
-	c = str[0];
-	len = 1;
-	while (str[len] && str[len] != c)
-		len++;
-	if (str[len] == c)
-		len++;
-	return (len);
-}
-
 char	*get_trim_str(char *str)
 {
-	int len;
-	char *new_str;
+	int		len;
+	char	*new_str;
 
 	len = 0;
 	if (str[0] == '\'' || str[0] == '\"')
@@ -87,49 +28,40 @@ char	*get_trim_str(char *str)
 	return (new_str);
 }
 
-int		get_double_str_len(char **str)
+int	get_double_str_len(char **str)
 {
-	int y;
+	int	y;
 
 	if (str == NULL)
-		return 0;
+		return (0);
 	y = 0;
 	while (str[y])
 		y++;
-	
 	return (y);
 }
 
-void print_double_str(char **str)
+void	get_rid_of_quotes_str(char *str)
 {
-	int y;
+	int	x;
+	int	y;
 
-	y = -1;
-	printf("---DOUBLESTR---\n");
-	while (str[++y])
-		printf("%s\n", str[y]);
+	x = 0;
+	y = 0;
+	while (str[x])
+	{
+		if (str[x] != '\'' && str[x] != '\"')
+		{
+			str[y] = str[x];
+			y++;
+		}
+		x++;
+	}
+	str[y] = '\0';
 }
 
-void get_rid_of_quotes_str(char *str)
+void	remove_quotes_split(char **str)
 {
-    int x = 0;
-    int y = 0;
-
-    while (str[x])
-    {
-        if (str[x] != '\'' && str[x] != '\"')
-        {
-            str[y] = str[x];
-            y++;
-        }
-        x++;
-    }
-    str[y] = '\0';
-}
-
-void remove_quotes_split(char **str)
-{
-	int y;
+	int	y;
 
 	y = -1;
 	while (str[++y])
@@ -139,10 +71,10 @@ void remove_quotes_split(char **str)
 	}
 }
 
-char **custom_split(char *str)
+char	**custom_split(char *str)
 {
 	char		*org_ptr;
-	char 		*test_str;
+	char		*test_str;
 	char		*trim_str;
 	char		**split;
 
