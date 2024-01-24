@@ -6,12 +6,12 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 13:35:22 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/15 13:15:06 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:27:12 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libft.h"
+
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	ldst;

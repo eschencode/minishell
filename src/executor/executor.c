@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 16:06:50 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:40:25 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	handle_redirections1(t_shell *shell, t_clist **cmd, int fd_in, int fd_out)
 {
 	fd_in = STDIN_FILENO;
 	fd_out = STDOUT_FILENO;
-	if (check_redirections(shell, *cmd, &fd_in, &fd_out) == -1)
+	if (check_redir(shell, *cmd, &fd_in, &fd_out) == -1)
 		return (-1);
 	if (fd_in != STDIN_FILENO)
 	{

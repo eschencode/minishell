@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:41:15 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 16:19:11 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:43:27 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int ft_error_file(char *errmsg)
 	ft_putendl_fd(errmsg,2);
 	return(0);
 }
-int	check_redirections(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
+int	check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
 {
 	int	i;
 	i = 0;

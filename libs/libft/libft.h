@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:06:47 by leschenb          #+#    #+#             */
-/*   Updated: 2023/11/26 18:48:08 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:24:53 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
-#include <stddef.h>
+# include <stddef.h>
 
 typedef struct s_list
 {
@@ -101,26 +101,27 @@ int				ft_toupper(int c);
 
 size_t			ft_strcat(char *dest, const char *src);
 
-char	*get_next_line(int fd);
-char	*ft_new_left_str(char *left_str);
-char	*ft_get_ret_str(char *left_str);
-char	*read2left_str(int fd, char *left_str);
-char	*gnlft_strchr(char *s, int c);
-char	*gnlft_strjoin(char *s1, char *s2);
-size_t	gnlft_strlen( char *str);
-int		ft_printf(const char *str, ...);
-int		ft_print_char(int c);
-int		ft_print_str(char *str);
-int		ft_print_percent(void);
-int		ft_print_nbr(int nbr);
-int		ft_formats(va_list args, const char format);
-int		ft_hex_len(unsigned int num);
-int		ft_print_hex(unsigned int num, char format);
-void	ft_put_hex(unsigned int num, const char format);
-int		ft_print_ptr(unsigned long long ptr);
-int		ft_count_len(unsigned int nbr);
-char	*ft_unsigned_itoa(int len, unsigned int nbr);
-int		ft_print_unsigned_int(unsigned int nbr);
-void	ft_put_ptr(unsigned long long num);
-int		ft_ptr_len(unsigned long long ptr);
+char			*get_next_line(int fd);
+char			*ft_new_left_str(char *left_str);
+char			*ft_get_ret_str(char *left_str);
+char			*read2left_str(int fd, char *left_str);
+char			*gnlft_strchr(char *s, int c);
+char			*gnlft_strjoin(char *s1, char *s2);
+size_t			gnlft_strlen( char *str);
+int				ft_printf(const char *str, ...);
+int				ft_print_char(int c);
+int				ft_print_str(char *str);
+int				ft_print_percent(void);
+int				ft_print_nbr(int nbr);
+int				ft_formats(va_list args, const char format);
+int				ft_hex_len(unsigned int num);
+int				ft_print_hex(unsigned int num, char format);
+void			ft_put_hex(unsigned int num, const char format);
+int				ft_print_ptr(unsigned long long ptr);
+int				ft_count_len(unsigned int nbr);
+char			*ft_unsigned_itoa(int len, unsigned int nbr);
+int				ft_print_unsigned_int(unsigned int nbr);
+void			ft_put_ptr(unsigned long long num);
+int				ft_ptr_len(unsigned long long ptr);
+
 #endif
