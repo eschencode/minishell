@@ -37,6 +37,8 @@ int	execute_externals(t_shell *shell)
 	else
 	{
 		waitpid(child_pid, &child_status, 0);
+		if WIFEXITED(child_status)
+			shell->exit_code = child_status;
 	}
 	return (0);
 }
