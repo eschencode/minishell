@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 11:38:08 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:02:11 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	init_pipe_data(t_shell *shell, t_pipedata *pipedata, int fd_in, int fd_out);
 void	close_all_pipes(t_pipedata *pipedata, int chase_one, int chase_tow);
 //execute_pipes_part2
 int	run_child(t_shell *shell, t_pipedata *pipedata, t_clist *cmd);
-int	run_parent(t_pipedata *pipedata);
+int	run_parent(t_pipedata *pipedata, t_shell *shell);
 int	execute_pipes(t_shell *shell);
 
 //executor redir

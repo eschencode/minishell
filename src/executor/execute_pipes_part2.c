@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:34:35 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 16:03:59 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:01:54 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	run_child(t_shell *shell, t_pipedata *pipedata, t_clist *cmd)
 	exit(fd_in);
 }
 
-int	run_parent(t_pipedata *pipedata)
+int	run_parent(t_pipedata *pipedata, t_shell *shell)
 {
 	pid_t	pid;
 	int		child_status;
@@ -57,7 +57,10 @@ int	run_parent(t_pipedata *pipedata)
 		{
 			if ((pipedata->child == (pipedata->childs -1)) \
 			&& WIFEXITED(child_status))
+			{
 				ret = WEXITSTATUS(child_status);
+				shell->exit_code = WEXITSTATUS(child_status);
+			}
 		}
 		pipedata->child--;
 	}
@@ -82,7 +85,7 @@ int	execute_pipes(t_shell *shell)
 		pipedata->child++;
 		cmd = cmd->next;
 	}
-	run_parent(pipedata);
+	run_parent(pipedata, shell);
 	free(pipedata);
 	return (0);
 }
