@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 21:15:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:38:08 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,5 +224,13 @@ char	*ret_push_val_into_str_tilde(char *str, char *val, char *var, int pos);
 
 void	clist_init(t_shell *shell);
 void	clist_args_fill(t_shell *shell);
+
+
+
+char	*fast_forward_str(char *str);
+int		fast_forward_str_int(char *str);
+char	**add_element(char **array, int current_size, char *new_element);
+int		get_regular_len(char *str);
+int		get_quotes_len(char *str);
 
 #endif

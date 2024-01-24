@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../include/minishell.h"
 
 int	ft_dup2(int in, int out)
@@ -57,4 +56,3 @@ void	ft_error(char *errmsg)
 {
 	ft_putendl_fd(errmsg, 2);
 }
-
