@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:02:41 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/23 17:10:00 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:42:00 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	add_path_to_hist(t_shell *shell)
 	if (shell->cd_last_path != NULL)
 		free(shell->cd_last_path);
 	shell->cd_last_path = malloc(sizeof(char) * (ft_strlen(cwd) + 1));
-	strcpy(shell->cd_last_path, cwd);
+	ft_strcpy(shell->cd_last_path, cwd);
 }
 
 bool	cd_home(t_shell *shell, char *cmd)
 {
 	char	*path;
 
-	if (cmd == NULL || strcmp(cmd, "~") == 0)
+	if (cmd == NULL || ft_strcmp(cmd, "~") == 0)
 	{
 		path = env_get_val(shell, "HOME");
 		if (path == NULL)
@@ -51,7 +51,7 @@ bool	cd_last_path(t_shell *shell, char *cmd)
 {
 	char	*old_path;
 
-	if (strcmp(cmd, "-") == 0)
+	if (ft_strcmp(cmd, "-") == 0)
 	{
 		old_path = ft_strdup(shell->cd_last_path);
 		add_path_to_hist(shell);

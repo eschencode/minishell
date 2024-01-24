@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:41:15 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 15:11:00 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:51:34 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int	check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
 	i = 0;
 	if (heredoc_check(cmd) != 0)
 		ft_heredoc(cmd);
-	if (strstr(shell->input_str, ">>") == NULL && strstr(shell->\
-	input_str, ">") == NULL && strstr(shell->input_str, "<") == NULL)
+	if (ft_strstr(shell->input_str, ">>") == NULL && ft_strstr(shell->\
+	input_str, ">") == NULL && ft_strstr(shell->input_str, "<") == NULL)
 		return (false);
 	while (shell->tokens[i].token && \
-	(strcmp(shell->tokens[i].token, cmd->cmd[0]) != 0))
+	(ft_strcmp(shell->tokens[i].token, cmd->cmd[0]) != 0))
 		i++;
 	i++;
 	if (shell->tokens[i].token == NULL)

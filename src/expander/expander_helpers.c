@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_quotes.c                                  :+:      :+:    :+:   */
+/*   expander_helpers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 20:33:21 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/24 16:53:46 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ret_push_val_into_str_tilde(char *str, char *val, char *var, int pos)
 	while (str[pos] && str[pos] == '~')
 		pos++;
 	new_str[x] = '\0';
-	strcat(new_str, val);
+	ft_strcat(new_str, val);
 	x = x + ft_strlen(val);
 	while (str[pos])
 	{
@@ -73,7 +73,7 @@ char	*ret_push_val_into_str(char *str, char *val, char *var, int pos)
 	while (str[pos] && str[pos] != ' ' && str[pos] != '\"' && str[pos] != '\'')
 		pos++;
 	new_str[x] = '\0';
-	strcat(new_str, val);
+	ft_strcat(new_str, val);
 	x = x + ft_strlen(val);
 	while (str[pos])
 	{

@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 14:51:25 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:18:10 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 //executor bulitin
 int		safe_dup(int *safe_in, int *safe_out);
 int		handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out);
+int		ft_strcmp(char *str1, char *str2);
 //execute pipes
 int		execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 bool	check_if_builtin1(t_clist *cmd);
