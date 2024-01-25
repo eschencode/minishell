@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:34:11 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:30:40 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:45:11 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	fast_forward_str_int(char *str)
 
 void	duplicate_str_arr(char **new_arr, char **old_str)
 {
-	int y;
+	int	y;
 
 	y = -1;
 	while (old_str[++y])
@@ -43,7 +43,7 @@ void	duplicate_str_arr(char **new_arr, char **old_str)
 
 char	**ft_realloc_array(char **ptr, size_t newsize)
 {
-	char **new_array;
+	char	**new_array;
 
 	new_array = malloc(sizeof(char **) * newsize);
 	duplicate_str_arr(new_array, ptr);
@@ -65,28 +65,4 @@ char	**add_element(char **array, int current_size, char *new_element)
 	array[current_size] = new_element;
 	array[current_size + 1] = NULL;
 	return (array);
-}
-
-int	get_regular_len(char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] && str[len] != ' ' && str[len] != '\t')
-		len++;
-	return (len);
-}
-
-int	get_quotes_len(char *str)
-{
-	char	c;
-	int		len;
-
-	c = str[0];
-	len = 1;
-	while (str[len] && str[len] != c)
-		len++;
-	if (str[len] == c)
-		len++;
-	return (len);
 }

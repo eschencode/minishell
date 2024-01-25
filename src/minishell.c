@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 14:26:00 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:42:31 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-int	eval_input_error(t_shell *shell)
-{
-	if (shell->input_str[0] == '\0' \
-	|| count_quotes(shell->input_str) % 2 != 0 \
-	|| validate_input_str(shell) == 1)
-	{
-		free(shell->input_str);
-		return (1);
-	}
-	return (0);
-}
 
 void	exit_routine(t_shell *shell, int exit_code)
 {
@@ -90,7 +78,6 @@ int	main(void)
 	shell.loop_exit = 0;
 	sigs_init(&sa_int, &sa_quit);
 	minishell_init(&shell);
-
 	while (shell.loop_exit == 0)
 		minishell_loop(&shell);
 }

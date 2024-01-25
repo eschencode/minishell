@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   more_main_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:08:31 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:30:09 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:48:27 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,16 @@ int	exit_check(t_shell *shell)
 	else
 		shell->exit_code = 156;
 	return (1);
+}
+
+int	eval_input_error(t_shell *shell)
+{
+	if (shell->input_str[0] == '\0' \
+	|| count_quotes(shell->input_str) % 2 != 0 \
+	|| validate_input_str(shell) == 1)
+	{
+		free(shell->input_str);
+		return (1);
+	}
+	return (0);
 }

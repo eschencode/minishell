@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 15:44:20 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:52:30 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <stdbool.h>
-
-
 
 typedef enum t_tokentype
 {
@@ -180,7 +178,6 @@ void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 void	sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
 
-
 // rest -> unsorted
 void	ft_free_clist(t_shell *shell);
 void	ft_free_tokens(t_tokens *tokens);
@@ -202,4 +199,10 @@ int		get_regular_len(char *str);
 int		get_quotes_len(char *str);
 void	push_exit_code(t_shell *shell, int child_status);
 int		dollar_check(char *str);
+int		eval_input_error(t_shell *shell);
+int		get_quotes_len(char *str);
+int		get_regular_len(char *str);
+int		heredoc_check(t_shell *shell, t_clist *cmd);
+int		heredoc_create(void);
+char	*get_heredoc_key(t_clist *cmd);
 #endif

@@ -6,38 +6,11 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:34:24 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:48:20 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	heredoc_check(t_shell *shell, t_clist *cmd)
-{
-	if (cmd && cmd->cmd && cmd->cmd[1] && cmd->cmd[1][0] == '<' \
-	&& cmd->cmd[1][1] == '<' && shell->num_tokens <= 3)
-		return (1);
-	return (0);
-}
-
-int	heredoc_create(void)
-{
-	int	fd;
-
-	fd = open("src/heredoc/heredoc.txt", \
-	O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
-	return (fd);
-}
-
-char	*get_heredoc_key(t_clist *cmd)
-{
-	char	*key;
-	char	*new_str;
-
-	key = cmd->cmd[2];
-	new_str = ft_strdup(key);
-	return (new_str);
-}
 
 char	*get_heredoc_key_2(t_clist *cmd)
 {
@@ -68,7 +41,6 @@ int	handle_heredoc_input(int heredoc_fd, char *heredoc_key)
 		}
 		free(heredoc_input);
 	}
-
 	return (0);
 }
 
@@ -83,7 +55,7 @@ int	ft_heredoc_2(t_clist *cmd)
 		return (true);
 	}
 	heredoc_fd = heredoc_create();
-	if (heredoc_fd == -1 )
+	if (heredoc_fd == -1)
 	{
 		printf("error creating heredoc");
 		return (true);
