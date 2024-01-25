@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 14:07:25 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:26:00 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	command_checker(t_shell *shell)
 	if (shell->clist == NULL)
 	{
 		printf("syntax error: thats some weird ass input\n");
-		ft_free_all(shell->tokens, shell);
+		free(shell->input_str);
 		return (1);
 	}
 	return (0);
