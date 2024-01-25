@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_helpers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 13:46:35 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:25:42 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	get_rid_of_quotes(char *str)
 
 	x = 0;
 	y = 0;
-
 	while (str[x])
 	{
 		if (str[x] != '\'' && str[x] != '\"')

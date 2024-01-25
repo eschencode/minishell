@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:00:10 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 17:17:56 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:26:47 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	ft_strcmp(char *str1, char *str2)
 	return (0);
 }
 
-
 int	handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out)
 {
 	int	safe_in;
@@ -46,7 +45,7 @@ int	handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out)
 	int	ret;
 
 	ret = safe_dup(&safe_in, &safe_out);
-	if (ft_strcmp(cmd->cmd[0],"pwd") == 0)
+	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
 		return (pwd_builtin(in, out));
 	if (ft_strcmp(cmd->cmd[1], "cd") == 0)
 		return (cd(shell, cmd->cmd[0], in, out));

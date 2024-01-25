@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_helpers.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 21:13:40 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 21:16:43 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:33:02 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_clist	*new_node(void)
 	clist_node = (t_clist *)malloc(sizeof(t_clist));
 	clist_node->n_args = 0;
 	clist_node->next = NULL;
-
 	return (clist_node);
 }
 
@@ -40,7 +39,6 @@ void	clist_init(t_shell *shell)
 	t_clist	*node;
 
 	i = -1;
-
 	while (shell->tokens[++i].token)
 	{
 		if (shell->tokens[i].type == CMD)
@@ -67,7 +65,6 @@ void	clist_args_fill(t_shell *shell)
 		y = -1;
 		str = malloc(sizeof(char *) * ((*tracer)->n_args + 2));
 		i = (*tracer)->cmd_pos;
-
 		while (i < shell->num_tokens && \
 		(shell->tokens[i].type == CMD || shell->tokens[i].type == ARG))
 		{

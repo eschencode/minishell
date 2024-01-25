@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 13:14:45 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:25:07 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 		return (ft_penis());
 	return (false);
 }
-
 
 int	handle_redirections1(t_shell *shell, t_clist **cmd, int fd_in, int fd_out)
 {
