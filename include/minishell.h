@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 12:18:18 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 19:25:49 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ char	*fast_forward_str(char *str);
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
 void	sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
+
+
+// rest -> unsorted
 void	ft_free_clist(t_shell *shell);
 void	ft_free_tokens(t_tokens *tokens);
 int		validate_input_str(t_shell *shell);
@@ -197,4 +200,5 @@ int		fast_forward_str_int(char *str);
 char	**add_element(char **array, int current_size, char *new_element);
 int		get_regular_len(char *str);
 int		get_quotes_len(char *str);
+void	push_exit_code(t_shell *shell, int child_status);
 #endif
