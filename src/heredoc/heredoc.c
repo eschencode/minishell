@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:31:55 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:34:24 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	handle_heredoc_input(int heredoc_fd, char *heredoc_key)
 	return (0);
 }
 
-int	ft_heredoc_2(t_shell *shell, t_clist *cmd)
+int	ft_heredoc_2(t_clist *cmd)
 {
 	int		heredoc_fd;
 	char	*heredoc_key;
@@ -103,7 +103,7 @@ int	ft_heredoc(t_shell *shell, t_clist *cmd)
 	char	*heredoc_key;
 
 	if (shell->num_tokens == 2)
-		return (ft_heredoc_2(shell, cmd));
+		return (ft_heredoc_2(cmd));
 	if (cmd->cmd[2] == NULL)
 	{
 		printf("msh: parse error near newline\n");
