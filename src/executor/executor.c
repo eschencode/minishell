@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 17:47:57 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:14:45 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	execute_externals(t_shell *shell)
 		if (execve(shell->exe_path, shell->clist->cmd, shell->env) == -1)
 		{
 			ft_error("command not found");
-			shell->exit_code = 127;
-			exit(EXIT_FAILURE);
+			exit(127);
 		}
 	}
 	else

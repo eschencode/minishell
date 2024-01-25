@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:51:49 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 17:10:16 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:21:18 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	tokenization(t_shell *shell, char *input)
 		tokens[i].type = is_type(split_input[i]);
 		tokens[i].token = malloc((ft_strlen(split_input[i]) + 1) \
 		* sizeof(char));
-		strcpy(tokens[i].token, split_input[i]);
+		ft_strcpy(tokens[i].token, split_input[i]);
 		tokens[i].id = i;
 		i++;
 	}

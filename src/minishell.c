@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 20:30:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:26:00 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ void	exit_routine(t_shell *shell, int exit_code)
 	exit(exit_code);
 }
 
+int	command_checker(t_shell *shell)
+{
+	if (shell->clist == NULL)
+	{
+		printf("syntax error: thats some weird ass input\n");
+		free(shell->input_str);
+		return (1);
+	}
+	return (0);
+}
+
 void	minishell_loop(t_shell *shell)
 {
 	char	prompt[6];
@@ -49,6 +60,8 @@ void	minishell_loop(t_shell *shell)
 		if (exit_check(shell) == 1)
 			return ;
 		parser(shell);
+		if (command_checker(shell) == 1)
+			return ;
 		executor(shell);
 		ft_free_clist(shell);
 		free(shell->input_str);
