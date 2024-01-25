@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 16:52:30 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:25:08 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_shell
 	char		*exe_path;
 	int			exit_code;
 	int			loop_exit;
+	struct sigaction *sig_int;
 }	t_shell;
 
 //minishell.c

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:42:31 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:25:25 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	minishell_loop(t_shell *shell)
 	}
 }
 
-void	minishell_init(t_shell *shell)
+void	minishell_init(t_shell *shell, struct sigaction *sa_int)
 {
 	shell->tokens = NULL;
 	rl_initialize();
@@ -67,6 +67,7 @@ void	minishell_init(t_shell *shell)
 	shell->exe_path = NULL;
 	shell->exit_code = 0;
 	add_path_to_hist(shell);
+	shell->sig_int = sa_int;
 }
 
 int	main(void)
@@ -77,7 +78,7 @@ int	main(void)
 
 	shell.loop_exit = 0;
 	sigs_init(&sa_int, &sa_quit);
-	minishell_init(&shell);
+	minishell_init(&shell, &sa_int);
 	while (shell.loop_exit == 0)
 		minishell_loop(&shell);
 }

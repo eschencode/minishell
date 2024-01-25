@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 18:19:26 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:41:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	execute_externals(t_shell *shell)
 	}
 	else if (child_pid == 0)
 	{
+		shell->sig_int->sa_handler = SIG_DFL;
+		sigemptyset(&shell->sig_int->sa_mask);
+		shell->sig_int->sa_flags = 0;
+		sigaction(SIGINT, shell->sig_int, NULL);
+
 		if (shell->exe_path == NULL)
 			shell->exe_path = shell->clist->cmd[0];
 		if (execve(shell->exe_path, shell->clist->cmd, shell->env) == -1)
