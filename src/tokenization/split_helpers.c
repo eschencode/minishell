@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 11:34:11 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 11:46:20 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:30:40 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ int	fast_forward_str_int(char *str)
 	return (x);
 }
 
+void	duplicate_str_arr(char **new_arr, char **old_str)
+{
+	int y;
+
+	y = -1;
+	while (old_str[++y])
+		new_arr[y] = ft_strdup(old_str[y]);
+}
+
+char	**ft_realloc_array(char **ptr, size_t newsize)
+{
+	char **new_array;
+
+	new_array = malloc(sizeof(char **) * newsize);
+	duplicate_str_arr(new_array, ptr);
+	free_double_str(ptr);
+	free(ptr);
+	return (new_array);
+}
+
 char	**add_element(char **array, int current_size, char *new_element)
 {
 	if (array == NULL)
@@ -41,7 +61,7 @@ char	**add_element(char **array, int current_size, char *new_element)
 		array[1] = NULL;
 		return (array);
 	}
-	array = realloc(array, (current_size + 2) * sizeof(char *));
+	array = ft_realloc_array(array, (current_size + 2) * sizeof(char *));
 	array[current_size] = new_element;
 	array[current_size + 1] = NULL;
 	return (array);

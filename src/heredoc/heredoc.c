@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 15:50:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:31:55 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_heredoc_2(t_shell *shell, t_clist *cmd)
 		return (true);
 	}
 	heredoc_fd = heredoc_create();
-	printf("-> %d\n", shell->num_tokens);
 	if (heredoc_fd == -1 )
 	{
 		printf("error creating heredoc");
