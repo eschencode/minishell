@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 17:18:10 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:18:18 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int		execute_pipes(t_shell *shell);
 //executor redir
 int		check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out);
 int		handle_redirections(t_shell *shell, int i, int *fd_in, int *fd_out);
-int		handle_file_error(int *fd_in, int *fd_out);
+int		handle_file_error(t_shell *shell, int *fd_in, int *fd_out);
 
 //executor_utils.
 int		ft_dup2(int in, int out);

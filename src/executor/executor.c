@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 16:50:34 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:15:21 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	execute_externals(t_shell *shell)
 	else
 	{
 		waitpid(child_pid, &child_status, 0);
-		if WIFEXITED(child_status)
-			shell->exit_code = child_status;
+		//if WIFEXITED(child_status)
+		//	shell->exit_code = child_status;
 	}
 	return (0);
 }
