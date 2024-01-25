@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:41:15 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 15:35:10 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:43:40 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
 	int	i;
 
 	i = 0;
-	if (heredoc_check(cmd) != 0)
+	if (heredoc_check(shell, cmd) == 1)
 		ft_heredoc(shell, cmd);
 	if (ft_strstr(shell->input_str, ">>") == NULL && ft_strstr(shell->\
 	input_str, ">") == NULL && ft_strstr(shell->input_str, "<") == NULL)
