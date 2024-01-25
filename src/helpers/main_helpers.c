@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:05:57 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 19:17:43 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:29:07 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 void	env_init(t_shell *shell)
 {
@@ -56,7 +55,6 @@ int	validate_input_str(t_shell *shell)
 	}
 	return (1);
 }
-
 
 int	weird_token_catcher(t_shell *shell)
 {
