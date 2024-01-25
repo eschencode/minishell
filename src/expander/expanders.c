@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanders.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:01:27 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 17:54:46 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:42:31 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	expander_quotes(t_shell *shell)
 			sq_mode = 1;
 		else if (shell->input_str[x] == '\'' && sq_mode == 1)
 			sq_mode = 0;
-		if (sq_mode != 1 && shell->input_str[x] == '$')
+		if (sq_mode != 1 && shell->input_str[x] == '$' && \
+		dollar_check(shell->input_str + x) == 0)
 			value_inserter(shell, x);
 		if (sq_mode != 1 && shell->input_str[x] == '~')
 			value_inserter_tilde(shell, x);
