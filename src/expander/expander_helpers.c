@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:57:14 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 13:42:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:46:35 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	dollar_check(char *str)
 {
 	if (ft_strlen(str) == 1)
 		return (1);
-	if (!(str[1] >= 'A' && str[1] <= 'Z') || \
-	(str[1] >= 'a' && str[1] <= 'z') || str[1] == '_')
+	if (!((str[1] >= 'A' && str[1] <= 'Z') || \
+	(str[1] >= 'a' && str[1] <= 'z') || str[1] == '_' || str[1] == '?'))
 		return (1);
 	return (0);
 }
