@@ -6,19 +6,18 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 15:36:32 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:50:33 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	heredoc_check(t_clist *cmd)
+int	heredoc_check(t_shell *shell, t_clist *cmd)
 {
 	if (cmd && cmd->cmd && cmd->cmd[1] && cmd->cmd[1][0] == '<' \
-	&& cmd->cmd[1][1] == '<')
+	&& cmd->cmd[1][1] == '<' && shell->num_tokens <= 3)
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 int	heredoc_create(void)
@@ -73,7 +72,7 @@ int	handle_heredoc_input(int heredoc_fd, char *heredoc_key)
 	return (0);
 }
 
-int	ft_heredoc_2(t_clist *cmd)
+int	ft_heredoc_2(t_shell *shell, t_clist *cmd)
 {
 	int		heredoc_fd;
 	char	*heredoc_key;
@@ -84,7 +83,8 @@ int	ft_heredoc_2(t_clist *cmd)
 		return (true);
 	}
 	heredoc_fd = heredoc_create();
-	if (heredoc_fd == -1)
+	printf("-> %d\n", shell->num_tokens);
+	if (heredoc_fd == -1 )
 	{
 		printf("error creating heredoc");
 		return (true);
@@ -104,7 +104,7 @@ int	ft_heredoc(t_shell *shell, t_clist *cmd)
 	char	*heredoc_key;
 
 	if (shell->num_tokens == 2)
-		return (ft_heredoc_2(cmd));
+		return (ft_heredoc_2(shell, cmd));
 	if (cmd->cmd[2] == NULL)
 	{
 		printf("msh: parse error near newline\n");
