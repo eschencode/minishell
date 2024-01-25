@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 19:25:49 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:42:57 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,4 +201,5 @@ char	**add_element(char **array, int current_size, char *new_element);
 int		get_regular_len(char *str);
 int		get_quotes_len(char *str);
 void	push_exit_code(t_shell *shell, int child_status);
+int		dollar_check(char *str);
 #endif
