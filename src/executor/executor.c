@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:25:07 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:19:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	execute_externals(t_shell *shell)
+void	execute_externals(t_shell *shell)
 {
 	pid_t	child_pid;
 	int		child_status;
 
+	child_status = 0;
 	child_pid = fork();
 	if (child_pid == -1)
 	{
@@ -38,7 +39,6 @@ int	execute_externals(t_shell *shell)
 		waitpid(child_pid, &child_status, 0);
 		push_exit_code(shell, child_status);
 	}
-	return (0);
 }
 
 bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
