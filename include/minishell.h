@@ -119,6 +119,7 @@ bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 //executor bulitin
 int		safe_dup(int *safe_in, int *safe_out);
 int		handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out);
+int		ft_strcmp(char *str1, char *str2);
 //execute pipes
 int		execute_cmd(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
 bool	check_if_builtin1(t_clist *cmd);
@@ -133,7 +134,7 @@ int		execute_pipes(t_shell *shell);
 //executor redir
 int		check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out);
 int		handle_redirections(t_shell *shell, int i, int *fd_in, int *fd_out);
-int		handle_file_error(int *fd_in, int *fd_out);
+int		handle_file_error(t_shell *shell, int *fd_in, int *fd_out);
 
 //executor_utils.
 int		ft_dup2(int in, int out);

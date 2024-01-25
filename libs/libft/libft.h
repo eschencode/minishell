@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 12:06:47 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 13:24:53 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:58:57 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,7 @@ char			*ft_unsigned_itoa(int len, unsigned int nbr);
 int				ft_print_unsigned_int(unsigned int nbr);
 void			ft_put_ptr(unsigned long long num);
 int				ft_ptr_len(unsigned long long ptr);
+char			*ft_strstr(const char *haystack, const char *needle);
+int				ft_strcpy(char *dst, const char *src);
 
 #endif
