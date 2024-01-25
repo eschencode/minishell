@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 13:42:57 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:34:38 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ bool	ft_echo(t_clist *c_node, int fd_in, int fd_out);
 char	*env_get_val(t_shell *shell, char *var);
 int		env_get_id(t_shell *shell, char *var);
 // heredoc
-int		ft_heredoc(t_clist *cmd);
+int		ft_heredoc(t_shell *shell, t_clist *cmd);
 int		heredoc_check(t_clist *cmd);
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
