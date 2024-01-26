@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 16:14:14 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:30:08 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	execute_externals(t_shell *shell)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(child_pid, &child_status, 0);
 		signal(SIGINT, sigint_handler);
 		push_exit_code(shell, child_status);
