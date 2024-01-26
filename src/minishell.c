@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 15:11:23 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:23:31 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	minishell_loop(t_shell *shell)
 	char	prompt[6];
 
 	ft_strlcpy(prompt, "msh$ ", 5);
+	if (shell->input_str != NULL)
+		free(shell->input_str);
 	shell->input_str = readline(prompt);
 	if (catch_eof_signal(shell) == 1)
 		exit_routine(shell, 0);
@@ -52,7 +54,6 @@ void	minishell_loop(t_shell *shell)
 			return ;
 		executor(shell);
 		ft_free_clist(shell);
-		free(shell->input_str);
 	}
 }
 
@@ -63,6 +64,7 @@ void	minishell_init(t_shell *shell)
 	using_history();
 	env_init(shell);
 	shell->cd_last_path = NULL;
+	shell->input_str = NULL;
 	shell->path = NULL;
 	shell->exe_path = NULL;
 	shell->exit_code = 0;

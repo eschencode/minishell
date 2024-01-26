@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:43:45 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:44:38 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:03:15 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	get_quotes_len(char *str)
 	int		len;
 
 	c = str[0];
+	if (str[0] == c && str[1] == c)
+		return (2);
 	len = 1;
 	while (str[len] && str[len] != c)
 		len++;
