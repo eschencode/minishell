@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 18:25:25 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:11:23 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	minishell_loop(t_shell *shell)
 	}
 }
 
-void	minishell_init(t_shell *shell, struct sigaction *sa_int)
+void	minishell_init(t_shell *shell)
 {
 	shell->tokens = NULL;
 	rl_initialize();
@@ -67,18 +67,15 @@ void	minishell_init(t_shell *shell, struct sigaction *sa_int)
 	shell->exe_path = NULL;
 	shell->exit_code = 0;
 	add_path_to_hist(shell);
-	shell->sig_int = sa_int;
 }
 
 int	main(void)
 {
 	t_shell				shell;
-	struct sigaction	sa_int;
-	struct sigaction	sa_quit;
 
 	shell.loop_exit = 0;
-	sigs_init(&sa_int, &sa_quit);
-	minishell_init(&shell, &sa_int);
+	sigs_init();
+	minishell_init(&shell);
 	while (shell.loop_exit == 0)
 		minishell_loop(&shell);
 }
