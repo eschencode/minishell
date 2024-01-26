@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 16:59:38 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:56:04 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ void	minishell_loop(t_shell *shell)
 		if (exit_check(shell) == 1)
 			return ;
 		parser(shell);
-		if (command_checker(shell) == 1)
-			return ;
-		//print_clist(shell);
-		print_tokens(shell->tokens);
 		executor(shell);
 		ft_free_clist(shell);
 		free(shell->input_str);

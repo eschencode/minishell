@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:41:15 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/26 17:26:46 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:54:10 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,16 @@ int ft_find_right_pipe(t_shell *shell, t_clist *cmd)
 	int	i;
 
 	i = 0;
+	
 	while(ft_strcmp(shell->tokens[i].token,cmd->cmd[0]) != 0)//ittarate to matching cmd
+	{
 		i++;
-	while(shell->tokens[i].type != PIPE && i > 0)//ittarte to start of token or till pipe of current cmd
+	}
+	while(i > 0 &&  shell->tokens[i - 1].type != PIPE)//ittarte to start of token or till pipe of current cmd
+	{
 		i--;
+	}
+	i++;//skip to have i one after pipe
 	return(i);
 }
 
@@ -100,25 +106,22 @@ int	check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
 		return (false);
 	if(shell->n_pipes > 0)
 	{
-		i = ft_find_right_pipe(shell, cmd);
+		i = ft_find_right_pipe(shell, cmd);//finds the piont after pipe or start of cmd
 	}
 	while(shell->tokens[i].token && shell->tokens[i].type != PIPE)
 	{
 		if(shell->tokens[i].type == RIGHT)
 		{
-			printf("1\n");
 			if(handle_right_redirection(shell, i, fd_out) == -1)
 				return(-1);
 		}
 		if(shell->tokens[i].type == LEFT)
 		{
-			printf("2\n");
 			if(handle_left_redirection(shell, i, fd_in) == -1)
 				return(-1);
 		}
 		if(shell->tokens[i].type == RIGHT_RIGHT)
 		{
-			printf("3\n");
 			if(handle_right_right_redirection(shell, i, fd_out) == -1)
 				return(-1);
 		}
