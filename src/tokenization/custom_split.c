@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 14:49:58 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:25:51 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_trim_str(char *str)
 	int		len;
 	char	*new_str;
 
+	if (ft_strcmp("\"\"", str) == 0 || ft_strcmp("\'\'", str) == 0)
+		return (str);
 	len = 0;
 	if (str[0] == '\'' || str[0] == '\"')
 		len = get_quotes_len(str);

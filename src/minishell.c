@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 14:54:50 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:23:31 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	minishell_loop(t_shell *shell)
 		tokenization(shell, shell->input_str);
 		if (exit_check(shell) == 1)
 			return ;
-		print_tokens(shell->tokens);
 		parser(shell);
 		if (command_checker(shell) == 1)
 			return ;
