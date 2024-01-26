@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/26 16:13:47 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:31:10 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,4 +206,5 @@ int		get_regular_len(char *str);
 int		heredoc_check(t_shell *shell, t_clist *cmd);
 int		heredoc_create(void);
 char	*get_heredoc_key(t_clist *cmd);
+int		command_checker(t_shell *shell);
 #endif
