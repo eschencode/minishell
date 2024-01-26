@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 17:56:37 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:49:58 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char	**custom_split(char *str)
 	while (*test_str)
 	{
 		trim_str = get_trim_str(test_str);
-		split = add_element(split, get_double_str_len(split), trim_str);
+		if (ft_strcmp("\"\"", trim_str) != 0 && ft_strcmp("\'\'", trim_str) != 0)
+			split = add_element(split, get_double_str_len(split), trim_str);
 		test_str += ft_strlen(trim_str);
 		test_str += fast_forward_str_int(test_str);
 	}
