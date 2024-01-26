@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:08:31 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:48:27 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:09:53 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	eval_input_error(t_shell *shell)
 	|| count_quotes(shell->input_str) % 2 != 0 \
 	|| validate_input_str(shell) == 1)
 	{
-		free(shell->input_str);
+		// free(shell->input_str);
 		return (1);
 	}
 	return (0);
