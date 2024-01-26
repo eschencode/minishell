@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_buildin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:00:10 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 16:26:47 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:14:31 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out)
 	if (ft_strcmp(cmd->cmd[0], "printenv") == 0)
 		return (print_env(shell->env, in, out));
 	if (ft_strcmp(cmd->cmd[0], "echo") == 0)
-		return (ft_echo(cmd, in, out));
+		return (ft_echo(shell, cmd, in, out));
 	ret = ft_dup2(safe_in, safe_out);
 	return (ret);
 }
