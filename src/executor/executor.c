@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 15:20:31 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:14:14 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
 	if (ft_strcmp(cmd->cmd[0], "printenv") == 0)
 		return (print_env(shell->env, fd_in, fd_out));
 	if (ft_strcmp(shell->clist->cmd[0], "echo") == 0)
-		return (ft_echo(shell->clist, fd_in, fd_out));
+		return (ft_echo(shell, shell->clist, fd_in, fd_out));
 	if (ft_strcmp(shell->clist->cmd[0], "penis") == 0)
 		return (ft_penis());
 	return (false);
