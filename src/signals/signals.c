@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:45:42 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 14:48:06 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:19:01 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ void	sigquit_handler(int sig)
 	}
 }
 
-void	sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit)
+void sigs_init(void)
 {
-	sa_int->sa_handler = sigint_handler;
-	sigemptyset(&sa_int->sa_mask);
-	sa_int->sa_flags = 0;
-	sigaction(SIGINT, sa_int, NULL);
-	sa_quit->sa_handler = sigquit_handler;
-	sigemptyset(&sa_quit->sa_mask);
-	sa_quit->sa_flags = 0;
-	sigaction(SIGQUIT, sa_quit, NULL);
+    // Set the SIGINT handler
+    if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+        perror("signal"); // Print an error message if signal fails
+    }
+
+    // Set the SIGQUIT handler
+    if (signal(SIGQUIT, sigquit_handler) == SIG_ERR) {
+        perror("signal"); // Print an error message if signal fails
+    }
 }

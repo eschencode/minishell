@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 18:25:08 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:18:54 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ char	*fast_forward_str(char *str);
 // signals
 void	sigint_handler(int sig);
 void	sigquit_handler(int sig);
-void	sigs_init(struct sigaction *sa_int, struct sigaction *sa_quit);
+void	sigs_init(void);
 
 // rest -> unsorted
 void	ft_free_clist(t_shell *shell);
