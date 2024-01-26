@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:34:35 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 14:23:35 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:24:34 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int	run_parent(t_pipedata *pipedata, t_shell *shell)
 	ret = 1;
 	while (pipedata->child >= 0)
 	{
+		signal(SIGINT, SIG_IGN);
 		pid = waitpid(pipedata->pids[pipedata->child], &child_status, 0);
+		signal(SIGINT, sigint_handler);
 		if (pid == pipedata->pids[pipedata->childs -1])
 		{
 			if ((pipedata->child == (pipedata->childs -1)) \
