@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:35:56 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 17:56:37 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:25:51 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_trim_str(char *str)
 	int		len;
 	char	*new_str;
 
+	if (ft_strcmp("\"\"", str) == 0 || ft_strcmp("\'\'", str) == 0)
+		return (str);
 	len = 0;
 	if (str[0] == '\'' || str[0] == '\"')
 		len = get_quotes_len(str);
@@ -85,7 +87,8 @@ char	**custom_split(char *str)
 	while (*test_str)
 	{
 		trim_str = get_trim_str(test_str);
-		split = add_element(split, get_double_str_len(split), trim_str);
+		if (ft_strcmp("\"\"", trim_str) != 0 && ft_strcmp("\'\'", trim_str) != 0)
+			split = add_element(split, get_double_str_len(split), trim_str);
 		test_str += ft_strlen(trim_str);
 		test_str += fast_forward_str_int(test_str);
 	}

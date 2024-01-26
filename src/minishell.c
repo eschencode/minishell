@@ -35,6 +35,8 @@ void	minishell_loop(t_shell *shell)
 	char	prompt[6];
 
 	ft_strlcpy(prompt, "msh$ ", 5);
+	if (shell->input_str != NULL)
+		free(shell->input_str);
 	shell->input_str = readline(prompt);
 	if (catch_eof_signal(shell) == 1)
 		exit_routine(shell, 0);
@@ -50,7 +52,6 @@ void	minishell_loop(t_shell *shell)
 		parser(shell);
 		executor(shell);
 		ft_free_clist(shell);
-		free(shell->input_str);
 	}
 }
 
@@ -61,6 +62,7 @@ void	minishell_init(t_shell *shell)
 	using_history();
 	env_init(shell);
 	shell->cd_last_path = NULL;
+	shell->input_str = NULL;
 	shell->path = NULL;
 	shell->exe_path = NULL;
 	shell->exit_code = 0;

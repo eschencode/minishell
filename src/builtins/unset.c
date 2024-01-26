@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/24 16:43:17 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:34:13 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
 	int	y;
 
 	ft_dup2(fd_in, fd_out);
+	if (cmd == NULL)
+		return (true);
 	y = 0;
 	while (shell->env[y])
 		y++;
