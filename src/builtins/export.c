@@ -63,5 +63,6 @@ bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out)
 	env[old_len] = ft_strdup(cmd[1]);
 	env[old_len + 1] = NULL;
 	shell->env = env;
+	shell->exit_code = 0;
 	return (true);
 }

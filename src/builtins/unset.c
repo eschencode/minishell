@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 11:07:36 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 15:34:13 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 11:31:27 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out)
 		y++;
 	}
 	shell->env[y] = NULL;
+	shell->exit_code = 0;
 	return (true);
 }
 

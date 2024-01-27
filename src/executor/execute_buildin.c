@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:00:10 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/26 16:14:31 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 11:30:36 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	handle_builtin_cmd(t_shell *shell, t_clist *cmd, int in, int out)
 
 	ret = safe_dup(&safe_in, &safe_out);
 	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
-		return (pwd_builtin(in, out));
+		return (pwd_builtin(shell, in, out));
 	if (ft_strcmp(cmd->cmd[1], "cd") == 0)
 		return (cd(shell, cmd->cmd[0], in, out));
 	if (ft_strcmp(cmd->cmd[0], "export") == 0)
