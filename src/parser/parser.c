@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/23 21:16:35 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:15:56 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_for_redirects(t_shell *shell, int *i)
 {
-	if (shell->tokens[*i].type == LEFT_LEFT)
+	if (shell->tokens[*i].type == LEFT_LEFT && *i != 0)
 		shell->tokens[*i].type = ARG;
 	else if (shell->tokens[*i].type == RIGHT || \
 	shell->tokens[*i].type == RIGHT_RIGHT || shell->tokens[*i].type == LEFT)
