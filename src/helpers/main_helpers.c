@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:05:57 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:29:07 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/27 13:17:35 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	weird_token_catcher(t_shell *shell)
 		x++;
 	if ((int)ft_strlen(str) != x)
 		return (0);
-	free(shell->input_str);
 	printf("syntax error: thats some weird ass input\n");
 	return (1);
 }

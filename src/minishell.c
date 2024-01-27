@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 12:16:04 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:35:56 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	command_checker(t_shell *shell)
 	if (shell->clist == NULL)
 	{
 		printf("syntax error: thats some weird ass input\n");
-		free(shell->input_str);
 		return (1);
 	}
 	return (0);
