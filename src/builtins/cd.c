@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:02:41 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/24 16:42:00 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/27 11:25:17 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out)
 		printf("cd: No such file or directory: %s\n", path);
 		shell->exit_code = 1;
 	}
+	shell->exit_code = 0;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/26 17:31:10 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/27 11:29:49 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	free_resources(t_shell *shell, char **paths);
 void	set_exe_path(t_shell *shell, char *exe_path, char **paths);
 void	exe_path(t_shell *shell, char *exe);
 //builtins_l
-bool	pwd_builtin(int fd_in, int fd_out);
+bool	pwd_builtin(t_shell *shell, int fd_in, int fd_out);
 void	add_path_to_hist(t_shell *shell);
 int		echo_l(t_shell shell);
 // builtins_a

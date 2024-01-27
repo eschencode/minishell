@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:54:02 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 16:13:27 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 11:25:38 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	echo_match_flag(char *str, int *nl_flag)
 			return (0);
 	}
 	*nl_flag = 1;
-	return (1); 
+	return (1);
 }
 
 bool	ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out)
