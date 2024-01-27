@@ -56,3 +56,14 @@ void	ft_error(char *errmsg)
 {
 	ft_putendl_fd(errmsg, 2);
 }
+
+int	handle_file_error(t_shell *shell, int *fd_in, int *fd_out)
+{
+	ft_putendl_fd("No such file or directory", 2);
+	shell->exit_code = 1;
+	if (*fd_in == -1)
+		close(*fd_in);
+	if (*fd_out == -1)
+		close(*fd_out);
+	return (-1);
+}

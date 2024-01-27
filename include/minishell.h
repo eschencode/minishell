@@ -207,4 +207,5 @@ int		heredoc_check(t_shell *shell, t_clist *cmd);
 int		heredoc_create(void);
 char	*get_heredoc_key(t_clist *cmd);
 int		command_checker(t_shell *shell);
+int		handle_file_error(t_shell *shell, int *fd_in, int *fd_out);
 #endif
