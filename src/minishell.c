@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 12:16:04 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:23:25 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	command_checker(t_shell *shell)
 	if (shell->clist == NULL)
 	{
 		printf("syntax error: thats some weird ass input\n");
-		free(shell->input_str);
 		return (1);
 	}
 	return (0);
@@ -35,11 +34,12 @@ void	minishell_loop(t_shell *shell)
 	char	prompt[6];
 
 	ft_strlcpy(prompt, "msh$ ", 5);
-	if (shell->input_str != NULL)
-		free(shell->input_str);
-	shell->input_str = readline(prompt);
-	if (catch_eof_signal(shell) == 1)
+	if (shell->buffer != NULL)
+		free(shell->buffer);
+	shell->buffer = readline(prompt);
+	if (shell->buffer == NULL)
 		exit_routine(shell, 0);
+	shell->input_str = fast_forward_str(shell->buffer);
 	if (eval_input_error(shell) == 0 && weird_token_catcher(shell) == 0)
 	{
 		if (shell->tokens != NULL)
@@ -58,6 +58,7 @@ void	minishell_loop(t_shell *shell)
 void	minishell_init(t_shell *shell)
 {
 	shell->tokens = NULL;
+	shell->buffer = NULL;
 	rl_initialize();
 	using_history();
 	env_init(shell);

@@ -6,18 +6,11 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:08:31 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/26 16:09:53 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:26:05 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	catch_eof_signal(t_shell *shell)
-{
-	if (shell->input_str == NULL)
-		return (1);
-	return (0);
-}
 
 int	exit_check(t_shell *shell)
 {
