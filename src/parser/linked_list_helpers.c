@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list_helpers.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 21:13:40 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:33:02 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:16:15 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
