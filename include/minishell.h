@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/29 20:19:37 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:26:14 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_pipedata{
 typedef struct s_shell
 {
 	t_tokens	*tokens;
-	char		*buffer;
 	int			signal_code;
 	char		*input_str;
 	int			tokens_flag;

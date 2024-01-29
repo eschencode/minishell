@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 17:38:50 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:06:16 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,24 @@ char	*get_heredoc_key(t_shell *shell, int i)
 	return (new_str);
 }
 
+void	add_file_after_cat(t_shell *shell, t_clist *cmd)
+{
+	if (shell->num_tokens == 3)
+	{
+		free(cmd->cmd[1]);
+		free(cmd->cmd[2]);
+	}
+	if (shell->num_tokens == 2)
+		free(cmd->cmd[1]);
+	cmd->cmd[1] = ft_strdup("src/heredoc/heredoc.txt");
+	cmd->cmd[2] = NULL;
+}
+
 int	ft_heredoc(t_shell *shell, t_clist *cmd, int i)
 {
 	int		heredoc_fd;
 	char	*heredoc_key;
 
-	if (shell->tokens[i + 1].token == NULL)
-	{
-		printf("msh: 4parse error near newline\n");
-		return (true);
-	}
 	heredoc_fd = heredoc_create();
 	if (heredoc_fd == -1)
 	{
@@ -69,10 +77,8 @@ int	ft_heredoc(t_shell *shell, t_clist *cmd, int i)
 	}
 	heredoc_key = get_heredoc_key(shell, i);
 	handle_heredoc_input(heredoc_fd, heredoc_key);
-	free(cmd->cmd[1]);
-	free(cmd->cmd[2]);
-	cmd->cmd[1] = ft_strdup("src/heredoc/heredoc.txt");
-	cmd->cmd[2] = NULL;
+	add_file_after_cat(shell, cmd);
+	print_clist(shell->clist);
 	free(heredoc_key);
 	return (0);
 }
