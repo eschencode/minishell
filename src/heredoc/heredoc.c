@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:48:20 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:38:50 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-char	*get_heredoc_key_2(t_clist *cmd)
-{
-	char	*key;
-	char	*new_str;
-
-	key = cmd->cmd[1] + 2;
-	new_str = ft_strdup(key);
-	return (new_str);
-}
 
 int	handle_heredoc_input(int heredoc_fd, char *heredoc_key)
 {
@@ -44,41 +34,31 @@ int	handle_heredoc_input(int heredoc_fd, char *heredoc_key)
 	return (0);
 }
 
-int	ft_heredoc_2(t_clist *cmd)
+char	*get_heredoc_key(t_shell *shell, int i)
 {
-	int		heredoc_fd;
-	char	*heredoc_key;
+	char	*key;
+	char	*new_str;
 
-	if (cmd->cmd[1] && ft_strlen(cmd->cmd[1]) < 3)
+	key = NULL;
+	if (ft_strlen(shell->tokens[i].token) > 2)
+		key = ft_strtrim(shell->tokens[i].token, "<<");
+	else
 	{
-		printf("msh: parse error near newline\n");
-		return (true);
+		if (shell->tokens[i + 1].token)
+			key = shell->tokens[i + 1].token;
 	}
-	heredoc_fd = heredoc_create();
-	if (heredoc_fd == -1)
-	{
-		printf("error creating heredoc");
-		return (true);
-	}
-	heredoc_key = get_heredoc_key_2(cmd);
-	handle_heredoc_input(heredoc_fd, heredoc_key);
-	free(cmd->cmd[1]);
-	cmd->cmd[1] = ft_strdup("src/heredoc/heredoc.txt");
-	cmd->cmd[2] = NULL;
-	free(heredoc_key);
-	return (0);
+	new_str = ft_strdup(key);
+	return (new_str);
 }
 
-int	ft_heredoc(t_shell *shell, t_clist *cmd)
+int	ft_heredoc(t_shell *shell, t_clist *cmd, int i)
 {
 	int		heredoc_fd;
 	char	*heredoc_key;
 
-	if (shell->num_tokens == 2)
-		return (ft_heredoc_2(cmd));
-	if (cmd->cmd[2] == NULL)
+	if (shell->tokens[i + 1].token == NULL)
 	{
-		printf("msh: parse error near newline\n");
+		printf("msh: 4parse error near newline\n");
 		return (true);
 	}
 	heredoc_fd = heredoc_create();
@@ -87,7 +67,7 @@ int	ft_heredoc(t_shell *shell, t_clist *cmd)
 		printf("error creating heredoc");
 		return (true);
 	}
-	heredoc_key = get_heredoc_key(cmd);
+	heredoc_key = get_heredoc_key(shell, i);
 	handle_heredoc_input(heredoc_fd, heredoc_key);
 	free(cmd->cmd[1]);
 	free(cmd->cmd[2]);

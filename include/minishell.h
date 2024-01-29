@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/29 14:12:26 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:13:42 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	signal_handler(int sig);
 bool	cd(t_shell *shell, char *cmd, int fd_in, int fd_out);
 //parser/parser.c
 int		parser(t_shell *shell);
-void	print_clist(t_shell *shell);
 //executor
 int		executor(t_shell *shell);
 bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out);
@@ -159,7 +158,7 @@ bool	ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out);
 char	*env_get_val(t_shell *shell, char *var);
 int		env_get_id(t_shell *shell, char *var);
 // heredoc
-int		ft_heredoc(t_shell *shell, t_clist *cmd);
+int		ft_heredoc(t_shell *shell, t_clist *cmd, int i);
 int		heredoc_check(t_shell *shell, t_clist *cmd);
 // expander/expander_quotes.c
 void	expander_quotes(t_shell *shell);
@@ -205,7 +204,7 @@ int		get_quotes_len(char *str);
 int		get_regular_len(char *str);
 int		heredoc_check(t_shell *shell, t_clist *cmd);
 int		heredoc_create(void);
-char	*get_heredoc_key(t_clist *cmd);
 int		command_checker(t_shell *shell);
 int		handle_file_error(t_shell *shell, int *fd_in, int *fd_out);
+void	print_clist(t_clist *head);
 #endif

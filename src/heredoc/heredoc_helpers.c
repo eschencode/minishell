@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:46:53 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/25 16:47:14 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:13:34 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	heredoc_check(t_shell *shell, t_clist *cmd)
-{
-	if (cmd && cmd->cmd && cmd->cmd[1] && cmd->cmd[1][0] == '<' \
-	&& cmd->cmd[1][1] == '<' && shell->num_tokens <= 3)
-		return (1);
-	return (0);
-}
 
 int	heredoc_create(void)
 {
@@ -29,12 +21,21 @@ int	heredoc_create(void)
 	return (fd);
 }
 
-char	*get_heredoc_key(t_clist *cmd)
+void	print_clist(t_clist *head)
 {
-	char	*key;
-	char	*new_str;
+	t_clist	*temp;
+	int		i;
 
-	key = cmd->cmd[2];
-	new_str = ft_strdup(key);
-	return (new_str);
+	temp = head;
+	while (temp != NULL) 
+	{
+		printf("Command: %s\n", temp->cmd[0]);	
+		printf("Arguments: ");
+		for (i = 1; i < temp->n_args; i++)
+		{
+			printf("%s ", temp->cmd[i]);
+		}
+		printf("\n");
+		temp = temp->next;
+	}
 }
