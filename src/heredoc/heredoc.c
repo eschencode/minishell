@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 21:06:16 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:17:26 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,22 @@ char	*get_heredoc_key(t_shell *shell, int i)
 
 	key = NULL;
 	if (ft_strlen(shell->tokens[i].token) > 2)
-		key = ft_strtrim(shell->tokens[i].token, "<<");
-	else
 	{
-		if (shell->tokens[i + 1].token)
-			key = shell->tokens[i + 1].token;
+		key = ft_strtrim(shell->tokens[i].token, "<<");
+		return (key);
 	}
+	if (shell->tokens[i + 1].token)
+		key = shell->tokens[i + 1].token;
 	new_str = ft_strdup(key);
 	return (new_str);
 }
 
-void	add_file_after_cat(t_shell *shell, t_clist *cmd)
+void	add_file_after_cat(t_clist *cmd)
 {
-	if (shell->num_tokens == 3)
-	{
-		free(cmd->cmd[1]);
-		free(cmd->cmd[2]);
-	}
-	if (shell->num_tokens == 2)
-		free(cmd->cmd[1]);
+	free_double_str(cmd->cmd);
+	free(cmd->cmd);
+	cmd->cmd = malloc(sizeof(char *) * 3);
+	cmd->cmd[0] = ft_strdup("cat");
 	cmd->cmd[1] = ft_strdup("src/heredoc/heredoc.txt");
 	cmd->cmd[2] = NULL;
 }
@@ -77,8 +74,7 @@ int	ft_heredoc(t_shell *shell, t_clist *cmd, int i)
 	}
 	heredoc_key = get_heredoc_key(shell, i);
 	handle_heredoc_input(heredoc_fd, heredoc_key);
-	add_file_after_cat(shell, cmd);
-	print_clist(shell->clist);
+	add_file_after_cat(cmd);
 	free(heredoc_key);
 	return (0);
 }
