@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:20:08 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 12:15:56 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:33:54 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	check_for_redirects(t_shell *shell, int *i)
 {
-	if (shell->tokens[*i].type == LEFT_LEFT && *i != 0)
-		shell->tokens[*i].type = ARG;
+	if (shell->tokens[*i].type == LEFT_LEFT)
+	{
+		if (ft_strlen(shell->tokens[*i].token) > 2)
+			shell->tokens[*i].type = LEFT_LEFT;
+		else
+			shell->tokens[*i + 1].type = FILE_NAME;
+	}
 	else if (shell->tokens[*i].type == RIGHT || \
 	shell->tokens[*i].type == RIGHT_RIGHT || shell->tokens[*i].type == LEFT)
 	{
