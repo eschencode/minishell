@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_helpers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 16:46:53 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 17:13:34 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:21:37 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	heredoc_create(void)
 {
 	int	fd;
 
-	fd = open("src/heredoc/heredoc.txt", \
+	fd = open("heredoc.txt", \
 	O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
 	return (fd);
 }

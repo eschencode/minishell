@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 17:14:38 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:20:39 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	minishell_loop(t_shell *shell)
 	char	prompt[6];
 
 	ft_strlcpy(prompt, "msh$ ", 5);
-	if (shell->buffer != NULL)
-		free(shell->buffer);
-	shell->buffer = readline(prompt);
-	if (shell->buffer == NULL)
+	if (shell->input_str != NULL)
+		free(shell->input_str);
+	shell->input_str = readline(prompt);
+	if (shell->input_str == NULL)
 		exit_routine(shell, 0);
-	shell->input_str = fast_forward_str(shell->buffer);
+	fast_forward_input_str(shell, shell->input_str);
 	if (eval_input_error(shell) == 0 && weird_token_catcher(shell) == 0)
 	{
 		if (shell->tokens != NULL)
@@ -57,7 +57,6 @@ void	minishell_loop(t_shell *shell)
 void	minishell_init(t_shell *shell)
 {
 	shell->tokens = NULL;
-	shell->buffer = NULL;
 	rl_initialize();
 	using_history();
 	env_init(shell);
