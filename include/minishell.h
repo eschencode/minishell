@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/29 13:26:50 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 14:12:26 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ bool	ft_export(t_shell *shell, char **cmd, int fd_in, int fd_out);
 void	free_env(t_shell *shell);
 // builtins_a_2
 int		is_in_env(t_shell *shell, char *str);
-bool	ft_unset(t_shell *shell, char *cmd, int fd_in, int fd_out);
+bool	ft_unset(t_shell *shell, char *cmd);
 bool	ft_echo(t_shell *shell, t_clist *c_node, int fd_in, int fd_out);
 char	*env_get_val(t_shell *shell, char *var);
 int		env_get_id(t_shell *shell, char *var);
