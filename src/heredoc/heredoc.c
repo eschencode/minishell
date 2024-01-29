@@ -6,7 +6,7 @@
 /*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 21:17:26 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:21:43 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	add_file_after_cat(t_clist *cmd)
 	free(cmd->cmd);
 	cmd->cmd = malloc(sizeof(char *) * 3);
 	cmd->cmd[0] = ft_strdup("cat");
-	cmd->cmd[1] = ft_strdup("src/heredoc/heredoc.txt");
+	cmd->cmd[1] = ft_strdup("heredoc.txt");
 	cmd->cmd[2] = NULL;
 }
 
