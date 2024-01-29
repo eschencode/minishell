@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   more_main_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:08:31 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 15:26:05 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:26:04 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	eval_input_error(t_shell *shell)
 	|| count_quotes(shell->input_str) % 2 != 0 \
 	|| validate_input_str(shell) == 1)
 	{
-		// free(shell->input_str);
 		return (1);
 	}
 	return (0);

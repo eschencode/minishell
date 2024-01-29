@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:45:42 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/26 15:19:01 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:04:44 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sigint_handler(int sig)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
@@ -34,15 +34,14 @@ void	sigquit_handler(int sig)
 	}
 }
 
-void sigs_init(void)
+void	sigs_init(void)
 {
-    // Set the SIGINT handler
-    if (signal(SIGINT, sigint_handler) == SIG_ERR) {
-        perror("signal"); // Print an error message if signal fails
-    }
-
-    // Set the SIGQUIT handler
-    if (signal(SIGQUIT, sigquit_handler) == SIG_ERR) {
-        perror("signal"); // Print an error message if signal fails
-    }
+	if (signal(SIGINT, sigint_handler) == SIG_ERR)
+	{
+		perror("signal");
+	}
+	if (signal(SIGQUIT, sigquit_handler) == SIG_ERR)
+	{
+		perror("signal");
+	}
 }

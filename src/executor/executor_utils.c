@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:50:14 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/25 16:24:53 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:16:49 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,25 @@ int	handle_file_error(t_shell *shell, int *fd_in, int *fd_out)
 	if (*fd_out == -1)
 		close(*fd_out);
 	return (-1);
+}
+
+bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
+{
+	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+		return (pwd_builtin(shell, fd_in, fd_out));
+	if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+		return (cd(shell, cmd->cmd[1], fd_in, fd_out));
+	if (ft_strcmp(cmd->cmd[0], "export") == 0)
+		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
+	if (ft_strcmp(cmd->cmd[0], "clear") == 0)
+		return (clearwindow(fd_in, fd_out));
+	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+		return (ft_unset(shell, cmd->cmd[1], fd_in, fd_out));
+	if (ft_strcmp(cmd->cmd[0], "printenv") == 0)
+		return (print_env(shell->env, fd_in, fd_out));
+	if (ft_strcmp(shell->clist->cmd[0], "echo") == 0)
+		return (ft_echo(shell, shell->clist, fd_in, fd_out));
+	if (ft_strcmp(shell->clist->cmd[0], "penis") == 0)
+		return (ft_penis());
+	return (false);
 }

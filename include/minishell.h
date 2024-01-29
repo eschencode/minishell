@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/27 15:23:33 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:26:50 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct s_shell
 	char		*exe_path;
 	int			exit_code;
 	int			loop_exit;
-	struct sigaction *sig_int;
 }	t_shell;
 
 //minishell.c
