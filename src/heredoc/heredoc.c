@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:41:20 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 17:10:51 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:38:50 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	ft_heredoc(t_shell *shell, t_clist *cmd, int i)
 	}
 	heredoc_key = get_heredoc_key(shell, i);
 	handle_heredoc_input(heredoc_fd, heredoc_key);
-	free(cmd->cmd[1]);
 	free(cmd->cmd[1]);
 	free(cmd->cmd[2]);
 	cmd->cmd[1] = ft_strdup("src/heredoc/heredoc.txt");
