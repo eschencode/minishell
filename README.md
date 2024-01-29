@@ -1,4 +1,14 @@
 # minishell
+
+# to install dependencies (Ncurses and GNU Readline Libary)
+on linux: ```sudo apt-get install libncurses5-dev libncursesw5-dev
+            sudo apt-get install libreadline-dev```
+on mac```brew install ncurses
+        brew install readline```
+# to start shell
+run ```git clone git@github.com:eschencode/minishell.git
+        cd minishell
+        make re```
 use this command git clone git@github.com:eschencode/minishell.git minishell
 allways before u start: git pull origin main
 when ur done :git status
