@@ -6,11 +6,19 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 12:53:58 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:16:24 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	parent_handler( int child_status, pid_t child_pid)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	waitpid(child_pid, &child_status, 0);
+	signal(SIGINT, sigint_handler);
+}
 
 void	execute_externals(t_shell *shell)
 {
@@ -36,33 +44,9 @@ void	execute_externals(t_shell *shell)
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-		waitpid(child_pid, &child_status, 0);
-		signal(SIGINT, sigint_handler);
+		parent_handler(child_status, child_pid);
 		push_exit_code(shell, child_status);
 	}
-}
-
-bool	check_if_builtin(t_shell *shell, t_clist *cmd, int fd_in, int fd_out)
-{
-	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
-		return (pwd_builtin(shell, fd_in, fd_out));
-	if (ft_strcmp(cmd->cmd[0], "cd") == 0)
-		return (cd(shell, cmd->cmd[1], fd_in, fd_out));
-	if (ft_strcmp(cmd->cmd[0], "export") == 0)
-		return ((ft_export(shell, shell->clist->cmd, fd_in, fd_out)));
-	if (ft_strcmp(cmd->cmd[0], "clear") == 0)
-		return (clearwindow(fd_in, fd_out));
-	if (ft_strcmp(cmd->cmd[0], "unset") == 0)
-		return (ft_unset(shell, cmd->cmd[1], fd_in, fd_out));
-	if (ft_strcmp(cmd->cmd[0], "printenv") == 0)
-		return (print_env(shell->env, fd_in, fd_out));
-	if (ft_strcmp(shell->clist->cmd[0], "echo") == 0)
-		return (ft_echo(shell, shell->clist, fd_in, fd_out));
-	if (ft_strcmp(shell->clist->cmd[0], "penis") == 0)
-		return (ft_penis());
-	return (false);
 }
 
 int	handle_redirections1(t_shell *shell, t_clist **cmd, int fd_in, int fd_out)
@@ -107,18 +91,17 @@ int	executor(t_shell *shell)
 	saved_stdout = dup(STDOUT_FILENO);
 	cmd = &shell->clist;
 	if (shell->n_pipes > 0)
-	{
-		execute_pipes(shell);
-		return (0);
-	}
+		return (execute_pipes(shell));
 	if (handle_redirections1(shell, cmd, fd_in, fd_out) == -1)
 		return (0);
 	if (command_checker(shell) != 1)
+	{
 		if (check_if_builtin(shell, *cmd, 0, 1) == false)
 		{
 			exe_path(shell, shell->clist->cmd[0]);
 			execute_externals(shell);
 		}
+	}
 	restore_stdin_stdout(saved_stdin, saved_stdout);
 	return (0);
 }
