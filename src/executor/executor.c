@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 11:30:39 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:53:58 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,12 @@ int	executor(t_shell *shell)
 	}
 	if (handle_redirections1(shell, cmd, fd_in, fd_out) == -1)
 		return (0);
-	if (command_checker(shell) == 1)
-		return (-1);
-	if (check_if_builtin(shell, *cmd, 0, 1) == false)
-	{
-		exe_path(shell, shell->clist->cmd[0]);
-		execute_externals(shell);
-	}
+	if (command_checker(shell) != 1)
+		if (check_if_builtin(shell, *cmd, 0, 1) == false)
+		{
+			exe_path(shell, shell->clist->cmd[0]);
+			execute_externals(shell);
+		}
 	restore_stdin_stdout(saved_stdin, saved_stdout);
 	return (0);
 }

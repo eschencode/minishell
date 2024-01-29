@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 15:23:25 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:57:57 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	command_checker(t_shell *shell)
 {
 	if (shell->clist == NULL)
 	{
-		printf("syntax error: thats some weird ass input\n");
 		return (1);
 	}
 	return (0);
