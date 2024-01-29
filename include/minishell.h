@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/29 17:13:42 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:19:37 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,4 +207,5 @@ int		heredoc_create(void);
 int		command_checker(t_shell *shell);
 int		handle_file_error(t_shell *shell, int *fd_in, int *fd_out);
 void	print_clist(t_clist *head);
+void	fast_forward_input_str(t_shell *shell, char *str);
 #endif

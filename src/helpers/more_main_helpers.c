@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   more_main_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:08:31 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 13:26:04 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:19:54 by aeastman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,19 @@ int	eval_input_error(t_shell *shell)
 		return (1);
 	}
 	return (0);
+}
+
+void	fast_forward_input_str(t_shell *shell, char *str)
+{
+	int		x;
+	char	*new_input;
+
+	x = 0;
+	while (str[x] && (str[x] == ' ' || str[x] == '\t'))
+		x++;
+	if (x == 0)
+		return ;
+	new_input = ft_strdup(str + x);
+	free(str);
+	shell->input_str = new_input;
 }
