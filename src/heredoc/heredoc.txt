@@ -1,7 +1,3 @@
-ls
-a
-da
+es
 d
-a
-d
-
+se
