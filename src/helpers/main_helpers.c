@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeastman <aeastman@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 19:05:57 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/27 13:21:49 by aeastman         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:36:37 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	weird_token_catcher(t_shell *shell)
 
 	x = 0;
 	str = shell->input_str;
-	if (str[0] == '>' || str[1] == '>')
-		return (1);
 	while (str[x] && (str[x] == '<' || str[x] == '>' || str[x] == ' ' \
 	|| str[x] == '|' || str[x] == '!'))
 		x++;
