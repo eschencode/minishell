@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:49:36 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/29 16:16:57 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:13:42 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,4 +206,5 @@ int		heredoc_check(t_shell *shell, t_clist *cmd);
 int		heredoc_create(void);
 int		command_checker(t_shell *shell);
 int		handle_file_error(t_shell *shell, int *fd_in, int *fd_out);
+void	print_clist(t_clist *head);
 #endif

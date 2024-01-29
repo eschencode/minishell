@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 11:45:13 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 15:42:02 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:14:38 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,6 @@ int	command_checker(t_shell *shell)
 		return (1);
 	}
 	return (0);
-}
-
-void print_clist(t_clist *head) {
-    t_clist *temp = head;
-    int i;
-
-    while (temp != NULL) {
-        printf("Command: %s\n", temp->cmd[0]);
-        
-        printf("Arguments: ");
-        for (i = 1; i < temp->n_args; i++) {
-            printf("%s ", temp->cmd[i]);
-        }
-        printf("\n");
-
-        temp = temp->next;
-    }
 }
 
 void	minishell_loop(t_shell *shell)
@@ -66,9 +49,6 @@ void	minishell_loop(t_shell *shell)
 		if (exit_check(shell) == 1)
 			return ;
 		parser(shell);
-		printf("1");
-		print_tokens(shell->tokens);
-		print_clist(shell->clist);
 		executor(shell);
 		ft_free_clist(shell);
 	}

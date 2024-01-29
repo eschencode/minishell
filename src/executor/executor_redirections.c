@@ -6,7 +6,7 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 11:41:15 by leschenb          #+#    #+#             */
-/*   Updated: 2024/01/29 16:26:38 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/29 17:10:17 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,8 @@ int	check_redir(t_shell *shell, t_clist *cmd, int *fd_in, int *fd_out)
 			handle_left_redirection(shell, i, fd_in);
 		if (shell->tokens[i].type == RIGHT_RIGHT)
 			handle_right_right_redirection(shell, i, fd_out);
-		if(shell->tokens[i].type == LEFT_LEFT)
-			{
-				//printf("cmd %s",cmd->cmd[0]);
-				write(1,"here\n",7);
-				ft_heredoc(shell, cmd, i);
-				cmd++;
-				//printf("cmd %s",cmd->cmd[0]);
-			}
+		if (shell->tokens[i].type == LEFT_LEFT)
+			ft_heredoc(shell, cmd, i);
 		if (*fd_in == -1 || *fd_out == -1)
 			return (handle_file_error(shell, fd_in, fd_out));
 		i++;
