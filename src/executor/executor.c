@@ -6,17 +6,18 @@
 /*   By: leschenb <leschenb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 14:52:52 by aeastman          #+#    #+#             */
-/*   Updated: 2024/01/29 13:16:24 by leschenb         ###   ########.fr       */
+/*   Updated: 2024/01/30 13:07:56 by leschenb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	parent_handler( int child_status, pid_t child_pid)
+void	parent_handler(t_shell *shell, int *child_status, pid_t child_pid)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	waitpid(child_pid, &child_status, 0);
+	waitpid(child_pid, child_status, 0);
+	push_exit_code(shell, *child_status);
 	signal(SIGINT, sigint_handler);
 }
 
@@ -43,10 +44,7 @@ void	execute_externals(t_shell *shell)
 		}
 	}
 	else
-	{
-		parent_handler(child_status, child_pid);
-		push_exit_code(shell, child_status);
-	}
+		parent_handler(shell, &child_status, child_pid);
 }
 
 int	handle_redirections1(t_shell *shell, t_clist **cmd, int fd_in, int fd_out)
