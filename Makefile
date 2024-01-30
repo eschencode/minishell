@@ -1,8 +1,7 @@
 .SILENT:
 NAME	= minishell
-CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=address
-CC		=  cc
-VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes 
+CFLAGS	= -Wall -Wextra -Werror
+CC	=  cc
 
 # ANSI escape codes for colored output
 RED				= \033[0;31m
@@ -53,16 +52,8 @@ fclean: clean
 re: fclean all
 	@./$(NAME)
 
-v: fclean all
-	valgrind --leak-check=full ./$(NAME)
-
-val:	valgrind --leak-check=full ./minishell
-
 run: $(NAME)
 	./$(NAME)
 
 r: $(NAME)
 	./$(NAME)
-
-valgrind: $(NAME)
-	$(VALGRIND) ./$(NAME)
