@@ -21,7 +21,7 @@ While there were many hurdles we came across during the course of our project, w
 ## Installation and Usage
 Clone the repository and build the Minishell executable:
 ```bash
-git clone [Your-Repo-Link]
+git clone https://github.com/eschencode/minishell.git
 cd Minishell
 make
 ``` 
