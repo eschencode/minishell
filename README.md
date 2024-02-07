@@ -17,3 +17,15 @@ While there were many hurdles we came across during the course of our project, w
  - **Kanban Board** / Ticketing (Notion)
  - **Github Feature Branches**
 
+
+## Installation and Usage
+Clone the repository and build the Minishell executable:
+```bash
+git clone [Your-Repo-Link]
+cd Minishell
+make
+``` 
+To run Minishell, execute:
+```bash
+./minishell
+```
