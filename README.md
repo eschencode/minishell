@@ -2,7 +2,7 @@
 ## Minishell (msh$)
 ![minishell](https://github.com/eschencode/minishell/blob/main/minishell%20.png)
 
-Welcome to our Minishell project, developed as part of the curriculum at 42 School. This project aims to build a simple shell (command interpreter) in C, mirroring the basic functionalities of bash. Through implementing Minishell, we delved deep into the workings of a Unix shell, processes, file descriptors, and environment variables, enhancing our understanding of system calls and C programming.
+Welcome to our Minishell project, developed as part of the curriculum at 42 Berlin. This project aims to build a simple shell (command interpreter) in C, mirroring the basic functionalities of bash. By implementing Minishell, we delved deep into the workings of a Unix shell, processes, file descriptors, and environment variables, enhancing our understanding of system calls and C programming.
 
 ### Features
 -   **Command Execution:** Executes commands found in the PATH.
