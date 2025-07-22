@@ -12,10 +12,6 @@ Welcome to our Minishell project, developed as part of the curriculum at 42 Berl
 -   **Error Handling:** Provides meaningful error messages, mirroring those from bash.
 -   **Signal Handling:** Manages signals like `CTRL-C` to interrupt commands, `CTRL-D` to exit the shell, and `CTRL-\` to ignore.
 
-### Key Learnings
-While there were many hurdles we came across during the course of our project, we compiled a list of the main tools and techniques that managed to push us across the finish line:
- - **Kanban Board** / Ticketing (Notion)
- - **Github Feature Branches**
 
 
 ## Installation and Usage
